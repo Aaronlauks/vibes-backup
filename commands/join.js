@@ -54,14 +54,15 @@ let songNum = 1;
 
 exports.run = async (bot, message, args, ops) => {
     if (message.member.voice.channel) {
-        let info = await ytdl.getInfo(ACCF[0])
         const connection = await message.member.voice.channel.join()
-        let validate = ytdl.validateURL(ACCF[0])
-        if(!validate) console.log(ACCF[0])
         message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing City Folk!`)
         if(new Date().getMinutes > 30){
             songNum = new Date().getHours * 2;
         } else songNum = new Date().getHours * 2 - 1;
+        let dispatcher = await connection.play(ytdl(ACCF[songNum - 1], {filter: 'audioonly'}));
+                dispatcher.on("end", end => {
+                    console.log('song end')
+                });
         var interval = setInterval (async function () {
             if(new Date().getSeconds() == 0 && new Date().getMinutes() == 0 && play == true){
                 play = false;
@@ -72,7 +73,7 @@ exports.run = async (bot, message, args, ops) => {
                 songNum++;
                 if(songNum > 24) songNum = 1;
             } else if(new Date().getSeconds() == 0 && new Date().getMinutes() == 30 && play == false){
-                play = false;
+                play = true;
                 let dispatcher = await connection.play(ytdl(ACCF[songNum], {filter: 'audioonly'}));
                 dispatcher.on("end", end => {
                     console.log('song end')
