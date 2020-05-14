@@ -1,4 +1,5 @@
 const ytdl = require('ytdl-core');
+play = true;
 let ACCF = [
     'https://www.youtube.com/watch?v=Wk8VzWlnpFk',//1AM
     'https://www.youtube.com/watch?v=Wk8VzWlnpFk',
