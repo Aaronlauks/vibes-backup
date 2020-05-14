@@ -59,14 +59,14 @@ exports.run = async (bot, message, args, ops) => {
         if(new Date().getMinutes > 30){
             songNum = new Date().getHours * 2;
         } else songNum = new Date().getHours * 2 - 1;
-        let dispatcher = await connection.play(ytdl(ACCF[songNum - 1], {filter: 'audioonly'}));
+        let dispatcher = await connection.playStream(ytdl(ACCF[songNum - 1]));
                 dispatcher.on("end", end => {
                     console.log('song end')
                 });
         var interval = setInterval (async function () {
             if(new Date().getSeconds() == 0 && new Date().getMinutes() == 0 && play == true){
                 play = false;
-                let dispatcher = await connection.play(ytdl(ACCF[songNum], {filter: 'audioonly'}));
+                let dispatcher = await connection.playStream(ytdl(ACCF[songNum]));
                 dispatcher.on("end", end => {
                     console.log('song end')
                 });
@@ -74,7 +74,7 @@ exports.run = async (bot, message, args, ops) => {
                 if(songNum > 24) songNum = 1;
             } else if(new Date().getSeconds() == 0 && new Date().getMinutes() == 30 && play == false){
                 play = true;
-                let dispatcher = await connection.play(ytdl(ACCF[songNum], {filter: 'audioonly'}));
+                let dispatcher = await connection.playStream(ytdl(ACCF[songNum]));
                 dispatcher.on("end", end => {
                     console.log('song end')
                 });
