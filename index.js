@@ -24,15 +24,6 @@ bot.on("ready", async () => {
         type: "STREAMING",
         url: "https://www.twitch.tv/AaronBotDiscord"
       });
-      const channel = bot.channels.cache.get("662687975032750142");
-      if (!channel) return console.log("The channel does not exist!");
-      channel.join().then(connection =>
-        {
-           const dispatcher = connection.play(`./Audio/(${songNum}).mp3`);
-           dispatcher.on("end", end => {
-             voiceChannel.leave();
-             });
-         }).catch(err => console.log(err));
 });
 
 bot.on('message', async message => {
@@ -59,4 +50,4 @@ bot.on('message', async message => {
 });
 
 
-bot.login('Njk2MDMyMzY2ODQ1NjI0Mzky.Xrz7Ag.HG2he3lNqRHLszMGoM9L4ktXjMM');
+bot.login('Njk2MDMyMzY2ODQ1NjI0Mzky.Xr05Sg.JIkfV1Nob39VrB4igVPNNKOAK4Q');
