@@ -59,6 +59,7 @@ exports.run = async (bot, message, args, ops) => {
         if(new Date().getMinutes > 30){
             songNum = new Date().getHours * 2;
         } else songNum = new Date().getHours * 2 - 1;
+        console.log(ytdl.validateURL(ACCF[songNum - 1]))
         let dispatcher = await connection.play(ytdl(ACCF[songNum - 1]));
                 dispatcher.on("end", end => {
                     console.log('song end')
