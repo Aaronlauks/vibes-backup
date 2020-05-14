@@ -1,0 +1,13 @@
+exports.run = async (bot, message, args, ops) => {
+    if (message.member.voice.channel) {
+        const connection = await message.member.voice.channel.join();
+      } else {
+        message.reply('You need to join a voice channel first!');
+      }
+}
+module.exports.config = {
+    name: "join",
+    description: "Join VC",
+    accessableby: "Everyone",
+    aliases: ["enter", "play", "resume"]
+}
