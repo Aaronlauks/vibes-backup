@@ -17,6 +17,7 @@
     "opus": "0.0.0",
     "opusscript": "0.0.7",
     "snekfetch": "^4.0.4",
-    "ytdl-core": "^2.1.2"
+    "ytdl-core": "^2.1.2",
+    "ytdl-core-discord": "^1.2.0"
   }
 }

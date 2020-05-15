@@ -28,10 +28,8 @@ bot.on("ready", async () => {
 });
 
 bot.on('message', async message => {
-    let prefix = "!";
+    let prefix = "&";
     if (!message.content.toLowerCase().startsWith(prefix)) return;
-    if(!recent.has(message.guild.id)) recent.set(message.guild.id, new Array());
-    recent.get(message.guild.id).push(1);
     let sender = message.author;
     let args = message.content.slice(prefix.length).trim().split(/ +/g); //args is the inputs after the cmd(a$say | test: |,test)
     let cmd = args.shift().toLowerCase(); //cmd is the command name (a help: help)
