@@ -28,7 +28,7 @@ bot.on("ready", async () => {
 });
 
 bot.on('message', async message => {
-    let prefix = "&";
+    let prefix = "!";
     if (!message.content.toLowerCase().startsWith(prefix)) return;
     let sender = message.author;
     let args = message.content.slice(prefix.length).trim().split(/ +/g); //args is the inputs after the cmd(a$say | test: |,test)
