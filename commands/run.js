@@ -55,7 +55,10 @@ let songNum = 1;
 exports.run = async (bot, message, args, ops) => {
     if (message.member.voice.channel) {
         let connection = await message.member.voice.channel.join()
-        message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing City Folk!`)
+        let validate = await ytdl.validateURL(args[0])
+        if(!validate) return message.channel.send(`<:xcross:690880230562201610> that's not a valid url!`)
+        let info = await ytdl.getInfo(args[0])
+        message.channel.send(`<:tickGreen:690880245611626597> playing ${info.songTitle}!`)
         console.log(args[0], ytdl.validateURL(args[0]))
         let dispatcher = await connection.play(ytdl(args[0]));
                 dispatcher.on("end", end => {

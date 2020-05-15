@@ -52,13 +52,27 @@ let ACCF = [
 ]
 let songNum = 1;
 
-exports.run = async (bot, message, args, ops) => {
+exports.run = async (bot, message, args, recent) => {
     if (message.member.voice.channel) {
         let connection = await message.member.voice.channel.join()
+        if(!recent.has(message.guild.id)) {
+            recent.set(message.guild.id, new Array());
+            recent.get(message.guild.id).push(1);
+        }
         message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing City Folk!`)
+        if(!args[0]) {
+            message.channl.send(`\n**Tip:** Enter the hour of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !join 14\` (default timezone is US)`)
+        } else {
+            let selectTime;
+            if(args[0] > 0 && args[0] < 24) {
+                selectTime = args[0] - new Date().getHours();
+                recent.get(message.guild.id).push(selectTime)
+            } else recent.get(message.guild.id).push(0);
+        }
+        
         if(new Date().getMinutes > 30){
-            songNum = new Date().getHours() * 2;
-        } else songNum = new Date().getHours() * 2 - 1;
+            songNum = (new Date().getHours() + recent.get(message.guild.id)[1]) * 2;
+        } else songNum = ((new Date().getHours() + recent.get(message.guild.id)[1]) * 2) - 1;
         console.log(songNum, ACCF[songNum - 1], ytdl.validateURL(ACCF[songNum - 1]))
         let dispatcher = await connection.play(ytdl(ACCF[songNum - 1]));
                 dispatcher.on("end", end => {
@@ -73,7 +87,7 @@ exports.run = async (bot, message, args, ops) => {
                     console.log('song end')
                 });
                 songNum++;
-                if(songNum > 24) songNum = 1;
+                if(songNum > 48) songNum = 1;
             } else if(new Date().getSeconds() == 0 && new Date().getMinutes() == 30 && play == false){
                 play = true;
                 console.log(songNum, ACCF[songNum], ytdl.validateURL(ACCF[songNum]))
@@ -82,7 +96,7 @@ exports.run = async (bot, message, args, ops) => {
                     console.log('song end')
                 });
                 songNum++;
-                if(songNum > 24) songNum = 1;
+                if(songNum > 48) songNum = 1;
             } else {
                 //console.log(new Date().getSeconds())
             }
