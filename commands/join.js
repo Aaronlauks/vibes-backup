@@ -72,11 +72,11 @@ exports.run = async (bot, message, args, recent) => {
         }
         
         if(new Date().getMinutes > 29){
-            recent.get(message.guild.id)[0] = (new Date().getHours() + recent.get(message.guild.id)[1]) * 2;
+            recent.get(message.guild.id)[0] = ((new Date().getHours() + recent.get(message.guild.id)[1]) * 2) - 1;
             console.log(`30min+`)
             recent.get(message.guild.id)[2] = true;
         } else {
-            recent.get(message.guild.id)[0] = ((new Date().getHours() + recent.get(message.guild.id)[1]) * 2) - 1;
+            recent.get(message.guild.id)[0] = ((new Date().getHours() + recent.get(message.guild.id)[1]) * 2) - 2;
             console.log(`less than 30min`)
             recent.get(message.guild.id)[2] = false;
         } 
@@ -85,6 +85,8 @@ exports.run = async (bot, message, args, recent) => {
                 dispatcher.on("end", end => {
                     console.log('song end')
                 });
+                recent.get(message.guild.id)[0]++;
+                console.log(recent.get(message.guild.id)[0])
         var interval = setInterval (async function () {
             if(new Date().getSeconds() == 0 && new Date().getMinutes() == 0 && recent.get(message.guild.id)[2] == true){
                 recent.get(message.guild.id)[2] = false;
