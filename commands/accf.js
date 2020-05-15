@@ -80,8 +80,9 @@ exports.run = async (bot, message, args, recent) => {
             console.log(`less than 30min`)
             recent.get(message.guild.id)[50] = false;
         } 
-        console.log(recent.get(message.guild.id)[48], recent.get(message.guild.id)[recent.get(message.guild.id)[48]], ytdl.validateURL(recent.get(message.guild.id)[recent.get(message.guild.id)[48]]))
-        let dispatcher = await connection.play(ytdl(recent.get(message.guild.id)[recent.get(message.guild.id)[48]]));
+        console.log(recent.get(message.guild.id)[48], recent.get(message.guild.id)[recent.get(message.guild.id)[48]])
+        let music = recent.get(message.guild.id)[recent.get(message.guild.id)[48]];
+        let dispatcher = await connection.play(ytdl(music));
                 dispatcher.on("end", end => {
                     console.log('song end')
                 });
@@ -89,8 +90,9 @@ exports.run = async (bot, message, args, recent) => {
         var interval = setInterval (async function () {
             if(new Date().getSeconds() == 0 && new Date().getMinutes() == 0 && recent.get(message.guild.id)[50] == true){
                 recent.get(message.guild.id)[50] = false;
-                console.log(recent.get(message.guild.id)[48], recent.get(message.guild.id)[recent.get(message.guild.id)[48]], ytdl.validateURL(recent.get(message.guild.id)[recent.get(message.guild.id)[48]]))
-                let dispatcher = await connection.play(ytdl(recent.get(message.guild.id)[recent.get(message.guild.id)[48]]));
+                console.log(recent.get(message.guild.id)[48], recent.get(message.guild.id)[recent.get(message.guild.id)[48]])
+                music = recent.get(message.guild.id)[recent.get(message.guild.id)[48]];
+                let dispatcher = await connection.play(ytdl(music));
                 dispatcher.on("end", end => {
                     console.log('song end')
                 });  
@@ -98,8 +100,9 @@ exports.run = async (bot, message, args, recent) => {
                 if(recent.get(message.guild.id)[48] > 47) recent.get(message.guild.id)[48] = 0;
             } else if(new Date().getSeconds() == 0 && new Date().getMinutes() == 30 && !recent.get(message.guild.id)[50]){
                 recent.get(message.guild.id)[50] = true;
-                console.log(recent.get(message.guild.id)[48], recent.get(message.guild.id)[recent.get(message.guild.id)[48]], ytdl.validateURL(recent.get(message.guild.id)[recent.get(message.guild.id)[48]]))
-                let dispatcher = await connection.play(ytdl(recent.get(message.guild.id)[recent.get(message.guild.id)[48]]));
+                console.log(recent.get(message.guild.id)[48], recent.get(message.guild.id)[recent.get(message.guild.id)[48]])
+                music = recent.get(message.guild.id)[recent.get(message.guild.id)[48]];
+                let dispatcher = await connection.play(ytdl(music));
                 dispatcher.on("end", end => {
                     console.log('song end')
                 });
