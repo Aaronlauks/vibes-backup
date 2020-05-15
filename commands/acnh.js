@@ -58,19 +58,37 @@ exports.run = async (bot, message, args, recent) => {
             recent.get(message.guild.id).push(0);
             recent.get(message.guild.id).push(true);
         } else {
-            console.log(recent.delete(message.guild.id));
+            recent.delete(message.guild.id)
             recent.set(message.guild.id, ACNH);
             recent.get(message.guild.id).push(1);
             recent.get(message.guild.id).push(0);
             recent.get(message.guild.id).push(true);
         }
-        message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing City Folk!`)
+        message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing New Horizon!`)
         if(!args[0]) {
             message.channel.send(`_ _\n**Tip:** Enter the hour from __0-24__ of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !acnh 14\` (default timezone is US)`);
             recent.get(message.guild.id)[49] = 0;
         } else {
             let selectTime;
-            if(args[0] > 0 && args[0] < 25) {
+            let argsArgs = args[0].split("");
+            if(argsArgs.length > 2){
+                if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "PM"){
+                        argsArgs.splice(argsArgs.length - 1, 1);
+                        argsArgs.splice(argsArgs.length - 1, 1);
+                        let newArgs = argsArgs.join("");
+                        if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+                        newArgs+= 12;
+                        selectTime = newArgs - new Date().getHours();
+                        recent.get(message.guild.id)[49] = selectTime;
+                } else if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "AM"){
+                    argsArgs.splice(argsArgs.length - 1, 1);
+                    argsArgs.splice(argsArgs.length - 1, 1);
+                    let newArgs = argsArgs.join("");
+                    if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+                    selectTime = newArgs - new Date().getHours();
+                    recent.get(message.guild.id)[49] = selectTime;
+                }
+            } else if(args[0] > 0 && args[0] < 25) {
                 selectTime = args[0] - new Date().getHours();
                 recent.get(message.guild.id)[49] = selectTime;
             } else recent.get(message.guild.id)[49] = 0;
@@ -83,7 +101,7 @@ exports.run = async (bot, message, args, recent) => {
             recent.get(message.guild.id)[48] = ((new Date().getHours() + recent.get(message.guild.id)[49]) * 2) - 2;
             recent.get(message.guild.id)[50] = false;
         } 
-        console.log(recent.get(message.guild.id)[48], recent.get(message.guild.id)[recent.get(message.guild.id)[48]])
+        console.log(recent.get(message.guild.id)[48], new Date().getHours() + recent.get(message.guild.id)[49], new Date().getMinutes(), new Date().getSeconds())
         let music = recent.get(message.guild.id)[recent.get(message.guild.id)[48]];
         let dispatcher = await connection.play(ytdl(music));
                 dispatcher.on("end", end => {
@@ -93,7 +111,7 @@ exports.run = async (bot, message, args, recent) => {
         var interval = setInterval (async function () {
             if(new Date().getSeconds() == 0 && new Date().getMinutes() == 0 && recent.get(message.guild.id)[50] == true){
                 recent.get(message.guild.id)[50] = false;
-                console.log(recent.get(message.guild.id)[48], recent.get(message.guild.id)[recent.get(message.guild.id)[48]])
+                console.log(recent.get(message.guild.id)[48], new Date().getHours() + recent.get(message.guild.id)[49], new Date().getMinutes(), new Date().getSeconds())
                 music = recent.get(message.guild.id)[recent.get(message.guild.id)[48]];
                 let dispatcher = await connection.play(ytdl(music));
                 dispatcher.on("end", end => {
@@ -103,7 +121,7 @@ exports.run = async (bot, message, args, recent) => {
                 if(recent.get(message.guild.id)[48] > 47) recent.get(message.guild.id)[48] = 0;
             } else if(new Date().getSeconds() == 0 && new Date().getMinutes() == 30 && !recent.get(message.guild.id)[50]){
                 recent.get(message.guild.id)[50] = true;
-                console.log(recent.get(message.guild.id)[48], recent.get(message.guild.id)[recent.get(message.guild.id)[48]])
+                console.log(recent.get(message.guild.id)[48], new Date().getHours() + recent.get(message.guild.id)[49], new Date().getMinutes(), new Date().getSeconds())
                 music = recent.get(message.guild.id)[recent.get(message.guild.id)[48]];
                 let dispatcher = await connection.play(ytdl(music));
                 dispatcher.on("end", end => {
