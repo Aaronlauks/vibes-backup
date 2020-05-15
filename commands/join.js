@@ -1,5 +1,5 @@
 const ytdl = require('ytdl-core');
-play = true;
+let play = true;
 let ACCF = [
     'https://www.youtube.com/watch?v=Wk8VzWlnpFk',//1AM
     'https://www.youtube.com/watch?v=Wk8VzWlnpFk',
@@ -50,7 +50,6 @@ let ACCF = [
     'https://www.youtube.com/watch?v=G3IzATmzA3o',//12PM
     'https://www.youtube.com/watch?v=G3IzATmzA3o'
 ]
-let songNum = 1;
 
 exports.run = async (bot, message, args, recent) => {
     if (message.member.voice.channel) {
@@ -61,7 +60,8 @@ exports.run = async (bot, message, args, recent) => {
         }
         message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing City Folk!`)
         if(!args[0]) {
-            message.channl.send(`\n**Tip:** Enter the hour of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !join 14\` (default timezone is US)`)
+            message.channel.send(`\n**Tip:** Enter the hour of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !join 14\` (default timezone is US)`);
+            recent.get(message.guild.id).push(0);
         } else {
             let selectTime;
             if(args[0] > 0 && args[0] < 24) {
@@ -70,33 +70,33 @@ exports.run = async (bot, message, args, recent) => {
             } else recent.get(message.guild.id).push(0);
         }
         
-        if(new Date().getMinutes > 30){
-            songNum = (new Date().getHours() + recent.get(message.guild.id)[1]) * 2;
-        } else songNum = ((new Date().getHours() + recent.get(message.guild.id)[1]) * 2) - 1;
-        console.log(songNum, ACCF[songNum - 1], ytdl.validateURL(ACCF[songNum - 1]))
-        let dispatcher = await connection.play(ytdl(ACCF[songNum - 1]));
+        if(new Date().getMinutes > 29){
+            recent.get(message.guild.id)[0] = (new Date().getHours() + recent.get(message.guild.id)[1]) * 2;
+        } else recent.get(message.guild.id)[0] = ((new Date().getHours() + recent.get(message.guild.id)[1]) * 2) - 1;
+        console.log(recent.get(message.guild.id)[0], ACCF[recent.get(message.guild.id)[0] - 1], ytdl.validateURL(ACCF[recent.get(message.guild.id)[0] - 1]))
+        let dispatcher = await connection.play(ytdl(ACCF[recent.get(message.guild.id)[0] - 1]));
                 dispatcher.on("end", end => {
                     console.log('song end')
                 });
         var interval = setInterval (async function () {
             if(new Date().getSeconds() == 0 && new Date().getMinutes() == 0 && play == true){
                 play = false;
-                console.log(songNum, ACCF[songNum], ytdl.validateURL(ACCF[songNum]))
-                let dispatcher = await connection.play(ytdl(ACCF[songNum]));
+                console.log(recent.get(message.guild.id)[0], ACCF[recent.get(message.guild.id)[0]], ytdl.validateURL(ACCF[recent.get(message.guild.id)[0]]))
+                let dispatcher = await connection.play(ytdl(ACCF[recent.get(message.guild.id)[0]]));
                 dispatcher.on("end", end => {
                     console.log('song end')
                 });
-                songNum++;
-                if(songNum > 48) songNum = 1;
+                recent.get(message.guild.id)[0]++;
+                if(recent.get(message.guild.id)[0] > 48) recent.get(message.guild.id)[0] = 1;
             } else if(new Date().getSeconds() == 0 && new Date().getMinutes() == 30 && play == false){
                 play = true;
-                console.log(songNum, ACCF[songNum], ytdl.validateURL(ACCF[songNum]))
-                let dispatcher = await connection.play(ytdl(ACCF[songNum]));
+                console.log(recent.get(message.guild.id)[0], ACCF[recent.get(message.guild.id)[0]], ytdl.validateURL(ACCF[recent.get(message.guild.id)[0]]))
+                let dispatcher = await connection.play(ytdl(ACCF[recent.get(message.guild.id)[0]]));
                 dispatcher.on("end", end => {
                     console.log('song end')
                 });
-                songNum++;
-                if(songNum > 48) songNum = 1;
+                recent.get(message.guild.id)[0]++;
+                if(recent.get(message.guild.id)[0] > 48) recent.get(message.guild.id)[0] = 1;
             } else {
                 //console.log(new Date().getSeconds())
             }
