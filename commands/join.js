@@ -57,17 +57,18 @@ exports.run = async (bot, message, args, recent) => {
         if(!recent.has(message.guild.id)) {
             recent.set(message.guild.id, new Array());
             recent.get(message.guild.id).push(1);
+            recent.get(message.guild.id).push(0);
         }
         message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing City Folk!`)
         if(!args[0]) {
             message.channel.send(`\n**Tip:** Enter the hour of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !join 14\` (default timezone is US)`);
-            recent.get(message.guild.id).push(0);
+            recent.get(message.guild.id)[1] = 0;
         } else {
             let selectTime;
             if(args[0] > 0 && args[0] < 24) {
                 selectTime = args[0] - new Date().getHours();
-                recent.get(message.guild.id).push(selectTime)
-            } else recent.get(message.guild.id).push(0);
+                recent.get(message.guild.id)[1] = selectTime;
+            } else recent.get(message.guild.id)[1] = 0;
         }
         
         if(new Date().getMinutes > 29){
