@@ -1,4 +1,5 @@
 const ytdl = require('ytdl-core');
+const queueVoice = require('../models/queueChannel.js');
 let ACCF = [
     'https://www.youtube.com/watch?v=Wk8VzWlnpFk',//1AM    0
     'https://www.youtube.com/watch?v=Wk8VzWlnpFk',//       1
@@ -50,27 +51,37 @@ let ACCF = [
     'https://www.youtube.com/watch?v=G3IzATmzA3o'//        47
 ]
 
-exports.run = async (bot, message, args, recent) => {
+exports.run = async (bot, message, args) => {
     if (message.member.voice.channel) {
+        let queueGuild = await queueVoice.findOne({
+            ID: "42069"
+          });
+          if(!queueGuild.queue){
+              queueGuild.queue = [`${message.guild.id}`]
+          } else if(!queueGuild.queue.includes(message.guild.id))queueGuild.queue.push(message.guild.id)
+          await queueGuild.save().catch(e => console.log(e));
+        let selectTime;
         let connection = await message.member.voice.channel.join()
-        if(!recent.has(message.guild.id)) {
-            recent.set(message.guild.id, ACCF);
-            recent.get(message.guild.id).push(1);
-            recent.get(message.guild.id).push(0);
-            recent.get(message.guild.id).push(true);
+        let queueChannel = await queueVoice.findOne({
+            guildID: message.guild.id
+          });
+        if(!queueChannel) {
+            queueChannel = new queueVoice({
+                guildID: message.guild.id,
+                queue: ACCF,
+                voiceID: message.member.voice.channel.id,
+                songNum: 1,
+                play: true
+            });
         } else {
-            recent.delete(message.guild.id)
-            recent.set(message.guild.id, ACCF);
-            recent.get(message.guild.id).push(1);
-            recent.get(message.guild.id).push(0);
-            recent.get(message.guild.id).push(true);
+            queueChannel.queue = ACCF;
+            queueChannel.voiceID = message.member.voice.channel.id;
         }
         message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing City Folk!`)
         if(!args[0]) {
             message.channel.send(`_ _\n**Tip:** Enter the hour from __0-24__ of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !accf 14\` (default timezone is US)`);
-            recent.get(message.guild.id)[49] = 0;
+            selectTime = 0;
         } else {
-            let selectTime;
             let argsArgs = args[0].split("");
             if(argsArgs.length > 2){
                 if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "PM"){
@@ -78,62 +89,35 @@ exports.run = async (bot, message, args, recent) => {
                         argsArgs.splice(argsArgs.length - 1, 1);
                         let newArgs = argsArgs.join("");
                         if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
-                        newArgs+= 12;
-                        selectTime = newArgs - new Date().getHours();
-                        recent.get(message.guild.id)[49] = selectTime;
+                        selectTime = newArgs - new Date().getHours() + 12;
                 } else if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "AM"){
                     argsArgs.splice(argsArgs.length - 1, 1);
                     argsArgs.splice(argsArgs.length - 1, 1);
                     let newArgs = argsArgs.join("");
                     if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
                     selectTime = newArgs - new Date().getHours();
-                    recent.get(message.guild.id)[49] = selectTime;
                 }
             } else if(args[0] > 0 && args[0] < 25) {
                 selectTime = args[0] - new Date().getHours();
-                recent.get(message.guild.id)[49] = selectTime;
-            } else recent.get(message.guild.id)[49] = 0;
+            } else selectTime = 0;
         }
-        
         if(new Date().getMinutes() > 29){
-            recent.get(message.guild.id)[48] = ((new Date().getHours() + recent.get(message.guild.id)[49]) * 2) - 1;
-            recent.get(message.guild.id)[50] = true;
+            queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 1;
+            queueChannel.play = true;
         } else {
-            recent.get(message.guild.id)[48] = ((new Date().getHours() + recent.get(message.guild.id)[49]) * 2) - 2;
-            recent.get(message.guild.id)[50] = false;
+            queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 2;
+            queueChannel.play = false;
         } 
-        console.log(recent.get(message.guild.id)[48], new Date().getHours() + recent.get(message.guild.id)[49], new Date().getMinutes(), new Date().getSeconds())
-        let music = recent.get(message.guild.id)[recent.get(message.guild.id)[48]];
+        console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
+        let music = queueChannel.queue[queueChannel.songNum];
         let dispatcher = await connection.play(ytdl(music));
                 dispatcher.on("end", end => {
                     console.log('song end')
                 });
-                recent.get(message.guild.id)[48]++;
-        var interval = setInterval (async function () {
-            if(new Date().getSeconds() == 0 && new Date().getMinutes() == 0 && recent.get(message.guild.id)[50] == true){
-                recent.get(message.guild.id)[50] = false;
-                console.log(recent.get(message.guild.id)[48], new Date().getHours() + recent.get(message.guild.id)[49], new Date().getMinutes(), new Date().getSeconds())
-                music = recent.get(message.guild.id)[recent.get(message.guild.id)[48]];
-                let dispatcher = await connection.play(ytdl(music));
-                dispatcher.on("end", end => {
-                    console.log('song end')
-                });  
-                recent.get(message.guild.id)[48]++;
-                if(recent.get(message.guild.id)[48] > 47) recent.get(message.guild.id)[48] = 0;
-            } else if(new Date().getSeconds() == 0 && new Date().getMinutes() == 30 && !recent.get(message.guild.id)[50]){
-                recent.get(message.guild.id)[50] = true;
-                console.log(recent.get(message.guild.id)[48], new Date().getHours() + recent.get(message.guild.id)[49], new Date().getMinutes(), new Date().getSeconds())
-                music = recent.get(message.guild.id)[recent.get(message.guild.id)[48]];
-                let dispatcher = await connection.play(ytdl(music));
-                dispatcher.on("end", end => {
-                    console.log('song end')
-                });
-                recent.get(message.guild.id)[48]++;
-                if(recent.get(message.guild.id)[48] > 47) recent.get(message.guild.id)[48] = 0;
-            } else {
-                //console.log(new Date().getSeconds())
-            }
-        });
+                queueChannel.songNum++;
+                
+                await queueChannel.save().catch(e => console.log(e));
+                
       } else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
 }
 module.exports.config = {

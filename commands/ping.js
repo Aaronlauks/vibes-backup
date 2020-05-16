@@ -1,0 +1,10 @@
+exports.run = (bot, message, args) => {
+    message.channel.send(`hey, i'm still online bro`)
+    console.log(`console is working too`)
+}
+module.exports.config = {
+    name: "ping",
+    description: "ping",
+    accessableby: "Everyone",
+    aliases: ["pong"]
+}

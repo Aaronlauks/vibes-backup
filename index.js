@@ -1,9 +1,15 @@
 var discord = require('discord.js');
 var bot = new discord.Client();
-const recent = new Map();
+const ytdl = require('ytdl-core');
 const fs = require('fs');
-let songNum = 1;
-let play = true;
+const config = require("./config.json");
+const mongoose = require('mongoose');
+let startPlay = true;
+mongoose.connect(config.mongodb, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+const queueVoice = require('./models/queueChannel.js');
 
 bot.aliases = new discord.Collection();
 bot.commands = new discord.Collection();
@@ -25,11 +31,62 @@ bot.on("ready", async () => {
         type: "STREAMING",
         url: "https://www.twitch.tv/AaronBotDiscord"
       });
+      setInterval (async function () {
+        if(new Date().getMinutes() == 15) startPlay = true;
+        if(new Date().getSeconds() == 0){
+        let queueGuild = await queueVoice.findOne({
+          ID: "42069"
+        });
+        if(queueGuild){
+        queueGuild.queue.forEach(async guildID => {
+          let queueChannel = await queueVoice.findOne({
+            guildID: guildID
+          });
+          if(queueChannel){
+            if(startPlay){
+          if(new Date().getMinutes() == 0 && queueChannel.play == true){
+            queueChannel.play = false;
+            console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
+            music = queueChannel.queue[queueChannel.songNum];
+            const channel = bot.channels.cache.get(queueChannel.voiceID);
+            startPlay = false;
+            channel.join().then(async connection => {
+              let dispatcher = await connection.play(ytdl(music));
+          }).catch(e => console.error(e));
+            
+            queueChannel.songNum++;
+            if(queueChannel.songNum > 47) queueChannel.songNum = 0;
+            await queueChannel.save().catch(e => console.log(e));
+        } else if(new Date().getMinutes() == 30 && !queueChannel.play){
+          queueChannel.play = true;
+            console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
+            music = queueChannel.queue[queueChannel.songNum];
+            const channel = bot.channels.cache.get(queueChannel.voiceID);
+            startPlay = false;
+            channel.join().then(async connection => {
+              let dispatcher = await connection.play(ytdl(music));
+          }).catch(e => console.error(e));
+            queueChannel.songNum++;
+            if(queueChannel.songNum > 47) queueChannel.songNum = 0;
+            await queueChannel.save().catch(e => console.log(e));
+        } else {
+            //console.log(new Date().getSeconds())
+        }
+      }
+      } else {
+        queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
+        await queueGuild.save().catch(e => console.log(e));
+      }
+        });
+      }
+    }
+    })
 });
 
 bot.on('message', async message => {
-    let prefix = "!";
+    let prefix = config.prefix;
     if (!message.content.toLowerCase().startsWith(prefix)) return;
+
     let sender = message.author;
     let args = message.content.slice(prefix.length).trim().split(/ +/g); //args is the inputs after the cmd(a$say | test: |,test)
     let cmd = args.shift().toLowerCase(); //cmd is the command name (a help: help)
@@ -41,7 +98,7 @@ bot.on('message', async message => {
       } else {
         command = bot.commands.get(bot.aliases.get(cmd));
       }
-      command.run(bot, message, args, recent);
+      command.run(bot, message, args);
     } catch (e) {
       console.log(`${cmd} is not a command`);
     } finally {
@@ -50,4 +107,4 @@ bot.on('message', async message => {
 });
 
 
-bot.login(process.env.BOT_TOKEN);
+bot.login([process.env.BOT_TOKEN]);
