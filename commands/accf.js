@@ -79,7 +79,7 @@ exports.run = async (bot, message, args) => {
         }
         message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing City Folk!`)
         if(!args[0]) {
-            message.channel.send(`_ _\n**Tip:** Enter the hour from __0-24__ of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !accf 14\` (default timezone is US)`);
+            message.channel.send(`_ _\n**Tip:** Enter the hour from __0-24__ of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !accf 14, 5AM = !acnl 5am\` (default timezone is US)`);
             selectTime = 0;
         } else {
             let argsArgs = args[0].split("");
