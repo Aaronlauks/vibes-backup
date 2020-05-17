@@ -1,12 +1,10 @@
 const ytdl = require('ytdl-core');
-const queueVoice = require('./models/queueChannel.js');
-let startPlay = true;
+const queueVoice = require('../models/queueChannel.js');
 exports.run = async (bot) => {
     console.log(`running new refresh`)
     setInterval (async function () {
-        if(new Date().getMinutes() == 15) startPlay = true;
         if(new Date().getSeconds() == 0){
-          if(new Date().getMinutes() == (30 || 0) && startPlay){
+          if(new Date().getMinutes() == (30 || 0)){
         let queueGuild = await queueVoice.findOne({
           ID: "42069"
         });
