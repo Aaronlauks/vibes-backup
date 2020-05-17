@@ -1,15 +1,12 @@
 var discord = require('discord.js');
 var bot = new discord.Client();
-const ytdl = require('ytdl-core');
 const fs = require('fs');
 const config = require("./config.json");
 const mongoose = require('mongoose');
-let startPlay = true;
 mongoose.connect(config.mongodb, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-const queueVoice = require('./models/queueChannel.js');
 
 bot.aliases = new discord.Collection();
 bot.commands = new discord.Collection();
