@@ -96,7 +96,7 @@ exports.run = async (bot, message, args) => {
                     let newArgs = argsArgs.join("");
                     if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
                     selectTime = newArgs - new Date().getHours();
-                }
+                } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
             } else if(args[0] > 0 && args[0] < 25) {
                 selectTime = args[0] - new Date().getHours();
             } else selectTime = 0;
