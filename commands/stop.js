@@ -2,7 +2,7 @@ const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
 exports.run = async (bot, message, args, recent) => {
     let queueGuild = await queueVoice.findOne({
-        guildID: "42069"
+        ID: "42069"
       });
     if(queueGuild.queue.includes(message.guild.id)){
         let queueChannel = await queueVoice.findOne({
