@@ -4,8 +4,7 @@ const messageSchema = new mongoose.Schema({
   guildID: String,
   queue: Array,
   voiceID: String,
-  songNum: String,
-  play: Boolean
+  songNum: String
 });
 
 module.exports = mongoose.model("queueChannel", messageSchema);

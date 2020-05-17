@@ -52,21 +52,16 @@ let ACCF = [
 ]
 
 exports.run = async (bot, message, args) => {
-    console.log(`command run`)
     if (message.member.voice.channel) {
-        console.log(`has voice`)
         let queueGuild = await queueVoice.findOne({
             ID: "42069"
           });
-          console.log(`fetched guild`)
           if(!queueGuild.queue){
               queueGuild.queue = [`${message.guild.id}`]
           } else if(!queueGuild.queue.includes(message.guild.id))queueGuild.queue.push(message.guild.id)
           await queueGuild.save().catch(e => console.log(e));
         let selectTime;
-        console.log(`added guild id`)
         let connection = await message.member.voice.channel.join()
-        console.log(`found channel`)
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
@@ -75,8 +70,7 @@ exports.run = async (bot, message, args) => {
                 guildID: message.guild.id,
                 queue: ACCF,
                 voiceID: message.member.voice.channel.id,
-                songNum: 1,
-                play: true
+                songNum: 1
             });
         } else {
             queueChannel.queue = ACCF;
@@ -108,10 +102,8 @@ exports.run = async (bot, message, args) => {
         }
         if(new Date().getMinutes() > 29){
             queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 1;
-            queueChannel.play = true;
         } else {
             queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 2;
-            queueChannel.play = false;
         } 
         console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
         let music = queueChannel.queue[queueChannel.songNum];
