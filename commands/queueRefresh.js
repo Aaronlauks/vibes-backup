@@ -5,8 +5,9 @@ exports.run = async (bot) => {
     console.log(`running new refresh`)
     setInterval (async function () {
         if(new Date().getMinutes() == 15) startPlay = true;
-        if(new Date().getSeconds() == 0){
-          if(new Date().getMinutes() == (30 || 0) && startPlay){
+          if(new Date().getMinutes() == 0 || new Date().getMinutes() == 30){
+              if(startPlay){
+                startPlay = false;
         let queueGuild = await queueVoice.findOne({
           ID: "42069"
         });
@@ -21,7 +22,6 @@ exports.run = async (bot) => {
             console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
             music = queueChannel.queue[queueChannel.songNum];
             const channel = bot.channels.cache.get(queueChannel.voiceID);
-            startPlay = false;
             channel.join().then(async connection => {
               let dispatcher = await connection.play(ytdl(music));
           }).catch(e => console.error(e));
@@ -36,7 +36,6 @@ exports.run = async (bot) => {
             console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
             music = queueChannel.queue[queueChannel.songNum];
             const channel = bot.channels.cache.get(queueChannel.voiceID);
-            startPlay = false;
             channel.join().then(async connection => {
               let dispatcher = await connection.play(ytdl(music));
           }).catch(e => console.error(e));
@@ -55,8 +54,8 @@ exports.run = async (bot) => {
         });
       }
     }
-    }
-    })
+}
+    });
 }
 module.exports.config = {
     name: "queueRefresh",
