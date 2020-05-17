@@ -1,10 +1,13 @@
 const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
 exports.run = async (bot, message, args) => {
-    let queueChannel = await queueVoice.findOne({
+  let queueGuild = await queueVoice.findOne({
+    ID: "42069"
+  });
+      if(queueGuild.queue.includes(message.guild.id)){
+        let queueChannel = await queueVoice.findOne({
         guildID: message.guild.id
       });
-      if(queueChannel){
         message.channel.send(`<:tickGreen:690880245611626597> reloaded Queue!`)
         music = queueChannel.queue[queueChannel.songNum];
         const channel = bot.channels.cache.get(queueChannel.voiceID);
