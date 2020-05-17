@@ -56,12 +56,15 @@ exports.run = async (bot, message, args) => {
         let queueGuild = await queueVoice.findOne({
             ID: "42069"
           });
+          console.log(`fetched guild`)
           if(!queueGuild.queue){
               queueGuild.queue = [`${message.guild.id}`]
           } else if(!queueGuild.queue.includes(message.guild.id))queueGuild.queue.push(message.guild.id)
           await queueGuild.save().catch(e => console.log(e));
         let selectTime;
+        console.log(`added guild id`)
         let connection = await message.member.voice.channel.join()
+        console.log(`found channel`)
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
