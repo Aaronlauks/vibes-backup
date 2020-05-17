@@ -17,9 +17,11 @@ exports.run = async (bot) => {
         });
         if(queueGuild){
         queueGuild.queue.forEach(async guildID => {
+          console.log(guildID)
           let queueChannel = await queueVoice.findOne({
             guildID: guildID
           });
+          console.log(queueChannel)
           if(queueChannel){
           if(new Date().getMinutes() == 0 && queueChannel.play == true){
             queueChannel.play = false;
@@ -32,7 +34,6 @@ exports.run = async (bot) => {
             
             queueChannel.songNum++;
             if(queueChannel.songNum > 47) queueChannel.songNum = 0;
-            console.log(guildID)
         } else if(new Date().getMinutes() == 30 && !queueChannel.play){
           queueChannel.play = true;
             console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
@@ -43,15 +44,14 @@ exports.run = async (bot) => {
           }).catch(e => console.error(e));
             queueChannel.songNum++;
             if(queueChannel.songNum > 47) queueChannel.songNum = 0;
-            console.log(guildID);
         } else {
             //console.log(new Date().getSeconds())
         }
       } else {
         queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
       }
+      await queueChannel.save().catch(e => console.log(e));
         });
-        await queueChannel.save().catch(e => console.log(e));
         await queueGuild.save().catch(e => console.log(e)).then(() => {
           command = bot.commands.get("queueRefresh");
           return command.run(bot);
