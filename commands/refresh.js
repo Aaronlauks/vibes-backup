@@ -14,7 +14,7 @@ exports.run = async (bot, message, args) => {
         channel.join().then(async connection => {
           let dispatcher = await connection.play(ytdl(music));
       }).catch(e => console.error(e));
-      } else return message.channel.send(`<:xcross:690880230562201610> Hey, theres no music active?`);
+      } else return message.channel.send(`<:xcross:690880230562201610> Hey, there ain't a queue active?`);
 }
 module.exports.config = {
     name: "refresh",
