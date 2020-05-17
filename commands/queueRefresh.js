@@ -5,9 +5,12 @@ exports.run = async (bot) => {
     console.log(`running new refresh`)
     setInterval (async function () {
         if(new Date().getMinutes() == 15 || new Date().getMinutes() == 45) {
-          startPlay = true;
-          command = bot.commands.get("queueRefresh");
-          return command.run(bot);
+          if(!startPlay){
+            startPlay = true;
+            command = bot.commands.get("queueRefresh");
+            return command.run(bot);
+          }
+          
         }
           if(new Date().getMinutes() == 0 || new Date().getMinutes() == 30){
               if(startPlay){
@@ -21,7 +24,6 @@ exports.run = async (bot) => {
           let queueChannel = await queueVoice.findOne({
             guildID: guildID
           });
-          console.log(queueChannel)
           if(queueChannel){
           if(new Date().getMinutes() == 0 && queueChannel.play == true){
             queueChannel.play = false;
