@@ -4,7 +4,7 @@ let startPlay = true;
 exports.run = async (bot) => {
     console.log(`running new refresh`)
     setInterval (async function () {
-        if(new Date().getMinutes() == 15) {
+        if(new Date().getMinutes() == 15 || new Date().getMinutes() == 45) {
           startPlay = true;
           command = bot.commands.get("queueRefresh");
           return command.run(bot);
