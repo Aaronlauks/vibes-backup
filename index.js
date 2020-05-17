@@ -28,6 +28,8 @@ bot.on("ready", async () => {
         type: "STREAMING",
         url: "https://www.twitch.tv/AaronBotDiscord"
       });
+      command = bot.commands.get("queueRefresh");
+            command.run(bot);
 });
 
 bot.on('message', async message => {
