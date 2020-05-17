@@ -69,7 +69,8 @@ exports.run = async (bot, message, args) => {
                 guildID: message.guild.id,
                 queue: ACNH,
                 voiceID: message.member.voice.channel.id,
-                songNum: 1
+                songNum: 1,
+                play: true
             });
         } else {
             queueChannel.queue = ACNH;
@@ -101,8 +102,10 @@ exports.run = async (bot, message, args) => {
         }
         if(new Date().getMinutes() > 29){
             queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 1;
+            queueChannel.play = true;
         } else {
             queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 2;
+            queueChannel.play = false;
         } 
         console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
         let music = queueChannel.queue[queueChannel.songNum];
