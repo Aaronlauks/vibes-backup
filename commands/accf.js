@@ -52,7 +52,9 @@ let ACCF = [
 ]
 
 exports.run = async (bot, message, args) => {
+    console.log(`command run`)
     if (message.member.voice.channel) {
+        console.log(`has voice`)
         let queueGuild = await queueVoice.findOne({
             ID: "42069"
           });
