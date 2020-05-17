@@ -34,7 +34,7 @@ bot.on("ready", async () => {
       setInterval (async function () {
         if(new Date().getMinutes() == 15) startPlay = true;
         if(new Date().getSeconds() == 0){
-          if(new Date().getMinutes == (30 || 0)){
+          if(new Date().getMinutes() == (30 || 0)){
         let queueGuild = await queueVoice.findOne({
           ID: "42069"
         });
