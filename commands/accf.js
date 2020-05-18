@@ -77,9 +77,7 @@ exports.run = async (bot, message, args) => {
             queueChannel.queue = ACCF;
             queueChannel.voiceID = message.member.voice.channel.id;
         }
-        message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing City Folk!`)
         if(!args[0]) {
-            message.channel.send(`_ _\n**Tip:** Enter the hour from __0-24__ of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !accf 14, 5AM = !acnl 5am\` (default timezone is US)`);
             selectTime = 0;
         } else {
             let argsArgs = args[0].split("");
@@ -99,8 +97,10 @@ exports.run = async (bot, message, args) => {
                 } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
             } else if(args[0] > 0 && args[0] < 25) {
                 selectTime = args[0] - new Date().getHours();
-            } else selectTime = 0;
+            } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
         }
+        message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing **City Folk**!`)
+        message.channel.send(`_ _\n**Tip:** Enter the hour of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !accf 14, 5AM = !acnl 5am\` (default timezone is US)`);
         if(new Date().getMinutes() > 29){
             queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 1;
             queueChannel.play = true;

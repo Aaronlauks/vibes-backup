@@ -11,7 +11,7 @@ exports.run = async (bot, message, args, recent) => {
           const channel = bot.channels.cache.get(queueChannel.voiceID);
           channel.leave();
         queueGuild.queue.splice(queueGuild.queue.indexOf(message.guild.id), 1)
-        message.channel.send(`<:tickGreen:690880245611626597> Stopped playing Animal Crossing nuu :c`)
+        message.channel.send(`<:tickGreen:690880245611626597> Stopped playing Animal Crossing :CC`)
         await queueGuild.save().catch(e => console.log(e));
     } else return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
 }
@@ -19,5 +19,5 @@ module.exports.config = {
     name: "stop",
     description: "stop",
     accessableby: "Everyone",
-    aliases: ["delete", "fuckoff"]
+    aliases: ["delete", "fuckoff", "remove"]
 }
