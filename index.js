@@ -140,4 +140,10 @@ await queueChannel.save().catch(e => console.log(e));
 }
 });
 
+bot.on('message', message => { //this event is fired, whenever the bot sees a new message
+  if (message.isMemberMentioned(bot.user) && !message.content.includes(`@everyone`)) { 
+    message.channel.send(`H-hey, my prefix is\`${config.prefix}\` :P`); 
+  }
+});
+
 bot.login(process.env.BOT_TOKEN);
