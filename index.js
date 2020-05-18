@@ -140,4 +140,4 @@ await queueChannel.save().catch(e => console.log(e));
 }
 });
 
-bot.login("NzEwNjk2NzMzNDMyMjE3Njkw.XsHwBw.mLb_CC0U8M79wDxuG0yH8J_I__Q");
+bot.login(process.env.BOT_TOKEN);
