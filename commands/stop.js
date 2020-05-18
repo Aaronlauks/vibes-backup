@@ -1,6 +1,6 @@
 const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
-exports.run = async (bot, message, args, recent) => {
+exports.run = async (bot, message, args) => {
     let queueGuild = await queueVoice.findOne({
         ID: "42069"
       });
@@ -17,7 +17,8 @@ exports.run = async (bot, message, args, recent) => {
 }
 module.exports.config = {
     name: "stop",
-    description: "stop",
+    description: "Stops and deletes 24h queue",
     accessableby: "Everyone",
+    usage: "!stop",
     aliases: ["delete", "fuckoff", "remove"]
 }

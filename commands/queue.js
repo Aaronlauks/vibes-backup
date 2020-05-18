@@ -150,161 +150,61 @@ let ACNL = [
 ]
 const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
-const discord = require('discord.js')
 exports.run = async (bot, message, args) => {
-    let icon = message.icon;
     let queueGuild = await queueVoice.findOne({
         ID: "42069"
       });
-          if(queueGuild.queue.includes(message.guild.id)){
-            let queueChannel = await queueVoice.findOne({
-                guildID: message.guild.id
-              });
-              const embed = new discord.MessageEmbed()
-              .setAuthor(`Animal Crossing 24/7`)
-              .setThumbnail(icon)
-              .setFooter(`Vibing`, "https://cdn.discordapp.com/avatars/696032366845624392/b1c337ffa9d4ccc486fbd5d5359f6f1c.png?size=2048")
-              .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
-              .setTimestamp();
-              let descm = "";
-                  let nowNum = "";
-                  if((queueChannel.songNum -4) % 2 == 1){
-                      let time24 = (queueChannel.songNum -5) / 2;
-                      if(time24 < 13){
-                          nowNum = time24 + "AM";
-                      } else {
-                          time24-=12;
-                          nowNum = time24 + "PM";
-                      }
+    if(queueGuild.queue.includes(message.guild.id)){
+        let queueChannel = await queueVoice.findOne({
+            guildID: message.guild.id
+          });
+          let time;
+          if(ACCF.includes(queueChannel.queue[queueChannel.songNum])){
+              if(queueChannel.songNum % 2 == 1){
+                  time = (queueChannel.songNum - 1) / 2;
+              } else {
+                time = (queueChannel.songNum) / 2;
+              }
+                  if(time < 13){
+                      time += "AM";
                   } else {
-                    let time24 = (queueChannel.songNum -4) / 2;
-                    console.log(time24)
-                    if(time24 < 13){
-                        nowNum = time24 + "AM";
-                    } else {
-                        time24-=12;
-                        nowNum = time24 + "PM";
-                    }
+                    time = time - 12;
+                    time += "PM";
                   }
-                  if(ACCF.includes(queueChannel.queue[queueChannel.songNum -4])){
-                          descm+= `- ${nowNum} City Folk\n\n`
-                  } else if(ACNH.includes(queueChannel.queue[queueChannel.songNum -4])){
-                        descm+= `- ${nowNum} New Horizon\n\n`
-                  } else {
-                        descm+= `- ${nowNum} New Leaf\n\n`
-                  }
-                  
-                  if((queueChannel.songNum -2) % 2 == 1){
-                    let time24 = (queueChannel.songNum -3) / 2;
-                    if(time24 < 13){
-                        nowNum = time24 + "AM";
-                    } else {
-                        time24-=12;
-                        nowNum = time24 + "PM";
-                    }
+                  return message.channel.send(`🎵 Now playing: ${time} Animal Crossing **City Folk**`);
+          } else if(ACNH.includes(queueChannel.queue[queueChannel.songNum])){
+            if(queueChannel.songNum % 2 == 1){
+                time = (queueChannel.songNum - 1) / 2;
+            } else {
+              time = (queueChannel.songNum) / 2;
+            }
+                if(time < 13){
+                    time += "AM";
                 } else {
-                  let time24 = (queueChannel.songNum -2) / 2;
-                  console.log(time24)
-                  if(time24 < 13){
-                      nowNum = time24 + "AM";
-                  } else {
-                      time24-=12;
-                      nowNum = time24 + "PM";
-                  }
+                    time = time - 12;
+                  time += "PM";
                 }
-                if(ACCF.includes(queueChannel.queue[queueChannel.songNum -2])){
-                        descm+= `- ${nowNum} City Folk\n\n`
-                } else if(ACNH.includes(queueChannel.queue[queueChannel.songNum -2])){
-                      descm+= `- ${nowNum} New Horizon\n\n`
+                return message.channel.send(`🎵 Now playing: ${time} Animal Crossing **New Horizon**`);
+          } else {
+            if(queueChannel.songNum % 2 == 1){
+                time = (queueChannel.songNum - 1) / 2;
+            } else {
+              time = (queueChannel.songNum) / 2;
+            }
+                if(time < 13){
+                    time += "AM";
                 } else {
-                      descm+= `- ${nowNum} New Leaf\n\n`
+                    time = time - 12;
+                  time += "PM";
                 }
-
-                if((queueChannel.songNum) % 2 == 1){
-                    let time24 = (queueChannel.songNum -1) / 2;
-                    if(time24 < 13){
-                        nowNum = time24 + "AM";
-                    } else {
-                        time24-=12;
-                        nowNum = time24 + "PM";
-                    }
-                } else {
-                  let time24 = (queueChannel.songNum) / 2;
-                  console.log(time24)
-                  if(time24 < 13){
-                      nowNum = time24 + "AM";
-                  } else {
-                      time24-=12;
-                      nowNum = time24 + "PM";
-                  }
-                }
-                if(ACCF.includes(queueChannel.queue[queueChannel.songNum])){
-                        descm+= `**>** ${nowNum} City Folk\n\n`
-                } else if(ACNH.includes(queueChannel.queue[queueChannel.songNum])){
-                      descm+= `**>** ${nowNum} New Horizon\n\n`
-                } else {
-                      descm+= `**>** ${nowNum} New Leaf\n\n`
-                }
-
-                if((parseFloat(queueChannel.songNum) + 2) % 2 == 1){
-                    let time24 = (parseFloat(queueChannel.songNum) +1) / 2;
-                    if(time24 < 13){
-                        nowNum = time24 + "AM";
-                    } else {
-                        time24-=12;
-                        nowNum = time24 + "PM";
-                    }
-                } else {
-                  let time24 = (parseFloat(queueChannel.songNum) + 2) / 2;
-                  console.log(time24)
-                  if(time24 < 13){
-                      nowNum = time24 + "AM";
-                  } else {
-                      time24-=12;
-                      nowNum = time24 + "PM";
-                  }
-                }
-                if(ACCF.includes(queueChannel.queue[parseFloat(queueChannel.songNum) +2])){
-                        descm+= `- ${nowNum} City Folk\n\n`
-                } else if(ACNH.includes(queueChannel.queue[parseFloat(queueChannel.songNum)+2])){
-                      descm+= `- ${nowNum} New Horizon\n\n`
-                } else {
-                      descm+= `- ${nowNum} New Leaf\n\n`
-                }
-
-                if((parseFloat(queueChannel.songNum) + 4) % 2 == 1){
-                    let time24 = (parseFloat(queueChannel.songNum) +3) / 2;
-                    if(time24 < 13){
-                        nowNum = time24 + "AM";
-                    } else {
-                        time24-=12;
-                        nowNum = time24 + "PM";
-                    }
-                } else {
-                  let time24 = (parseFloat(queueChannel.songNum) + 4) / 2;
-                  console.log(time24)
-                  if(time24 < 13){
-                      nowNum = time24 + "AM";
-                  } else {
-                      time24-=12;
-                      nowNum = time24 + "PM";
-                  }
-                }
-                if(ACCF.includes(queueChannel.queue[parseFloat(queueChannel.songNum) +4])){
-                        descm+= `- ${nowNum} City Folk\n\n`
-                } else if(ACNH.includes(queueChannel.queue[parseFloat(queueChannel.songNum)+4])){
-                      descm+= `- ${nowNum} New Horizon\n\n`
-                } else {
-                      descm+= `- ${nowNum} New Leaf\n\n`
-                }
-
-                embed.setDescription(descm)
-                message.channel.send(embed)
-          } else return message.channel.send(`<:xcross:690880230562201610> Hey, there ain't a queue active?`);
+                return message.channel.send(`🎵 Now playing: ${time} Animal Crossing **New Leaf**`);
+          }
+        } else return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
 }
 module.exports.config = {
     name: "nowplay",
-    description: "Join VC",
+    description: "Shows the music playing now",
     accessableby: "Everyone",
-    aliases: ["np", "current", "currenttrack"]
-}
+    usage: "!nowplay",
+    aliases: ["q", "queue", "np"]
+  }

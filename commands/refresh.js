@@ -18,7 +18,8 @@ exports.run = async (bot, message, args) => {
 }
 module.exports.config = {
     name: "refresh",
-    description: "stop",
+    description: "Refreshes the current song (use this if song usddenly stops D:)",
     accessableby: "Everyone",
+    usage: "!refresh",
     aliases: ["reload", "ref", "load"]
 }

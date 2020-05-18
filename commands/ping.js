@@ -4,7 +4,8 @@ exports.run = (bot, message, args) => {
 }
 module.exports.config = {
     name: "ping",
-    description: "ping",
+    description: "ping!!!!!!!!!!!",
     accessableby: "Everyone",
+    usage: '!ping',
     aliases: ["pong"]
 }

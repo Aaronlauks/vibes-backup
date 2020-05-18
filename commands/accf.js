@@ -100,7 +100,7 @@ exports.run = async (bot, message, args) => {
             } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
         }
         message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing **City Folk**!`)
-        message.channel.send(`_ _\n**Tip:** Enter the hour of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !accf 14, 5AM = !acnl 5am\` (default timezone is US)`);
+        if(!args[0]) message.channel.send(`_ _\n**Tip:** Enter the hour of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !accf 14, 5AM = !acnl 5am\` (default timezone is US)`);
         if(new Date().getMinutes() > 29){
             queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 1;
             queueChannel.play = true;
@@ -121,7 +121,8 @@ exports.run = async (bot, message, args) => {
 }
 module.exports.config = {
     name: "accf",
-    description: "Join VC",
+    description: "Adds animal crossing City Folk to the 24h queue",
     accessableby: "Everyone",
+    usage: "!accf <timezone>",
     aliases: ["cf", "cityfolk"]
 }

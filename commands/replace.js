@@ -150,7 +150,7 @@ let ACNL = [
 ]
 const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
-exports.run = async (bot, message, args, recent) => {
+exports.run = async (bot, message, args) => {
     let selectTime;
     let selectGame = "";
     if(!args[0]) return message.channel.send(`<:xcross:690880230562201610> please state the time you want to replace \`e.g. !replace 5am acnh, !replace 16 acnl etc.\``);
@@ -211,7 +211,8 @@ exports.run = async (bot, message, args, recent) => {
 }
 module.exports.config = {
     name: "replace",
-    description: "stop",
+    description: "Replaces an hour you specify with the animal crossing game of your choice",
     accessableby: "Everyone",
+    usage: "!replace <time> <game>",
     aliases: ["rep", "set"]
 }
