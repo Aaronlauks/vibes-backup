@@ -141,9 +141,14 @@ await queueChannel.save().catch(e => console.log(e));
 });
 
 bot.on('message', message => { //this event is fired, whenever the bot sees a new message
-  if (message.isMemberMentioned(bot.user) && !message.content.includes(`@everyone`)) { 
-    message.channel.send(`H-hey, my prefix is\`${config.prefix}\` :P`); 
+  if(message.content.match(/^<@!?(\d+)>$/) && !message.author.bot){
+    let match = message.content.match(/^<@!?(\d+)>$/);
+    if(match[1] == "696032366845624392"){
+      return message.channel.send(`H-hey my preifx is \`${config.prefix}\` Let's vibe to Animal Crossing together!`)
+    }
+    
   }
+  
 });
 
 bot.login(process.env.BOT_TOKEN);
