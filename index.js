@@ -3,6 +3,9 @@ var bot = new discord.Client();
 const fs = require('fs');
 const config = require("./config.json");
 const mongoose = require('mongoose');
+const ytdl = require('ytdl-core');
+const queueVoice = require('./models/queueChannel.js');
+let startPlay = true;
 mongoose.connect(config.mongodb, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -28,8 +31,30 @@ bot.on("ready", async () => {
         type: "STREAMING",
         url: "https://www.twitch.tv/AaronBotDiscord"
       });
-      command = bot.commands.get("queueRefresh");
-            command.run(bot);
+      let queueGuild = await queueVoice.findOne({
+        ID: "42069"
+      });
+      if(queueGuild){
+      queueGuild.queue.forEach(async guildID => {
+        console.log(guildID)
+        let queueChannel = await queueVoice.findOne({
+          guildID: guildID
+        });
+        if(queueChannel){
+          console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
+          music = queueChannel.queue[queueChannel.songNum];
+          const channel = bot.channels.cache.get(queueChannel.voiceID);
+          if(channel) {
+          channel.join().then(async connection => {
+            let dispatcher = await connection.play(ytdl(music));
+        }).catch(e => console.error(e));
+      } else queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
+    } else {
+      queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
+    }
+      });
+      await queueGuild.save().catch(e => console.log(e));
+    }
 });
 
 bot.on('message', async message => {
@@ -56,5 +81,63 @@ bot.on('message', async message => {
     }
 });
 
+setInterval (async function () {
+  if(new Date().getMinutes() == 15 || new Date().getMinutes() == 45) {
+    if(!startPlay){
+      startPlay = true;
+    }
+    
+  }
+    if(new Date().getMinutes() == 0 || new Date().getMinutes() == 30){
+        if(startPlay){
+          startPlay = false;
+  let queueGuild = await queueVoice.findOne({
+    ID: "42069"
+  });
+  if(queueGuild){
+  queueGuild.queue.forEach(async guildID => {
+    console.log(guildID)
+    let queueChannel = await queueVoice.findOne({
+      guildID: guildID
+    });
+    if(queueChannel){
+    if(new Date().getMinutes() == 0 && queueChannel.play == true){
+      queueChannel.play = false;
+      console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
+      music = queueChannel.queue[queueChannel.songNum];
+      const channel = bot.channels.cache.get(queueChannel.voiceID);
+      if(channel){
+      channel.join().then(async connection => {
+        let dispatcher = await connection.play(ytdl(music));
+    }).catch(e => console.error(e));
+      
+      queueChannel.songNum++;
+      if(queueChannel.songNum > 47) queueChannel.songNum = 0;
+  } else queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
+  } else if(new Date().getMinutes() == 30 && !queueChannel.play){
+    queueChannel.play = true;
+      console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
+      music = queueChannel.queue[queueChannel.songNum];
+      const channel = bot.channels.cache.get(queueChannel.voiceID);
+      if (channel){
+      channel.join().then(async connection => {
+        let dispatcher = await connection.play(ytdl(music));
+    }).catch(e => console.error(e));
+      queueChannel.songNum++;
+      if(queueChannel.songNum > 47) queueChannel.songNum = 0;
+  } else queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
+  } else {
+      //console.log(new Date().getSeconds())
+  }
+} else {
+  queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
+}
+await queueChannel.save().catch(e => console.log(e));
+  });
+  await queueGuild.save().catch(e => console.log(e));
+}
+}
+}
+});
 
-bot.login(process.env.BOT_TOKEN);
+bot.login("NzEwNjk2NzMzNDMyMjE3Njkw.XsHwBw.mLb_CC0U8M79wDxuG0yH8J_I__Q");

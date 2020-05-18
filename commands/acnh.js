@@ -114,8 +114,6 @@ exports.run = async (bot, message, args) => {
                     console.log('song end')
                 });
                 queueChannel.songNum++;
-                command = bot.commands.get("queueRefresh");
-                command.run(bot);
                 await queueChannel.save().catch(e => console.log(e));
       } else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
 }
