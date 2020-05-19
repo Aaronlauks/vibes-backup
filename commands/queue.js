@@ -160,11 +160,12 @@ exports.run = async (bot, message, args) => {
           });
           let time;
           if(ACCF.includes(queueChannel.queue[queueChannel.songNum])){
-              if(queueChannel.songNum % 2 == 1){
-                  time = (queueChannel.songNum - 1) / 2;
+              if(queueChannel.songNum % 2 != 1){
+                time = (queueChannel.songNum - 2) / 2;
               } else {
-                time = (queueChannel.songNum) / 2;
+                time = (queueChannel.songNum - 1) / 2;
               }
+              time += +1;
                   if(time < 13){
                       time += "AM";
                   } else {
@@ -173,11 +174,12 @@ exports.run = async (bot, message, args) => {
                   }
                   return message.channel.send(`🎵 Now playing: ${time} Animal Crossing **City Folk**`);
           } else if(ACNH.includes(queueChannel.queue[queueChannel.songNum])){
-            if(queueChannel.songNum % 2 == 1){
-                time = (queueChannel.songNum - 1) / 2;
+            if(queueChannel.songNum % 2 != 1){
+              time = (queueChannel.songNum - 2) / 2;
             } else {
-              time = (queueChannel.songNum) / 2;
+              time = (queueChannel.songNum - 1) / 2;
             }
+            time += +1;
                 if(time < 13){
                     time += "AM";
                 } else {
@@ -186,11 +188,12 @@ exports.run = async (bot, message, args) => {
                 }
                 return message.channel.send(`🎵 Now playing: ${time} Animal Crossing **New Horizon**`);
           } else {
-            if(queueChannel.songNum % 2 == 1){
-                time = (queueChannel.songNum - 1) / 2;
+            if(queueChannel.songNum % 2 != 1){
+              time = (queueChannel.songNum - 2) / 2;
             } else {
-              time = (queueChannel.songNum) / 2 + 1;
+              time = (queueChannel.songNum - 1) / 2;
             }
+            time += +1;
                 if(time < 13){
                     time += "AM";
                 } else {
