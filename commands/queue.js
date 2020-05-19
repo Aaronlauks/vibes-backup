@@ -189,7 +189,7 @@ exports.run = async (bot, message, args) => {
             if(queueChannel.songNum % 2 == 1){
                 time = (queueChannel.songNum - 1) / 2;
             } else {
-              time = (queueChannel.songNum) / 2;
+              time = (queueChannel.songNum) / 2 + 1;
             }
                 if(time < 13){
                     time += "AM";
