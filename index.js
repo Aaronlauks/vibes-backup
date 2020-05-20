@@ -107,7 +107,7 @@ setInterval (async function () {
       music = queueChannel.queue[queueChannel.songNum];
       const channel = bot.channels.cache.get(queueChannel.voiceID);
       if(channel){
-      channel.join().then(async connection => {
+        await channel.join().then(async connection => {
         let dispatcher = await connection.play(ytdl(music));
     }).catch(e => console.error(e));
       
@@ -120,7 +120,7 @@ setInterval (async function () {
       music = queueChannel.queue[queueChannel.songNum];
       const channel = bot.channels.cache.get(queueChannel.voiceID);
       if (channel){
-      channel.join().then(async connection => {
+      await channel.join().then(async connection => {
         let dispatcher = await connection.play(ytdl(music));
     }).catch(e => console.error(e));
       queueChannel.songNum++;
