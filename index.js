@@ -36,12 +36,11 @@ bot.on("ready", async () => {
       });
       if(queueGuild){
       queueGuild.queue.forEach(async guildID => {
-        console.log(guildID)
         let queueChannel = await queueVoice.findOne({
           guildID: guildID
         });
         if(queueChannel){
-          console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
+          console.log(bot.guilds.cache.get(guildID).name, queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
           music = queueChannel.queue[queueChannel.songNum];
           const channel = bot.channels.cache.get(queueChannel.voiceID);
           if(channel) {
@@ -96,14 +95,13 @@ setInterval (async function () {
   });
   if(queueGuild){
   queueGuild.queue.forEach(async guildID => {
-    console.log(guildID)
     let queueChannel = await queueVoice.findOne({
       guildID: guildID
     });
     if(queueChannel){
     if(new Date().getMinutes() == 0 && queueChannel.play == true){
       queueChannel.play = false;
-      console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
+      console.log(bot.guilds.cache.get(guildID).name, queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
       music = queueChannel.queue[queueChannel.songNum];
       const channel = bot.channels.cache.get(queueChannel.voiceID);
       if(channel){
@@ -116,7 +114,7 @@ setInterval (async function () {
   } else queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
   } else if(new Date().getMinutes() == 30 && !queueChannel.play){
     queueChannel.play = true;
-      console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
+    console.log(bot.guilds.cache.get(guildID).name, queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
       music = queueChannel.queue[queueChannel.songNum];
       const channel = bot.channels.cache.get(queueChannel.voiceID);
       if (channel){
