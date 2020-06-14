@@ -1,54 +1,54 @@
 const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
 let ACCF = [
-    'https://www.youtube.com/watch?v=Wk8VzWlnpFk',//1AM    0
-    'https://www.youtube.com/watch?v=Wk8VzWlnpFk',//       1
-    'https://www.youtube.com/watch?v=9DwrEx-69PM',//2AM    2
-    'https://www.youtube.com/watch?v=9DwrEx-69PM', //      3
-    'https://www.youtube.com/watch?v=lSqkG3QEsRw',//3AM    4
-    'https://www.youtube.com/watch?v=lSqkG3QEsRw',//       5
-    'https://www.youtube.com/watch?v=jSUBf13bKOU',//4AM    6
-    'https://www.youtube.com/watch?v=jSUBf13bKOU',//       7
-    'https://www.youtube.com/watch?v=VBOBHSdoHL8',//5AM    8
-    'https://www.youtube.com/watch?v=VBOBHSdoHL8',//       9
-    'https://www.youtube.com/watch?v=z2QAAJeHF2s',//6AM    10
-    'https://www.youtube.com/watch?v=z2QAAJeHF2s',//       11
-    'https://www.youtube.com/watch?v=cQ2UTZ-S9Q8',//7AM    12
-    'https://www.youtube.com/watch?v=cQ2UTZ-S9Q8',//       13
-    'https://www.youtube.com/watch?v=C7X6BLiB2Ec',//8AM    14
-    'https://www.youtube.com/watch?v=C7X6BLiB2Ec',//       15
-    'https://www.youtube.com/watch?v=3UpdJMSAP10',//9AM    16
-    'https://www.youtube.com/watch?v=3UpdJMSAP10',//       17
-    'https://www.youtube.com/watch?v=CYk1CtYzz0o',//10AM   18
-    'https://www.youtube.com/watch?v=CYk1CtYzz0o',//       19
-    'https://www.youtube.com/watch?v=FTpvuY4Y1AE',//11AM   20
-    'https://www.youtube.com/watch?v=FTpvuY4Y1AE',//       21
-    'https://www.youtube.com/watch?v=G3IzATmzA3o',//12PM   22
-    'https://www.youtube.com/watch?v=G3IzATmzA3o',//       23
-    'https://www.youtube.com/watch?v=bwgTYUKH-aA',//1PM    24
-    'https://www.youtube.com/watch?v=bwgTYUKH-aA',//       25
-    'https://www.youtube.com/watch?v=EzNgk8hy4x8',//2PM    26
-    'https://www.youtube.com/watch?v=EzNgk8hy4x8',//       27
-    'https://www.youtube.com/watch?v=1Oya4xMfRfw',//3PM    28
-    'https://www.youtube.com/watch?v=1Oya4xMfRfw',//       29
-    'https://www.youtube.com/watch?v=K6KkeYwAFHE',//4PM    30
-    'https://www.youtube.com/watch?v=K6KkeYwAFHE',//       31
-    'https://www.youtube.com/watch?v=syxR6VzzAqQ',//5PM    32
-    'https://www.youtube.com/watch?v=syxR6VzzAqQ',//       33
-    'https://www.youtube.com/watch?v=yx_BIFCFpaA',//6PM    34
-    'https://www.youtube.com/watch?v=yx_BIFCFpaA',//       35
-    'https://www.youtube.com/watch?v=eGl1CzBxtRQ',//7PM    36
-    'https://www.youtube.com/watch?v=eGl1CzBxtRQ',//       37
-    'https://www.youtube.com/watch?v=qlIOtoBFmk8',//8PM    38
-    'https://www.youtube.com/watch?v=qlIOtoBFmk8',//       39
-    'https://www.youtube.com/watch?v=Riz2ON11Vso',//9PM    40
-    'https://www.youtube.com/watch?v=Riz2ON11Vso',//       41
-    'https://www.youtube.com/watch?v=lOdQfelEVaY',//10PM   42
-    'https://www.youtube.com/watch?v=lOdQfelEVaY',//       43
-    'https://www.youtube.com/watch?v=ouBKNNeGbh8',//11PM   44
-    'https://www.youtube.com/watch?v=ouBKNNeGbh8',//       45
-    'https://www.youtube.com/watch?v=VhzGugcr_aQ',//12AM   46
-    'https://www.youtube.com/watch?v=VhzGugcr_aQ'//        47
+    'https://www.youtube.com/watch?v=-tcbrfqvu4Q',//1AM    0
+    'https://www.youtube.com/watch?v=-tcbrfqvu4Q',//       1
+    'https://www.youtube.com/watch?v=HKmobfpFraA',//2AM    2
+    'https://www.youtube.com/watch?v=HKmobfpFraA', //      3
+    'https://www.youtube.com/watch?v=4QWdEp3qkao',//3AM    4
+    'https://www.youtube.com/watch?v=4QWdEp3qkao',//       5
+    'https://www.youtube.com/watch?v=JWo2EihpEo0',//4AM    6
+    'https://www.youtube.com/watch?v=JWo2EihpEo0',//       7
+    'https://www.youtube.com/watch?v=_EqqsvOCils',//5AM    8
+    'https://www.youtube.com/watch?v=_EqqsvOCils',//       9
+    'https://www.youtube.com/watch?v=IMvSt6wXmd4',//6AM    10
+    'https://www.youtube.com/watch?v=IMvSt6wXmd4',//       11
+    'https://www.youtube.com/watch?v=1-skezuMbH4',//7AM    12
+    'https://www.youtube.com/watch?v=1-skezuMbH4',//       13
+    'https://www.youtube.com/watch?v=4n_CXY5M2bo',//8AM    14
+    'https://www.youtube.com/watch?v=4n_CXY5M2bo',//       15
+    'https://www.youtube.com/watch?v=jOoinpKuIMg',//9AM    16
+    'https://www.youtube.com/watch?v=jOoinpKuIMg',//       17
+    'https://www.youtube.com/watch?v=DbzXqrdoIVs',//10AM   18
+    'https://www.youtube.com/watch?v=DbzXqrdoIVs',//       19
+    'https://www.youtube.com/watch?v=S2cfXCjD5Bo',//11AM   20
+    'https://www.youtube.com/watch?v=S2cfXCjD5Bo',//       21
+    'https://www.youtube.com/watch?v=Wpy5GveSgt4',//12PM   22
+    'https://www.youtube.com/watch?v=Wpy5GveSgt4',//       23
+    'https://www.youtube.com/watch?v=MuWwLxLF3_o',//1PM    24
+    'https://www.youtube.com/watch?v=MuWwLxLF3_o',//       25
+    'https://www.youtube.com/watch?v=q8GyGnqqv3M',//2PM    26
+    'https://www.youtube.com/watch?v=q8GyGnqqv3M',//       27
+    'https://www.youtube.com/watch?v=GtMIbcwcORM',//3PM    28
+    'https://www.youtube.com/watch?v=GtMIbcwcORM',//       29
+    'https://www.youtube.com/watch?v=vyl3Cb2tQVo',//4PM    30
+    'https://www.youtube.com/watch?v=vyl3Cb2tQVo',//       31
+    'https://www.youtube.com/watch?v=rRvVOLUC6BQ',//5PM    32
+    'https://www.youtube.com/watch?v=rRvVOLUC6BQ',//       33
+    'https://www.youtube.com/watch?v=QIchIozqcw0',//6PM    34
+    'https://www.youtube.com/watch?v=QIchIozqcw0',//       35
+    'https://www.youtube.com/watch?v=m1bfNsCN7XU',//7PM    36
+    'https://www.youtube.com/watch?v=m1bfNsCN7XU',//       37
+    'https://www.youtube.com/watch?v=p2J9qOsM21s',//8PM    38
+    'https://www.youtube.com/watch?v=p2J9qOsM21s',//       39
+    'https://www.youtube.com/watch?v=r7aToLm-4CM',//9PM    40
+    'https://www.youtube.com/watch?v=r7aToLm-4CM',//       41
+    'https://www.youtube.com/watch?v=h8iLGgJ-pRY',//10PM   42
+    'https://www.youtube.com/watch?v=h8iLGgJ-pRY',//       43
+    'https://www.youtube.com/watch?v=jmX18LLa_gM',//11PM   44
+    'https://www.youtube.com/watch?v=jmX18LLa_gM',//       45
+    'https://www.youtube.com/watch?v=XrqtMWI-rmk',//12AM   46
+    'https://www.youtube.com/watch?v=XrqtMWI-rmk'//        47
 ]
 
 exports.run = async (bot, message, args) => {
@@ -99,8 +99,8 @@ exports.run = async (bot, message, args) => {
                 selectTime = args[0] - new Date().getHours();
             } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
         }
-        message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing **City Folk**!`)
-        if(!args[0]) message.channel.send(`_ _\n**Tip:** Enter the hour of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !accf 14, 5AM = !acnl 5am\` (default timezone is US)`);
+        message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing **GameCube**!`)
+        if(!args[0]) message.channel.send(`_ _\n**Tip:** Enter the hour of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !acgcn 14, 5AM = !acgcn 5am\` (default timezone is US)`);
         if(new Date().getMinutes() > 29){
             queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 1;
             queueChannel.play = true;
@@ -120,9 +120,9 @@ exports.run = async (bot, message, args) => {
       } else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
 }
 module.exports.config = {
-    name: "accf",
-    description: "Adds animal crossing City Folk to the 24h queue",
+    name: "acgcn",
+    description: "Adds animal crossing gamecube to the 24h queue",
     accessableby: "Everyone",
-    usage: "!accf <timezone>",
-    aliases: ["cf", "cityfolk"]
+    usage: "!acgcn <timezone>",
+    aliases: ["gcn", "gamecube"]
 }

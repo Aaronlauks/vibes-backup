@@ -187,7 +187,7 @@ exports.run = async (bot, message, args) => {
                   time += "PM";
                 }
                 return message.channel.send(`🎵 Now playing: ${time} Animal Crossing **New Horizon**`);
-          } else {
+          } else if(ACNL.includes(queueChannel.queue[queueChannel.songNum])){
             if(queueChannel.songNum % 2 != 1){
               time = (queueChannel.songNum - 2) / 2;
             } else {
@@ -201,6 +201,20 @@ exports.run = async (bot, message, args) => {
                   time += "PM";
                 }
                 return message.channel.send(`🎵 Now playing: ${time} Animal Crossing **New Leaf**`);
+          } else {
+            if(queueChannel.songNum % 2 != 1){
+              time = (queueChannel.songNum - 2) / 2;
+            } else {
+              time = (queueChannel.songNum - 1) / 2;
+            }
+            time += +1;
+                if(time < 13){
+                    time += "AM";
+                } else {
+                    time = time - 12;
+                  time += "PM";
+                }
+                return message.channel.send(`🎵 Now playing: ${time} Animal Crossing **Gamecube**`);
           }
         } else return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
 }

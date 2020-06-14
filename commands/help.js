@@ -12,7 +12,7 @@ exports.run = async (bot, message, args) => {
       let descm = `These are the available commands for **${bot.user.tag}**\nThe bot prefix is: **!**\n\n`;
 
       bot.commands.forEach(m => {
-          descm+=`\`${m.config.name}\` `;
+          if(m.config.name != "NEWSONG") descm+=`\`${m.config.name}\` `;
       });
       embed.setDescription(descm);
       message.channel.send(embed)

@@ -23,8 +23,8 @@ let ACNH = [
     'https://www.youtube.com/watch?v=mnC8Yj7GUBk',//       19
     'https://www.youtube.com/watch?v=bnzSJMLDm90',//11AM   20
     'https://www.youtube.com/watch?v=bnzSJMLDm90',//       21
-    'https://www.youtube.com/watch?v=FuMClV20DDg',//12PM   22
-    'https://www.youtube.com/watch?v=FuMClV20DDg',//       23
+    'https://www.youtube.com/watch?v=lqs34Ou0Rw8',//12PM   22
+    'https://www.youtube.com/watch?v=lqs34Ou0Rw8',//       23
     'https://www.youtube.com/watch?v=cTMHpVXBWVo',//1PM    24
     'https://www.youtube.com/watch?v=cTMHpVXBWVo',//       25
     'https://www.youtube.com/watch?v=ALRRqnJdAhc',//2PM    26
@@ -47,8 +47,8 @@ let ACNH = [
     'https://www.youtube.com/watch?v=GFBWicff5ZE',//       43
     'https://www.youtube.com/watch?v=HT-djWRbNN4',//11PM   44
     'https://www.youtube.com/watch?v=HT-djWRbNN4',//       45
-    'https://www.youtube.com/watch?v=lqs34Ou0Rw8',//12AM   46
-    'https://www.youtube.com/watch?v=lqs34Ou0Rw8'//        47
+    'https://www.youtube.com/watch?v=FuMClV20DDg',//12AM   46
+    'https://www.youtube.com/watch?v=FuMClV20DDg'//        47
 ]
 exports.run = async (bot, message, args) => {
     if (message.member.voice.channel) {

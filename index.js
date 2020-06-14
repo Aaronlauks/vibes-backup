@@ -36,23 +36,9 @@ bot.on("ready", async () => {
       });
       if(queueGuild){
       queueGuild.queue.forEach(async guildID => {
-        let queueChannel = await queueVoice.findOne({
-          guildID: guildID
-        });
-        if(queueChannel){
-          console.log(bot.guilds.cache.get(guildID).name, queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
-          music = queueChannel.queue[queueChannel.songNum];
-          const channel = bot.channels.cache.get(queueChannel.voiceID);
-          if(channel) {
-          channel.join().then(async connection => {
-            let dispatcher = await connection.play(ytdl(music));
-        }).catch(e => console.error(e));
-      } else queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
-    } else {
-      queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
-    }
+        command = bot.commands.get("NEWSONG");
+        command.run(bot, guildID);
       });
-      await queueGuild.save().catch(e => console.log(e));
     }
 });
 
@@ -95,44 +81,9 @@ setInterval (async function () {
   });
   if(queueGuild){
   queueGuild.queue.forEach(async guildID => {
-    let queueChannel = await queueVoice.findOne({
-      guildID: guildID
-    });
-    if(queueChannel){
-    if(new Date().getMinutes() == 0 && queueChannel.play == true){
-      queueChannel.play = false;
-      console.log(bot.guilds.cache.get(guildID).name, queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
-      music = queueChannel.queue[queueChannel.songNum];
-      const channel = bot.channels.cache.get(queueChannel.voiceID);
-      if(channel){
-        await channel.join().then(async connection => {
-        let dispatcher = await connection.play(ytdl(music));
-    }).catch(e => console.error(e));
-      
-      queueChannel.songNum++;
-      if(queueChannel.songNum > 47) queueChannel.songNum = 0;
-  } else queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
-  } else if(new Date().getMinutes() == 30 && !queueChannel.play){
-    queueChannel.play = true;
-    console.log(bot.guilds.cache.get(guildID).name, queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
-      music = queueChannel.queue[queueChannel.songNum];
-      const channel = bot.channels.cache.get(queueChannel.voiceID);
-      if (channel){
-      await channel.join().then(async connection => {
-        let dispatcher = await connection.play(ytdl(music));
-    }).catch(e => console.error(e));
-      queueChannel.songNum++;
-      if(queueChannel.songNum > 47) queueChannel.songNum = 0;
-  } else queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
-  } else {
-      //console.log(new Date().getSeconds())
-  }
-} else {
-  queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
-}
-await queueChannel.save().catch(e => console.log(e));
+    command = bot.commands.get("NEWSONG");
+    command.run(bot, guildID);
   });
-  await queueGuild.save().catch(e => console.log(e));
 }
 }
 }

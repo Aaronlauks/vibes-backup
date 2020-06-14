@@ -23,8 +23,8 @@ let ACNL = [
     'https://www.youtube.com/watch?v=25wXOGbmWOc',//       19
     'https://www.youtube.com/watch?v=TPFZhtkP7M0',//11AM   20
     'https://www.youtube.com/watch?v=TPFZhtkP7M0',//       21
-    'https://www.youtube.com/watch?v=vZVS2FtVWHA',//12PM   22
-    'https://www.youtube.com/watch?v=vZVS2FtVWHA',//       23
+    'https://www.youtube.com/watch?v=A_00O4KWBxY',//12PM   22
+    'https://www.youtube.com/watch?v=A_00O4KWBxY',//       23
     'https://www.youtube.com/watch?v=G3rtW1G2Ixg',//1PM    24
     'https://www.youtube.com/watch?v=G3rtW1G2Ixg',//       25
     'https://www.youtube.com/watch?v=LiXoQXCFhF8',//2PM    26
@@ -47,8 +47,8 @@ let ACNL = [
     'https://www.youtube.com/watch?v=tEWFq1_NVSg',//       43
     'https://www.youtube.com/watch?v=ytHqYVbuLt4',//11PM   44
     'https://www.youtube.com/watch?v=ytHqYVbuLt4',//       45
-    'https://www.youtube.com/watch?v=A_00O4KWBxY',//12AM   46
-    'https://www.youtube.com/watch?v=A_00O4KWBxY'
+    'https://www.youtube.com/watch?v=vZVS2FtVWHA',//12AM   46
+    'https://www.youtube.com/watch?v=vZVS2FtVWHA'
   ]
 
 exports.run = async (bot, message, args) => {
