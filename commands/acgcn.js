@@ -70,52 +70,38 @@ exports.run = async (bot, message, args) => {
                 guildID: message.guild.id,
                 queue: ACCF,
                 voiceID: message.member.voice.channel.id,
-                songNum: 1,
+                songNum: 0,
                 play: true
             });
         } else {
             queueChannel.queue = ACCF;
             queueChannel.voiceID = message.member.voice.channel.id;
         }
-        if(!args[0]) {
-            selectTime = 0;
-        } else {
-            let argsArgs = args[0].split("");
-            if(argsArgs.length > 2){
-                if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "PM"){
-                        argsArgs.splice(argsArgs.length - 1, 1);
-                        argsArgs.splice(argsArgs.length - 1, 1);
-                        let newArgs = argsArgs.join("");
-                        if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
-                        selectTime = newArgs - new Date().getHours() + 12;
-                } else if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "AM"){
-                    argsArgs.splice(argsArgs.length - 1, 1);
-                    argsArgs.splice(argsArgs.length - 1, 1);
-                    let newArgs = argsArgs.join("");
-                    if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
-                    selectTime = newArgs - new Date().getHours();
-                } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
-            } else if(args[0] > 0 && args[0] < 25) {
-                selectTime = args[0] - new Date().getHours();
-            } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
-        }
-        message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing **GameCube**!`)
-        if(!args[0]) message.channel.send(`_ _\n**Tip:** Enter the hour of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !acgcn 14, 5AM = !acgcn 5am\` (default timezone is US)`);
+        message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing **GameCube**!`);
+        let songNum
+        if(queueChannel.songNum != 0){
         if(new Date().getMinutes() > 29){
-            queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 1;
+            songNum = ((new Date().getHours() + +queueChannel.songNum) * 2) - 1;
             queueChannel.play = true;
         } else {
-            queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 2;
+            songNum = ((new Date().getHours() + +queueChannel.songNum) * 2) - 2;
             queueChannel.play = false;
         } 
-        console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
-        let music = queueChannel.queue[queueChannel.songNum];
-        let dispatcher = await connection.play(ytdl(music));
-                dispatcher.on("end", end => {
-                    console.log('song end')
-                });
-                queueChannel.songNum++;
-                await queueChannel.save().catch(e => console.log(e));
+        if(new Date().getHours() + +queueChannel.songNum < 1) songNum += +48;
+    } else {
+        if(new Date().getMinutes() > 29){
+            songNum = new Date().getHours() * 2 - 1;
+            queueChannel.play = true;
+        } else {
+            songNum = new Date().getHours() * 2 - 2;
+            queueChannel.play = false;
+        } 
+        if(new Date().getHours() == 0) songNum += +48;
+    }
+        console.log(queueChannel.songNum, songNum, new Date().getMinutes(), new Date().getSeconds())
+        let music = queueChannel.queue[songNum];
+        await connection.play(ytdl(music));
+        await queueChannel.save().catch(e => console.log(e));
                 
       } else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
 }

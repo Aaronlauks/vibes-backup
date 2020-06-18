@@ -20,5 +20,5 @@ module.exports.config = {
     description: "Stops and deletes 24h queue",
     accessableby: "Everyone",
     usage: "!stop",
-    aliases: ["delete", "fuckoff", "remove"]
+    aliases: ["delete", "fuckoff", "remove", "clear"]
 }

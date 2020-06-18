@@ -158,62 +158,52 @@ exports.run = async (bot, message, args) => {
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
-          let time;
-          if(ACCF.includes(queueChannel.queue[queueChannel.songNum])){
-              if(queueChannel.songNum % 2 != 1){
-                time = (queueChannel.songNum - 2) / 2;
-              } else {
-                time = (queueChannel.songNum - 1) / 2;
-              }
-              time += +1;
-                  if(time < 13){
-                      time += "AM";
-                  } else {
-                    time = time - 12;
-                    time += "PM";
-                  }
+          let songNum;
+        if(queueChannel.songNum != 0){
+        if(new Date().getMinutes() > 29){
+            songNum = ((new Date().getHours() + +queueChannel.songNum) * 2) - 1;
+            queueChannel.play = true;
+        } else {
+            songNum = ((new Date().getHours() + +queueChannel.songNum) * 2) - 2;
+            queueChannel.play = false;
+        } 
+        if(new Date().getHours() + +queueChannel.songNum < 1) songNum += +48;
+    } else {
+        if(new Date().getMinutes() > 29){
+            songNum = new Date().getHours() * 2 - 1;
+            queueChannel.play = true;
+        } else {
+            songNum = new Date().getHours() * 2 - 2;
+            queueChannel.play = false;
+        } 
+        if(new Date().getHours() < 1) songNum += +48;
+    }
+        if(queueChannel.songNum != 0){
+          time = new Date().getHours() + +queueChannel.songNum;
+        } else {
+          time = new Date().getHours();
+        }
+        if(time < 13){
+          if(time == 12) {
+            time += "PM";
+          } else {
+            time += "AM";
+          }
+      } else {
+          time = time - 12;
+        if(time == 12) {
+          time += "AM";
+        } else {
+          time += "PM";
+        }
+      }
+          if(ACCF.includes(queueChannel.queue[songNum])){
                   return message.channel.send(`🎵 Now playing: ${time} Animal Crossing **City Folk**`);
-          } else if(ACNH.includes(queueChannel.queue[queueChannel.songNum])){
-            if(queueChannel.songNum % 2 != 1){
-              time = (queueChannel.songNum - 2) / 2;
-            } else {
-              time = (queueChannel.songNum - 1) / 2;
-            }
-            time += +1;
-                if(time < 13){
-                    time += "AM";
-                } else {
-                    time = time - 12;
-                  time += "PM";
-                }
+          } else if(ACNH.includes(queueChannel.queue[songNum])){
                 return message.channel.send(`🎵 Now playing: ${time} Animal Crossing **New Horizon**`);
-          } else if(ACNL.includes(queueChannel.queue[queueChannel.songNum])){
-            if(queueChannel.songNum % 2 != 1){
-              time = (queueChannel.songNum - 2) / 2;
-            } else {
-              time = (queueChannel.songNum - 1) / 2;
-            }
-            time += +1;
-                if(time < 13){
-                    time += "AM";
-                } else {
-                    time = time - 12;
-                  time += "PM";
-                }
+          } else if(ACNL.includes(queueChannel.queue[songNum])){
                 return message.channel.send(`🎵 Now playing: ${time} Animal Crossing **New Leaf**`);
           } else {
-            if(queueChannel.songNum % 2 != 1){
-              time = (queueChannel.songNum - 2) / 2;
-            } else {
-              time = (queueChannel.songNum - 1) / 2;
-            }
-            time += +1;
-                if(time < 13){
-                    time += "AM";
-                } else {
-                    time = time - 12;
-                  time += "PM";
-                }
                 return message.channel.send(`🎵 Now playing: ${time} Animal Crossing **Gamecube**`);
           }
         } else return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
@@ -223,5 +213,5 @@ module.exports.config = {
     description: "Shows the music playing now",
     accessableby: "Everyone",
     usage: "!nowplay",
-    aliases: ["q", "queue", "np"]
+    aliases: ["q", "queue", "np", "song"]
   }

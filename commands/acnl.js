@@ -1,6 +1,6 @@
 const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
-let ACNL = [
+let ACCF = [
     'https://www.youtube.com/watch?v=uX2NxSN49Tg',//1AM    0
     'https://www.youtube.com/watch?v=uX2NxSN49Tg',//       1
     'https://www.youtube.com/watch?v=LAioanQMG_A',//2AM    2
@@ -23,8 +23,8 @@ let ACNL = [
     'https://www.youtube.com/watch?v=25wXOGbmWOc',//       19
     'https://www.youtube.com/watch?v=TPFZhtkP7M0',//11AM   20
     'https://www.youtube.com/watch?v=TPFZhtkP7M0',//       21
-    'https://www.youtube.com/watch?v=A_00O4KWBxY',//12PM   22
-    'https://www.youtube.com/watch?v=A_00O4KWBxY',//       23
+    'https://www.youtube.com/watch?v=vZVS2FtVWHA',//12PM   22
+    'https://www.youtube.com/watch?v=vZVS2FtVWHA',//       23
     'https://www.youtube.com/watch?v=G3rtW1G2Ixg',//1PM    24
     'https://www.youtube.com/watch?v=G3rtW1G2Ixg',//       25
     'https://www.youtube.com/watch?v=LiXoQXCFhF8',//2PM    26
@@ -47,11 +47,11 @@ let ACNL = [
     'https://www.youtube.com/watch?v=tEWFq1_NVSg',//       43
     'https://www.youtube.com/watch?v=ytHqYVbuLt4',//11PM   44
     'https://www.youtube.com/watch?v=ytHqYVbuLt4',//       45
-    'https://www.youtube.com/watch?v=vZVS2FtVWHA',//12AM   46
-    'https://www.youtube.com/watch?v=vZVS2FtVWHA'
+    'https://www.youtube.com/watch?v=A_00O4KWBxY',//12AM   46
+    'https://www.youtube.com/watch?v=A_00O4KWBxY'
   ]
 
-exports.run = async (bot, message, args) => {
+  exports.run = async (bot, message, args) => {
     if (message.member.voice.channel) {
         let queueGuild = await queueVoice.findOne({
             ID: "42069"
@@ -68,54 +68,40 @@ exports.run = async (bot, message, args) => {
         if(!queueChannel) {
             queueChannel = new queueVoice({
                 guildID: message.guild.id,
-                queue: ACNL,
+                queue: ACCF,
                 voiceID: message.member.voice.channel.id,
-                songNum: 1,
+                songNum: 0,
                 play: true
             });
         } else {
-            queueChannel.queue = ACNL;
+            queueChannel.queue = ACCF;
             queueChannel.voiceID = message.member.voice.channel.id;
         }
-        if(!args[0]) {
-            selectTime = 0;
-        } else {
-            let argsArgs = args[0].split("");
-            if(argsArgs.length > 2){
-                if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "PM"){
-                        argsArgs.splice(argsArgs.length - 1, 1);
-                        argsArgs.splice(argsArgs.length - 1, 1);
-                        let newArgs = argsArgs.join("");
-                        if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
-                        selectTime = newArgs - new Date().getHours() + 12;
-                } else if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "AM"){
-                    argsArgs.splice(argsArgs.length - 1, 1);
-                    argsArgs.splice(argsArgs.length - 1, 1);
-                    let newArgs = argsArgs.join("");
-                    if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
-                    selectTime = newArgs - new Date().getHours();
-                } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
-            } else if(args[0] > 0 && args[0] < 25) {
-                selectTime = args[0] - new Date().getHours();
-            } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
-        }
         message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing **New Leaf**!`);
-        if(!args[0]) message.channel.send(`_ _\n**Tip:** Enter the hour your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !acnl 14, 5AM = !acnl 5am\` (default timezone is US)`);
+        let songNum
+        if(queueChannel.songNum != 0){
         if(new Date().getMinutes() > 29){
-            queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 1;
+            songNum = ((new Date().getHours() + +queueChannel.songNum) * 2) - 1;
             queueChannel.play = true;
         } else {
-            queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 2;
+            songNum = ((new Date().getHours() + +queueChannel.songNum) * 2) - 2;
             queueChannel.play = false;
         } 
-        console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
-        let music = queueChannel.queue[queueChannel.songNum];
-        let dispatcher = await connection.play(ytdl(music));
-                dispatcher.on("end", end => {
-                    console.log('song end')
-                });
-                queueChannel.songNum++;
-                await queueChannel.save().catch(e => console.log(e));
+        if(new Date().getHours() + +queueChannel.songNum < 1) songNum += +48;
+    } else {
+        if(new Date().getMinutes() > 29){
+            songNum = new Date().getHours() * 2 - 1;
+            queueChannel.play = true;
+        } else {
+            songNum = new Date().getHours() * 2 - 2;
+            queueChannel.play = false;
+        } 
+        if(new Date().getHours() < 1) songNum += +48;
+    }
+        console.log(queueChannel.songNum, songNum, new Date().getMinutes(), new Date().getSeconds())
+        let music = queueChannel.queue[songNum];
+        await connection.play(ytdl(music));
+        await queueChannel.save().catch(e => console.log(e));
                 
       } else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
 }

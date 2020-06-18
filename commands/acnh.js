@@ -1,6 +1,6 @@
 const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
-let ACNH = [
+let ACCF = [
     'https://www.youtube.com/watch?v=LJhvOKQZqC0',//1AM    0
     'https://www.youtube.com/watch?v=LJhvOKQZqC0',//       1
     'https://www.youtube.com/watch?v=bgdqH77h4qU',//2AM    2
@@ -23,8 +23,8 @@ let ACNH = [
     'https://www.youtube.com/watch?v=mnC8Yj7GUBk',//       19
     'https://www.youtube.com/watch?v=bnzSJMLDm90',//11AM   20
     'https://www.youtube.com/watch?v=bnzSJMLDm90',//       21
-    'https://www.youtube.com/watch?v=lqs34Ou0Rw8',//12PM   22
-    'https://www.youtube.com/watch?v=lqs34Ou0Rw8',//       23
+    'https://www.youtube.com/watch?v=FuMClV20DDg',//12PM   22
+    'https://www.youtube.com/watch?v=FuMClV20DDg',//       23
     'https://www.youtube.com/watch?v=cTMHpVXBWVo',//1PM    24
     'https://www.youtube.com/watch?v=cTMHpVXBWVo',//       25
     'https://www.youtube.com/watch?v=ALRRqnJdAhc',//2PM    26
@@ -47,8 +47,8 @@ let ACNH = [
     'https://www.youtube.com/watch?v=GFBWicff5ZE',//       43
     'https://www.youtube.com/watch?v=HT-djWRbNN4',//11PM   44
     'https://www.youtube.com/watch?v=HT-djWRbNN4',//       45
-    'https://www.youtube.com/watch?v=FuMClV20DDg',//12AM   46
-    'https://www.youtube.com/watch?v=FuMClV20DDg'//        47
+    'https://www.youtube.com/watch?v=lqs34Ou0Rw8',//12AM   46
+    'https://www.youtube.com/watch?v=lqs34Ou0Rw8'//        47
 ]
 exports.run = async (bot, message, args) => {
     if (message.member.voice.channel) {
@@ -59,62 +59,48 @@ exports.run = async (bot, message, args) => {
               queueGuild.queue = [`${message.guild.id}`]
           } else if(!queueGuild.queue.includes(message.guild.id))queueGuild.queue.push(message.guild.id)
           await queueGuild.save().catch(e => console.log(e));
-        let selectTime;
-        let connection = await message.member.voice.channel.join()
+          let connection = await message.member.voice.channel.join()
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
         if(!queueChannel) {
             queueChannel = new queueVoice({
                 guildID: message.guild.id,
-                queue: ACNH,
+                queue: ACCF,
                 voiceID: message.member.voice.channel.id,
-                songNum: 1,
+                songNum: 0,
                 play: true
             });
         } else {
-            queueChannel.queue = ACNH;
+            queueChannel.queue = ACCF;
             queueChannel.voiceID = message.member.voice.channel.id;
         }
-        if(!args[0]) {
-            selectTime = 0;
-        } else {
-            let argsArgs = args[0].split("");
-            if(argsArgs.length > 2){
-                if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "PM"){
-                        argsArgs.splice(argsArgs.length - 1, 1);
-                        argsArgs.splice(argsArgs.length - 1, 1);
-                        let newArgs = argsArgs.join("");
-                        if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
-                        selectTime = newArgs - new Date().getHours() + 12;
-                } else if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "AM"){
-                    argsArgs.splice(argsArgs.length - 1, 1);
-                    argsArgs.splice(argsArgs.length - 1, 1);
-                    let newArgs = argsArgs.join("");
-                    if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
-                    selectTime = newArgs - new Date().getHours();
-                } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
-            } else if(args[0] > 0 && args[0] < 25) {
-                selectTime = args[0] - new Date().getHours();
-            } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
-        }
         message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing **New Horizon**!`);
-        if(!args[0]) message.channel.send(`_ _\n**Tip:** Enter the hour of your timezone to sync with the Animal Crossing music! \`e.g. 2PM = !acnh 14, 5AM = !acnl 5am\` (default timezone is US)`);
+        let songNum
+        if(queueChannel.songNum != 0){
         if(new Date().getMinutes() > 29){
-            queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 1;
+            songNum = ((new Date().getHours() + +queueChannel.songNum) * 2) - 1;
             queueChannel.play = true;
         } else {
-            queueChannel.songNum = ((new Date().getHours() + selectTime) * 2) - 2;
+            songNum = ((new Date().getHours() + +queueChannel.songNum) * 2) - 2;
             queueChannel.play = false;
         } 
-        console.log(queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
-        let music = queueChannel.queue[queueChannel.songNum];
-        let dispatcher = await connection.play(ytdl(music));
-                dispatcher.on("end", end => {
-                    console.log('song end')
-                });
-                queueChannel.songNum++;
-                await queueChannel.save().catch(e => console.log(e));
+        if(new Date().getHours() + +queueChannel.songNum < 1) songNum += +48;
+    } else {
+        if(new Date().getMinutes() > 29){
+            songNum = new Date().getHours() * 2 - 1;
+            queueChannel.play = true;
+        } else {
+            songNum = new Date().getHours() * 2 - 2;
+            queueChannel.play = false;
+        } 
+        if(new Date().getHours() == 0) songNum += +48;
+    }
+        console.log(queueChannel.songNum, songNum, new Date().getMinutes(), new Date().getSeconds())
+        let music = queueChannel.queue[songNum];
+        await connection.play(ytdl(music));
+        await queueChannel.save().catch(e => console.log(e));
+                
       } else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
 }
 module.exports.config = {
