@@ -16,16 +16,16 @@ exports.run = async (bot, message, args) => {
     }
     if(!args[0]){
         if(queueChannel.songNum == 0){
-            message.channel.send(`⏱️ Timezone is set at **GMT±00:00** (default timezone)`)
+            message.channel.send(`🕐 Timezone set at **GMT±00:00**! (default timezone)`)
         } else if(queueChannel.songNum > 0 && queueChannel.songNum < 10){
-            message.channel.send(`⏱️ Timezone is set at **GMT+0${queueChannel.songNum}:00**`)
+            message.channel.send(`🕐 Timezone set at **GMT+0${queueChannel.songNum}:00**!`)
         } else if(queueChannel.songNum > 10){
-            message.channel.send(`⏱️ Timezone is set at **GMT+${queueChannel.songNum}:00**`)
-        } else if(queueChannel.songNum > -10){
+            message.channel.send(`🕐 Timezone set at **GMT+${queueChannel.songNum}:00**!`)
+        } else if(queueChannel.songNum > -9){
             let gmtNum = Math.abs(queueChannel.songNum)
-            message.channel.send(`⏱️ Timezone is set at **GMT-0${gmtNum}:00**`)
+            message.channel.send(`🕐 Timezone set at **GMT-0${gmtNum}:00**!`)
         } else {
-            message.channel.send(`⏱️ Timezone is set at **GMT${queueChannel.songNum}:00**`)
+            message.channel.send(`🕐 Timezone set at **GMT${queueChannel.songNum}:00**!`)
         }
         return
     } else {
@@ -54,16 +54,16 @@ exports.run = async (bot, message, args) => {
     console.log(selectTime);
     queueChannel.songNum = selectTime;
     if(queueChannel.songNum == 0){
-        message.channel.send(`🕐 Timezone set at **GMT±00:00**! (default timezone)`)
+        message.channel.send(`⏱️ Timezone is set at **GMT±00:00** (default timezone)`)
     } else if(queueChannel.songNum > 0 && queueChannel.songNum < 10){
-        message.channel.send(`🕐 Timezone set at **GMT+0${queueChannel.songNum}:00**!`)
+        message.channel.send(`⏱️ Timezone is set at **GMT+0${queueChannel.songNum}:00**`)
     } else if(queueChannel.songNum > 10){
-        message.channel.send(`🕐 Timezone set at **GMT+${queueChannel.songNum}:00**!`)
-    } else if(queueChannel.songNum > -10){
+        message.channel.send(`⏱️ Timezone is set at **GMT+${queueChannel.songNum}:00**`)
+    } else if(queueChannel.songNum > -9){
         let gmtNum = Math.abs(queueChannel.songNum)
-        message.channel.send(`🕐 Timezone set at **GMT-0${gmtNum}:00**!`)
+        message.channel.send(`⏱️ Timezone is set at **GMT-0${gmtNum}:00**`)
     } else {
-        message.channel.send(`🕐 Timezone set at **GMT${queueChannel.songNum}:00**!`)
+        message.channel.send(`⏱️ Timezone is set at **GMT${queueChannel.songNum}:00**`)
     }
     await queueChannel.save().catch(e => console.log(e));
 }
