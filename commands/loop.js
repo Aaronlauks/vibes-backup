@@ -77,7 +77,7 @@ exports.run = async (bot, message, args) => {
         music
     ]
     queueChannel.queue = musicArray;
-    message.channel.send(`<:tickGreen:690880245611626597> looped song!`)
+    message.channel.send(`🔃 looped current song in queue!`)
     await queueChannel.save().catch(e => console.log(e));
       } else return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`);
 }
