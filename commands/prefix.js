@@ -18,7 +18,7 @@ exports.run = async (bot, message, args) => {
         message.channel.send(`🚨 Current prefix is \`${queueChannel.prefix}\``)
     } else {
         queueChannel.prefix = args.join(" ");
-        message.channel.send(`🎧 Changed prefix to ${args.join(" ")}`)
+        message.channel.send(`🎧 Changed prefix to \`${args.join(" ")}\``)
         await queueChannel.save().catch(e => console.log(e));
     }
 }
