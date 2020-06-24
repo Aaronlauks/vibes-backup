@@ -8,7 +8,7 @@ exports.run = async (bot, message, args) => {
     if(!queueChannel) {
         queueChannel = new queueVoice({
             guildID: message.guild.id,
-            queue: ACCF,
+            queue: [""],
             voiceID: message.member.voice.channel.id,
             songNum: 0,
             play: true,
