@@ -96,7 +96,7 @@ setInterval (async function () {
 }
 });
 
-bot.on('message', message => { //this event is fired, whenever the bot sees a new message
+bot.on('message', async message => { //this event is fired, whenever the bot sees a new message
   let queueChannel = await queueVoice.findOne({
     guildID: message.guild.id
   });
