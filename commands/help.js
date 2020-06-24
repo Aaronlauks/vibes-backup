@@ -1,4 +1,5 @@
 const discord = require('discord.js')
+const queueVoice = require('../models/queueChannel.js');
 exports.run = async (bot, message, args) => {
   let queueChannel = await queueVoice.findOne({
     guildID: message.guild.id
