@@ -43,8 +43,15 @@ bot.on("ready", async () => {
 });
 
 bot.on('message', async message => {
-
-    let prefix = config.prefix;
+  let queueChannel = await queueVoice.findOne({
+    guildID: message.guild.id
+  });
+  let prefix = "";
+  if(queueChannel){
+    prefix = queueChannel.prefix;
+  } else {
+    prefix = "!";
+  }
     if (!message.content.toLowerCase().startsWith(prefix)) return;
 
     let sender = message.author;
@@ -90,12 +97,14 @@ setInterval (async function () {
 });
 
 bot.on('message', message => { //this event is fired, whenever the bot sees a new message
+  let queueChannel = await queueVoice.findOne({
+    guildID: message.guild.id
+  });
   if(message.content.match(/^<@!?(\d+)>$/) && !message.author.bot){
     let match = message.content.match(/^<@!?(\d+)>$/);
     if(match[1] == "696032366845624392"){
-      return message.channel.send(`H-hey my preifx is \`${config.prefix}\` Let's vibe to Animal Crossing together!`)
+      return message.channel.send(`H-hey my preifx is \`${queueChannel.prefix || "!"}\` Let's vibe to Animal Crossing together!`)
     }
-    
   }
   
 });

@@ -6,6 +6,6 @@ module.exports.config = {
     name: "ping",
     description: "ping!!!!!!!!!!!",
     accessableby: "Everyone",
-    usage: '!ping',
+    usage: 'ping',
     aliases: ["pong"]
 }

@@ -71,7 +71,8 @@ exports.run = async (bot, message, args) => {
                 queue: ACCF,
                 voiceID: message.member.voice.channel.id,
                 songNum: 0,
-                play: true
+                play: true,
+                prefix: "!"
             });
         } else {
             queueChannel.queue = ACCF;
@@ -109,6 +110,6 @@ module.exports.config = {
     name: "accf",
     description: "Adds animal crossing City Folk to the 24h queue",
     accessableby: "Everyone",
-    usage: "!accf",
+    usage: "accf",
     aliases: ["cf", "cityfolk"]
 }

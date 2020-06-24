@@ -7,6 +7,7 @@ exports.run = async (bot, message, args) => {
     let queueGuild = await queueVoice.findOne({
       ID: "42069"
     });
+    if(!queueGuild.queue.includes(message.guild.id)) return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
     if(queueChannel){
       let songNum
       if(queueChannel.songNum != 0){
@@ -53,6 +54,6 @@ module.exports.config = {
     name: "refresh",
     description: "Refreshes the current song (use this if song suddenly stops D:)",
     accessableby: "Everyone",
-    usage: "!refresh",
+    usage: "refresh",
     aliases: ["reload", "ref", "load"]
 }

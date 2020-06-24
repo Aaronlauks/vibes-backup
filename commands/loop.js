@@ -1,6 +1,10 @@
 const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
 exports.run = async (bot, message, args) => {
+    let queueGuild = await queueVoice.findOne({
+        ID: "42069"
+      });
+      if(!queueGuild.queue.includes(message.guild.id)) return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
     let queueChannel = await queueVoice.findOne({
         guildID: message.guild.id
       });
@@ -85,6 +89,6 @@ module.exports.config = {
     name: "loop",
     description: "Loops the current song playing for 24h",
     accessableby: "Everyone",
-    usage: "!loop",
+    usage: "loop",
     aliases: ["loopqueue", "loopsong"]
 }

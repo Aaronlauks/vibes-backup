@@ -69,7 +69,8 @@ exports.run = async (bot, message, args) => {
                 queue: ACCF,
                 voiceID: message.member.voice.channel.id,
                 songNum: 0,
-                play: true
+                play: true,
+                prefix: "!"
             });
         } else {
             queueChannel.queue = ACCF;
@@ -107,6 +108,6 @@ module.exports.config = {
     name: "acnh",
     description: "Adds animal crossing New Horizon to the 24h queue",
     accessableby: "Everyone",
-    usage: "!acnl <timezone>",
+    usage: "acnl <timezone>",
     aliases: ["nh", "newhorizon"]
 }

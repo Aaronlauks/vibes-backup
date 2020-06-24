@@ -7,6 +7,7 @@ exports.run = async (bot, guildID) => {
       let queueGuild = await queueVoice.findOne({
         ID: "42069"
       });
+      if(!queueGuild.queue.includes(message.guild.id)) return;
       if(queueChannel){
         let songNum
         if(queueChannel.songNum != 0){

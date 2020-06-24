@@ -71,7 +71,8 @@ let ACCF = [
                 queue: ACCF,
                 voiceID: message.member.voice.channel.id,
                 songNum: 0,
-                play: true
+                play: true,
+                prefix: "!"
             });
         } else {
             queueChannel.queue = ACCF;
@@ -109,6 +110,6 @@ module.exports.config = {
     name: "acnl",
     description: "Adds animal crossing New Leaf to the 24h queue",
     accessableby: "Everyone",
-    usage: "!acnl <timezone>",
+    usage: "acnl <timezone>",
     aliases: ["nl", "newleaf"]
 }

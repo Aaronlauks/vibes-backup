@@ -212,6 +212,6 @@ module.exports.config = {
     name: "nowplay",
     description: "Shows the music playing now",
     accessableby: "Everyone",
-    usage: "!nowplay",
+    usage: "nowplay",
     aliases: ["q", "queue", "np", "song"]
   }
