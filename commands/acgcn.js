@@ -61,6 +61,28 @@ exports.run = async (bot, message, args) => {
           } else if(!queueGuild.queue.includes(message.guild.id))queueGuild.queue.push(message.guild.id)
           await queueGuild.save().catch(e => console.log(e));
         let selectTime;
+        if(args[0]){
+            let argsArgs = args[0].split("");
+        if(argsArgs.length > 2){
+            if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "PM"){
+                    argsArgs.splice(argsArgs.length - 1, 1);
+                    argsArgs.splice(argsArgs.length - 1, 1);
+                    let newArgs = argsArgs.join("");
+                    if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+                    if(newArgs == 12) newArgs -= 12;
+                    selectTime = newArgs - new Date().getHours() + 12;
+            } else if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "AM"){
+                argsArgs.splice(argsArgs.length - 1, 1);
+                argsArgs.splice(argsArgs.length - 1, 1);
+                let newArgs = argsArgs.join("");
+                if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+                if(newArgs == 12) newArgs = 12 + parseInt(newArgs);
+                selectTime = newArgs - new Date().getHours();
+            } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+        } else if(args[0] > 0 && args[0] < 25) {
+            selectTime = args[0] - new Date().getHours();
+        } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+        }
         let connection = await message.member.voice.channel.join()
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
@@ -75,6 +97,7 @@ exports.run = async (bot, message, args) => {
             prefix: "!"
             });
         } else {
+            if(args[0]) queueChannel.songNum = selectTime;
             queueChannel.queue = ACCF;
             queueChannel.voiceID = message.member.voice.channel.id;
         }
@@ -108,7 +131,7 @@ exports.run = async (bot, message, args) => {
 }
 module.exports.config = {
     name: "acgcn",
-    description: "Adds animal crossing gamecube to the 24h queue",
+    description: "Changes the queue to the 24h playlist of Animal Crossing Game Cube.\nYou can also add the time of the day you want to play by stating the time of your choice.",
     accessableby: "Everyone",
     usage: "acgcn <timezone>",
     aliases: ["gcn", "gamecube"]

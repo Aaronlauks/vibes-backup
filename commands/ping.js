@@ -1,5 +1,5 @@
 exports.run = (bot, message, args) => {
-    message.channel.send(`<:notification:723073625040748576> hey, i'm still online bro`)
+    message.channel.send(`<:notification:723073625040748576> hey, i'm still online`)
     console.log(`console is working too`)
 }
 module.exports.config = {

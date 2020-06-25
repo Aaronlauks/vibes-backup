@@ -87,7 +87,7 @@ exports.run = async (bot, message, args) => {
 }
 module.exports.config = {
     name: "loop",
-    description: "Loops the current song playing for 24h",
+    description: "Loops the current song playing for 24h. Running the 24h animal crossing command will unloop it \`e.g. !accf, !acnh\`",
     accessableby: "Everyone",
     usage: "loop",
     aliases: ["loopqueue", "loopsong"]

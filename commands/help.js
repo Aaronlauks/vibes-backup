@@ -23,7 +23,7 @@ if(!queueChannel) {
         `Type ${queueChannel.prefix}help <command> for more info`,
         bot.user.displayAvatarURL()
       );
-      let descm = `These are the available commands for **${bot.user.tag}**\nThe bot prefix is: **!**\n\n`;
+      let descm = `These are the available commands for **${bot.user.tag}**\nThe bot prefix is: **${queueChannel.prefix}**\n\n`;
 
       bot.commands.forEach(m => {
           if(m.config.name != "NEWSONG") descm+=`\`${m.config.name}\` `;

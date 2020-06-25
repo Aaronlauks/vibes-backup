@@ -70,7 +70,7 @@ exports.run = async (bot, message, args) => {
 }
 module.exports.config = {
     name: "timezone",
-    description: "Set the timezone of your country to sync with the Animal Crossing songs",
+    description: "Shows the timezone set on vibes. You can also manually set the timezone of your country to sync with the Animal Crossing songs",
     accessableby: "Everyone",
     usage: "timezone <time>",
     aliases: ["time", "zone"]
