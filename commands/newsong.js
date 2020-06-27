@@ -37,7 +37,7 @@ exports.run = async (bot, guildID) => {
           let music = queueChannel.queue[songNum];
         await channel.join().then(async connection => {
             await connection.play(ytdl(music));
-            console.log(queueChannel.songNum, songNum, new Date().getMinutes(), new Date().getSeconds())
+            console.log(bot.guilds.cache.get(guildID), queueChannel.songNum,new Date().getHours() + +queueChannel.songNum + buffer, songNum, new Date().getMinutes(), new Date().getSeconds())
         });
         } else {
           console.log(`deleted ${guildID}`)
