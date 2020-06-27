@@ -11,13 +11,16 @@ exports.run = async (bot, guildID) => {
       if(queueChannel){
         let songNum
         if(queueChannel.songNum != 0){
-        if(new Date().getMinutes() > 29){
-            songNum = ((new Date().getHours() + +queueChannel.songNum) * 2) - 1;
-            queueChannel.play = true;
-        } else {
-            songNum = ((new Date().getHours() + +queueChannel.songNum) * 2) - 2;
-            queueChannel.play = false;
-        } 
+          let buffer = 0;
+          if(new Date().getHours() + +queueChannel.songNum > 24) buffer = -24;
+          if(new Date().getHours() + +queueChannel.songNum < 0) buffer = +24;
+      if(new Date().getMinutes() > 29){
+          songNum = ((new Date().getHours() + +queueChannel.songNum + buffer) * 2) - 1;
+          queueChannel.play = true;
+      } else {
+          songNum = ((new Date().getHours() + +queueChannel.songNum + buffer) * 2) - 2;
+          queueChannel.play = false;
+      } 
         if(new Date().getHours() + +queueChannel.songNum < 1) songNum += +48;
     } else {
         if(new Date().getMinutes() > 29){

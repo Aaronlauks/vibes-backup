@@ -184,18 +184,36 @@ exports.run = async (bot, message, args) => {
           time = new Date().getHours();
         }
         if(time < 13){
+          if(time < 0){
+            time = parseInt(time) + 12;
+            if(time == 12) {
+              time += "AM";
+            } else {
+              time += "PM";
+            }
+          } else {
           if(time == 12) {
             time += "PM";
           } else {
             time += "AM";
           }
+        }
       } else {
           time = time - 12;
+          if(time > 12){
+            time = time - 12;
+          if(time == 12) {
+            time += "PM";
+          } else {
+            time += "AM";
+          }
+        } else {
         if(time == 12) {
           time += "AM";
         } else {
           time += "PM";
         }
+      }
       }
           if(ACCF.includes(queueChannel.queue[songNum])){
                   return message.channel.send(`🎵 Now playing: ${time} Animal Crossing **City Folk**`);
