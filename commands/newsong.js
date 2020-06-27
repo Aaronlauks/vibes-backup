@@ -1,6 +1,7 @@
 const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
 exports.run = async (bot, guildID) => {
+  let buffer = 0;
     let queueChannel = await queueVoice.findOne({
         guildID: guildID
       });
@@ -11,7 +12,6 @@ exports.run = async (bot, guildID) => {
       if(queueChannel){
         let songNum
         if(queueChannel.songNum != 0){
-          let buffer = 0;
           if(new Date().getHours() + +queueChannel.songNum > 24) buffer = -24;
           if(new Date().getHours() + +queueChannel.songNum < 0) buffer = +24;
       if(new Date().getMinutes() > 29){
