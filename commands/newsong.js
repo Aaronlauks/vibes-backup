@@ -21,7 +21,6 @@ exports.run = async (bot, guildID) => {
           songNum = ((new Date().getHours() + +queueChannel.songNum + buffer) * 2) - 2;
           queueChannel.play = false;
       } 
-        if(new Date().getHours() + +queueChannel.songNum < 1) songNum += +48;
     } else {
         if(new Date().getMinutes() > 29){
             songNum = new Date().getHours() * 2 - 1;

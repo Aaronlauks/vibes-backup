@@ -105,7 +105,7 @@ exports.run = async (bot, message, args) => {
         if(queueChannel.songNum != 0){
             let buffer = 0;
             if(new Date().getHours() + +queueChannel.songNum > 24) buffer = -24;
-            if(new Date().getHours() + +queueChannel.songNum < 0) buffer = +24;
+            if(new Date().getHours() + +queueChannel.songNum < 1) buffer = +24;
         if(new Date().getMinutes() > 29){
             songNum = ((new Date().getHours() + +queueChannel.songNum + buffer) * 2) - 1;
             queueChannel.play = true;
@@ -113,7 +113,6 @@ exports.run = async (bot, message, args) => {
             songNum = ((new Date().getHours() + +queueChannel.songNum + buffer) * 2) - 2;
             queueChannel.play = false;
         } 
-        if(new Date().getHours() + +queueChannel.songNum < 1) songNum += +48;
     } else {
         if(new Date().getMinutes() > 29){
             songNum = new Date().getHours() * 2 - 1;
