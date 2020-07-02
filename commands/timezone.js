@@ -30,6 +30,9 @@ exports.run = async (bot, message, args) => {
         }
         return
     } else {
+        if(args[0] == 0){
+            selectTime = 0;
+        } else {
         let argsArgs = args[0].split("");
         if(argsArgs.length > 2){
             if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "PM"){
@@ -51,6 +54,7 @@ exports.run = async (bot, message, args) => {
             selectTime = args[0] - new Date().getHours();
         } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
     }
+    }
     if(isNaN(selectTime)) message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
     console.log(selectTime);
     queueChannel.songNum = selectTime;
@@ -70,8 +74,8 @@ exports.run = async (bot, message, args) => {
 }
 module.exports.config = {
     name: "timezone",
-    description: "Shows the timezone set on vibes. You can also manually set the timezone of your country to sync with the Animal Crossing songs",
+    description: "Shows the timezone set on vibes.\nSet a timezone by stating the time you want to be played and the timezone wil be automatically set.",
     accessableby: "Everyone",
-    usage: "timezone <time>",
+    usage: "timezone <time or 0 for default>",
     aliases: ["time", "zone"]
 }

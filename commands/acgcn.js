@@ -133,7 +133,7 @@ exports.run = async (bot, message, args) => {
 }
 module.exports.config = {
     name: "acgcn",
-    description: "Changes the queue to the 24h playlist of Animal Crossing Game Cube.\nYou can also add the time of the day you want to play by stating the time of your choice.",
+    description: "Changes the queue to the 24h playlist of Animal Crossing Game Cube.\nYou can also add the time of the day you want to play by stating the time of your choice (This will also automatically set the timezone to the time stated).",
     accessableby: "Everyone",
     usage: "acgcn <timezone>",
     aliases: ["gcn", "gamecube"]

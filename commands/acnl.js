@@ -133,7 +133,7 @@ let ACCF = [
 }
 module.exports.config = {
     name: "acnl",
-    description: "Changes the queue to the 24h playlist of Animal Crossing New Leaf.\nYou can also add the time of the day you want to play by stating the time of your choice.",
+    description: "Changes the queue to the 24h playlist of Animal Crossing New Leaf.\nYou can also add the time of the day you want to play by stating the time of your choice (This will also automatically set the timezone to the time stated).",
     accessableby: "Everyone",
     usage: "acnl <timezone>",
     aliases: ["nl", "newleaf"]
