@@ -103,7 +103,9 @@ bot.on('message', async message => { //this event is fired, whenever the bot see
   if(message.content.match(/^<@!?(\d+)>$/) && !message.author.bot){
     let match = message.content.match(/^<@!?(\d+)>$/);
     if(match[1] == "696032366845624392"){
-      return message.channel.send(`H-hey my preifx is \`${queueChannel.prefix || "!"}\` Let's vibe to Animal Crossing together!`)
+      let prefix = "!";
+      if (queueChannel) prefix = queueChannel.prefix 
+      return message.channel.send(`H-hey my preifx is \`${prefix}\` Let's vibe to Animal Crossing together!`)
     }
   }
   

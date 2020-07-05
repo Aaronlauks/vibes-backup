@@ -1,7 +1,6 @@
 const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
 exports.run = async (bot, message, args) => {
-    if(!message.author.hasPermission('MANAGE_SERVER')) return message.channel.send(`<:xcross:690880230562201610> You do not have the permission \`MANAGE SERVER\`. Please get good`)
     let queueChannel = await queueVoice.findOne({
         guildID: message.guild.id
       });
