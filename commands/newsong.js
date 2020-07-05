@@ -10,6 +10,7 @@ exports.run = async (bot, guildID) => {
       });
       if(!queueGuild.queue.includes(guildID)) return;
       if(queueChannel){
+        if(queueChannel.interval == "none"){
         let songNum
         if(queueChannel.songNum != 0){
           if(new Date().getHours() + +queueChannel.songNum > 24) buffer = -24;
@@ -48,6 +49,9 @@ exports.run = async (bot, guildID) => {
       }
       await queueChannel.save().catch(e => console.log(e));
       await queueGuild.save().catch(e => console.log(e));
+    } else {
+      
+    }
 }
 module.exports.config = {
     name: "NEWSONG",

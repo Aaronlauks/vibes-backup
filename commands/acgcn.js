@@ -93,11 +93,15 @@ exports.run = async (bot, message, args) => {
                 queue: ACCF,
                 voiceID: message.member.voice.channel.id,
                 songNum: 0,
+                songType: "Animal Crossing **GameCube**",
+                interval: "none",
                 play: true,
             prefix: "!"
             });
         } else {
             if(args[0]) queueChannel.songNum = selectTime;
+            queueChannel.songType = "Animal Crossing **GameCube**";
+            queueChannel.interval = "none"
             queueChannel.queue = ACCF;
             queueChannel.voiceID = message.member.voice.channel.id;
         }

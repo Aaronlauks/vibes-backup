@@ -93,11 +93,15 @@ let ACCF = [
                 queue: ACCF,
                 voiceID: message.member.voice.channel.id,
                 songNum: 0,
+                songType: "Animal Crossing **New Leaf**",
+                interval: "none",
                 play: true,
                 prefix: "!"
             });
         } else {
             if(args[0]) queueChannel.songNum = selectTime;
+            queueChannel.songType = "Animal Crossing **New Leaf**";
+            queueChannel.interval = "none"
             queueChannel.queue = ACCF;
             queueChannel.voiceID = message.member.voice.channel.id;
         }

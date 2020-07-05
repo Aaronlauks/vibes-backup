@@ -11,6 +11,8 @@ exports.run = async (bot, message, args) => {
             queue: [""],
             voiceID: message.member.voice.channel.id,
             songNum: 0,
+            songType: "none",
+            interval: "none",
             play: true,
             prefix: "!"
         });

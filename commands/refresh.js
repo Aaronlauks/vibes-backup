@@ -34,7 +34,7 @@ exports.run = async (bot, message, args) => {
         let music = queueChannel.queue[songNum];
       await channel.join().then(async connection => {
           await connection.play(ytdl(music));
-          message.channel.send(`↩️ Reloaded song!`)
+          message.channel.send(`↩️ Reloaded ${queueChannel.songType}!`)
           console.log(bot.guilds.cache.get(message.guild.id).name, queueChannel.songNum, new Date().getMinutes(), new Date().getSeconds())
       });
       } else {

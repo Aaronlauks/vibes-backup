@@ -5,6 +5,8 @@ const messageSchema = new mongoose.Schema({
   queue: Array,
   voiceID: String,
   songNum: String,
+  songType: String,
+  interval: String,
   play: Boolean,
   prefix: String
 });
