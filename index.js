@@ -67,14 +67,16 @@ bot.on('message', async message => {
         command = bot.commands.get(bot.aliases.get(cmd));
       }
       let gay = ["accf", "acnl", "acnh", "acgcn", "reload"]
-      if(cooldown.has(message.guild.id)){
+      if(cooldown.has(message.guild.id)  && cooldown.get(message.guild.id)[0] == 2  && command.name.includes(gay)){
         message.channel.send(`🆒 Chill it with the commands!`).then(m => m.delete(2000));
-      } else if(cooldown.has(message.guild.id)  && cooldown.get(message.guild.id)[0] == 2 && command.name.includes(gay)){
+      } else if(cooldown.has(message.guild.id) && command.name.includes(gay)){
         cooldown.get(message.guild.id)[0]++;
         command.run(bot, message, args);
-      } else if(cooldown.get(message.guild.id)[0] == 2 && command.name.includes(gay)){
+      } else if(!cooldown.has(message.guild.id) && command.name.includes(gay)){
         cooldown.set(message.guild.id, new Array());
         cooldown.get(message.guild.id).push(1);
+        command.run(bot, message, args);
+      } else {
         command.run(bot, message, args);
       }
     } catch (e) {
