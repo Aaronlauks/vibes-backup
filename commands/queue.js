@@ -70,7 +70,7 @@ exports.run = async (bot, message, args) => {
       } else {
         return message.channel.send(`🎵 Now playing: ${time} ${queueChannel.songType}`)
       }
-    }
+    } else return message.channel.send(`🎵 Now playing: ${time} ${queueChannel.songType}`)
 }
 module.exports.config = {
     name: "nowplay",

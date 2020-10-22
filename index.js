@@ -5,6 +5,7 @@ const config = require("./config.json");
 const mongoose = require('mongoose');
 const ytdl = require('ytdl-core');
 const queueVoice = require('./models/queueChannel.js');
+const cooldown = new Map();
 let startPlay = true;
 mongoose.connect(config.mongodb, {
   useNewUrlParser: true,
@@ -65,7 +66,16 @@ bot.on('message', async message => {
       } else {
         command = bot.commands.get(bot.aliases.get(cmd));
       }
-      command.run(bot, message, args);
+      if(cooldown.has(message.guild.id) && cooldown.get(message.guild.id)[0] > 2){
+        message.channel.send(`🆒 Chill it with the commands!`)
+      } else if(cooldown.has(message.guild.id)){
+        cooldown.get(message.guild.id)[0]++;
+        command.run(bot, message, args);
+      } else {
+        cooldown.set(message.guild.id, new Array());
+        cooldown.get(message.guild.id).push(1);
+        command.run(bot, message, args);
+      }
     } catch (e) {
       console.log(`${cmd} is not a command`);
     } finally {
@@ -74,6 +84,9 @@ bot.on('message', async message => {
 });
 
 setInterval (async function () {
+  if (new Date().getSeconds() % 2 == 0){
+    cooldown.delete();
+  }
   if(new Date().getMinutes() == 15 || new Date().getMinutes() == 45) {
     if(!startPlay){
       startPlay = true;
