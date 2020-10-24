@@ -69,9 +69,11 @@ bot.on('message', async message => {
       }
       if(cooldown.has(message.guild.id)  && Date.now() - cooldown.get(message.guild.id)[0] < 500  && gay.includes(cmd)){
         message.channel.send(`<:nuu:769402840228823080> Chill it with the commands!`).then(m => m.delete(1000));
+      } else if(cooldown.has(message.guild.id)  && Date.now() - cooldown.get(message.guild.id)[0] > 500  && gay.includes(cmd)){
+        cooldown.get(message.guild.id)[0] = new Date.now()
       } else if(!cooldown.has(message.guild.id) && gay.includes(cmd)){
         cooldown.set(message.guild.id, new Array());
-        cooldown.get(message.guild.id).push(new Date().now());
+        cooldown.get(message.guild.id).push(new Date.now());
         command.run(bot, message, args);
       } else {
         command.run(bot, message, args);
@@ -84,9 +86,6 @@ bot.on('message', async message => {
 });
 
 setInterval (async function () {
-  if (Date.now() - cooldown.get(message.guild.id)[0] > 500){
-    cooldown.delete();
-  }
   if(new Date().getMinutes() == 15 || new Date().getMinutes() == 45) {
     if(!startPlay){
       startPlay = true;

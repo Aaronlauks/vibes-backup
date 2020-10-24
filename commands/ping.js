@@ -1,6 +1,13 @@
 exports.run = (bot, message, args) => {
-    message.channel.send(`🔔 hey, i'm still online`)
-    console.log(`console is working too`)
+    message.channel.send(`Pinging...`).then(m => {
+        const ping = m.createdTimestamp - message.createdTimestamp
+        const embed = new discord.MessageEmbed()
+        .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
+        .setAuthor(`Ping!`, `https://i.redd.it/ndozdv59jsx21.png`)
+        .addField(`Bot latency`, `${ping}ms`, false)
+        .addField(`API latency`, `${bot.ws.ping}ms`, false)
+        console.log(`console is working too`)
+    })
 }
 module.exports.config = {
     name: "ping",
