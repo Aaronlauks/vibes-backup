@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const ytdl = require('ytdl-core');
 const queueVoice = require('./models/queueChannel.js');
 const cooldown = new Map();
+const gay = ["accf", "acnl", "acnh", "acgcn", "reload"]
 let startPlay = true;
 mongoose.connect(config.mongodb, {
   useNewUrlParser: true,
@@ -66,15 +67,11 @@ bot.on('message', async message => {
       } else {
         command = bot.commands.get(bot.aliases.get(cmd));
       }
-      let gay = ["accf", "acnl", "acnh", "acgcn", "reload"]
-      if(cooldown.has(message.guild.id)  && cooldown.get(message.guild.id)[0] == 2  && command.name.includes(gay)){
-        message.channel.send(`🆒 Chill it with the commands!`).then(m => m.delete(2000));
-      } else if(cooldown.has(message.guild.id) && command.name.includes(gay)){
-        cooldown.get(message.guild.id)[0]++;
-        command.run(bot, message, args);
-      } else if(!cooldown.has(message.guild.id) && command.name.includes(gay)){
+      if(cooldown.has(message.guild.id)  && Date.now() - cooldown.get(message.guild.id)[0] < 500  && gay.includes(cmd)){
+        message.channel.send(`<:nuu:769402840228823080> Chill it with the commands!`).then(m => m.delete(1000));
+      } else if(!cooldown.has(message.guild.id) && gay.includes(cmd)){
         cooldown.set(message.guild.id, new Array());
-        cooldown.get(message.guild.id).push(1);
+        cooldown.get(message.guild.id).push(new Date().now());
         command.run(bot, message, args);
       } else {
         command.run(bot, message, args);
@@ -87,7 +84,7 @@ bot.on('message', async message => {
 });
 
 setInterval (async function () {
-  if (new Date().getSeconds() % 2 == 0){
+  if (Date.now() - cooldown.get(message.guild.id)[0] > 500){
     cooldown.delete();
   }
   if(new Date().getMinutes() == 15 || new Date().getMinutes() == 45) {
