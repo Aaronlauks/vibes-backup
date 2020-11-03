@@ -88,22 +88,14 @@ exports.run = async (bot, message, args) => {
             guildID: message.guild.id
           });
         if(!queueChannel) {
-            queueChannel = new queueVoice({
-                guildID: message.guild.id,
-                queue: ACCF,
-                voiceID: message.member.voice.channel.id,
-                songNum: 0,
-                songType: "Animal Crossing **City Folk**",
-                interval: "none",
-                play: true,
-                prefix: "!"
-            });
+            return message.channel.send(`Error! Please rerun this command!`)
         } else {
             if(args[0]) queueChannel.songNum = selectTime;
             queueChannel.songType = "Animal Crossing **City Folk**";
             queueChannel.interval = "none"
             queueChannel.queue = ACCF;
             queueChannel.voiceID = message.member.voice.channel.id;
+            queueChannel.running = false;
         }
         message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing **City Folk**!`);
         let songNum

@@ -47,6 +47,7 @@ exports.run = async (bot, message, args) => {
       queueGuild.queue.splice(queueGuild.queue.indexOf(message.guild.id), 1);
       message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`);
     }
+    queueChannel.running = false;
     await queueChannel.save().catch(e => console.log(e));
     await queueGuild.save().catch(e => console.log(e));
 }

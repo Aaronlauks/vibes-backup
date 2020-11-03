@@ -5,7 +5,6 @@ const config = require("./config.json");
 const mongoose = require('mongoose');
 const ytdl = require('ytdl-core');
 const queueVoice = require('./models/queueChannel.js');
-const cooldown = new Map();
 const gay = ["accf", "acnl", "acnh", "acgcn", "reload"]
 let startPlay = true;
 mongoose.connect(config.mongodb, {
@@ -67,14 +66,33 @@ bot.on('message', async message => {
       } else {
         command = bot.commands.get(bot.aliases.get(cmd));
       }
-      if(cooldown.has(message.guild.id)  && Date.now() - cooldown.get(message.guild.id)[0] < 500  && gay.includes(cmd)){
-        message.channel.send(`<:nuu:769402840228823080> Chill it with the commands!`).then(m => m.delete(1000));
-      } else if(cooldown.has(message.guild.id)  && Date.now() - cooldown.get(message.guild.id)[0] > 500  && gay.includes(cmd)){
-        cooldown.get(message.guild.id)[0] = new Date.now()
-      } else if(!cooldown.has(message.guild.id) && gay.includes(cmd)){
-        cooldown.set(message.guild.id, new Array());
-        cooldown.get(message.guild.id).push(new Date.now());
-        command.run(bot, message, args);
+      if(gay.includes(cmd)){
+        let queueChannel = await queueVoice.findOne({
+          guildID: message.guild.id
+        });
+      if(!queueChannel) {
+          queueChannel = new queueVoice({
+              guildID: message.guild.id,
+              queue: [],
+              voiceID: message.member.voice.channel.id,
+              songNum: 0,
+              songType: "",
+              interval: "none",
+              play: true,
+              prefix: "!",
+              running: true
+          });
+          await queueChannel.save().catch(e => console.log(e));
+          command.run(bot, message, args);
+        } else {
+          if(queueChannel.running){
+            message.channel.send(`CHILL IT. The song is still loading`)
+          } else {
+            queueChannel.running = true;
+            await queueChannel.save().catch(e => console.log(e));
+            command.run(bot, message, args);
+          }
+        }
       } else {
         command.run(bot, message, args);
       }
