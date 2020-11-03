@@ -1,5 +1,6 @@
 var discord = require('discord.js');
 var bot = new discord.Client();
+const loading = bot.emojis.find(emoji => emoji.name === "loading") 
 const fs = require('fs');
 const config = require("./config.json");
 const mongoose = require('mongoose');
@@ -86,7 +87,7 @@ bot.on('message', async message => {
           command.run(bot, message, args);
         } else {
           if(queueChannel.running){
-            message.channel.send(`**CHILL IT.** The song is still loading...`).then(m => m.delete(2000))
+            message.channel.send(`<a:loading:${loading.id}> **CHILL IT.** The song is still loading...`).then(m => m.delete(2000))
           } else {
             queueChannel.running = true;
             await queueChannel.save().catch(e => console.log(e));
