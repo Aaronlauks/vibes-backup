@@ -1,6 +1,7 @@
 const discord = require('discord.js')
 exports.run = (bot, message, args) => {
-    message.channel.send(`Pinging...`).then(m => {
+    const loading = bot.emojis.find(emoji => emoji.name === "loading") 
+    message.channel.send(`${loading} Pinging...`).then(m => {
         const ping = m.createdTimestamp - message.createdTimestamp
         const embed = new discord.MessageEmbed()
         .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
