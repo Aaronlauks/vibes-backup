@@ -86,7 +86,7 @@ bot.on('message', async message => {
           command.run(bot, message, args);
         } else {
           if(queueChannel.running){
-            message.channel.send(`CHILL IT. The song is still loading`)
+            message.channel.send(`**CHILL IT.** The song is still loading...`).then(m => m.delete(2000))
           } else {
             queueChannel.running = true;
             await queueChannel.save().catch(e => console.log(e));

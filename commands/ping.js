@@ -1,3 +1,4 @@
+const discord = require('discord.js')
 exports.run = (bot, message, args) => {
     message.channel.send(`Pinging...`).then(m => {
         const ping = m.createdTimestamp - message.createdTimestamp
