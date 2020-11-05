@@ -11,6 +11,7 @@ exports.run = async (bot, message, args) => {
           const channel = bot.channels.cache.get(queueChannel.voiceID);
           channel.leave();
         queueGuild.queue.splice(queueGuild.queue.indexOf(message.guild.id), 1)
+        queueChannel.running =false;
         message.channel.send(`⏹️ Stopped playing Animal Crossing :CC`)
         await queueGuild.save().catch(e => console.log(e));
     } else return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
