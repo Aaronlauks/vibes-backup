@@ -10,15 +10,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.2.0",
+    "@discordjs/opus": "^0.3.3",
+    "discord.js": "^12.4.1",
     "erela.js": "^1.1.8",
     "ffmpeg": "0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
     "fs": "0.0.1-security",
     "mongoose": "^5.9.14",
     "opus": "0.0.0",
     "opusscript": "0.0.7",
     "snekfetch": "^4.0.4",
-    "ytdl-core": "^2.1.2",
+    "ytdl-core": "^2.1.7",
     "ytdl-core-discord": "^1.2.0"
   }
 }
