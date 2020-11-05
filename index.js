@@ -77,7 +77,6 @@ bot.on('message', async message => {
               voiceID: message.member.voice.channel.id,
               songNum: 0,
               songType: "",
-              interval: "none",
               play: true,
               prefix: "!",
               running: true

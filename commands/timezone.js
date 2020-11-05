@@ -12,9 +12,9 @@ exports.run = async (bot, message, args) => {
             voiceID: "",
             songNum: 0,
             songType: "none",
-            interval: "none",
             play: true,
-            prefix: "!"
+            prefix: "!",
+            running: false
         });
         if(!args[0]) await queueChannel.save().catch(e => console.log(e))
     }

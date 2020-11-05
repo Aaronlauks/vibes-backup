@@ -91,7 +91,6 @@ exports.run = async (bot, message, args) => {
         } else {
             if(args[0]) queueChannel.songNum = selectTime;
             queueChannel.songType = "Animal Crossing **New Horizon**";
-            queueChannel.interval = "none"
             queueChannel.queue = ACCF;
             queueChannel.voiceID = message.member.voice.channel.id;
             queueChannel.running = false;

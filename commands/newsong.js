@@ -10,7 +10,6 @@ exports.run = async (bot, guildID) => {
       });
       if(!queueGuild.queue.includes(guildID)) return;
       if(queueChannel){
-        if(queueChannel.interval == "none"){
         let songNum
         if(queueChannel.songNum != 0){
           if(new Date().getHours() + +queueChannel.songNum > 24) buffer = -24;
@@ -43,15 +42,9 @@ exports.run = async (bot, guildID) => {
           console.log(`deleted ${guildID}`)
           queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
         }
-      } else {
-        console.log(`deleted ${guildID}`)
-        queueGuild.queue.splice(queueGuild.queue.indexOf(guildID), 1);
-      }
       await queueChannel.save().catch(e => console.log(e));
       await queueGuild.save().catch(e => console.log(e));
-    } else {
-      
-    }
+    } else return;
 }
 module.exports.config = {
     name: "NEWSONG",
