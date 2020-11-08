@@ -83,9 +83,12 @@ exports.run = async (bot, message, args) => {
             selectTime = args[0] - new Date().getHours();
         } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
         }
+        let stop = false;
         let connection = await message.member.voice.channel.join().catch(e => {
-            return message.channel.send(`<:xcross:690880230562201610> Couldn't connect to voice channel!`)
+            message.channel.send(`<:xcross:690880230562201610> Couldn't connect to voice channel!`)
+            stop = true;
         })
+        if(!stop){
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
@@ -133,6 +136,7 @@ exports.run = async (bot, message, args) => {
         await queueChannel.save().catch(e => console.log(e));
                 
       } else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
+    }
 }
 module.exports.config = {
     name: "accf",

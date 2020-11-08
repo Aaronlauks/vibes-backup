@@ -14,6 +14,7 @@ exports.run = async (bot, message, args) => {
         queueChannel.running =false;
         message.channel.send(`⏹️ Stopped playing Animal Crossing :CC`)
         await queueGuild.save().catch(e => console.log(e));
+        await queueChannel.save().catch(e => console.log(e));
     } else {
       let queueChannel = await queueVoice.findOne({
         guildID: message.guild.id
