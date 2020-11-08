@@ -82,8 +82,7 @@ exports.run = async (bot, message, args) => {
             selectTime = args[0] - new Date().getHours();
         } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
         }
-          let connection = await message.member.voice.channel.join()
-          if(!connection) return message.channel.send(`<:xcross:690880230562201610> Couldn't connect to voice channel!`)
+        let connection = await message.member.voice.channel.join().catch(message.channel.send(`<:xcross:690880230562201610> Couldn' connect to voice channel!`))
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
