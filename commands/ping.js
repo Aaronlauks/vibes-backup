@@ -7,7 +7,7 @@ exports.run = (bot, message, args) => {
         .setAuthor(`Ping!`, `https://i.redd.it/ndozdv59jsx21.png`)
         .addField(`Bot latency`, `${ping}ms`, false)
         .addField(`API latency`, `${bot.ws.ping}ms`, false)
-        m.edit("");
+        m.edit(" ");
         m.edit(embed)
         console.log(`console is working too`)
     })

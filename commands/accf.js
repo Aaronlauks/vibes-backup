@@ -121,7 +121,7 @@ exports.run = async (bot, message, args) => {
     }
         console.log(queueChannel.songNum, songNum, new Date().getMinutes(), new Date().getSeconds())
         let music = queueChannel.queue[songNum];
-        await connection.play(ytdl(music));
+        await connection.play(ytdl(music), { type: 'opus' })
         await queueChannel.save().catch(e => console.log(e));
                 
       } else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
