@@ -14,7 +14,14 @@ exports.run = async (bot, message, args) => {
         queueChannel.running =false;
         message.channel.send(`⏹️ Stopped playing Animal Crossing :CC`)
         await queueGuild.save().catch(e => console.log(e));
-    } else return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
+    } else {
+      let queueChannel = await queueVoice.findOne({
+        guildID: message.guild.id
+      });
+      queueChannel.running =false;
+      await queueGuild.save().catch(e => console.log(e));
+      return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
+    }
 }
 module.exports.config = {
     name: "stop",
