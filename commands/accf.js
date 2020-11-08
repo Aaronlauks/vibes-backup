@@ -121,7 +121,7 @@ exports.run = async (bot, message, args) => {
     }
         console.log(queueChannel.songNum, songNum, new Date().getMinutes(), new Date().getSeconds())
         let music = queueChannel.queue[songNum];
-        const dispatcher = await connection.play(ytdl(music), { type: 'opus' })
+        const dispatcher = await connection.play(ytdl(music))
         dispatcher.on("end",function(){
             connection.disconnect();
         });

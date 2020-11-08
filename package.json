@@ -18,8 +18,10 @@
     "fluent-ffmpeg": "^2.1.2",
     "fs": "0.0.1-security",
     "mongoose": "^5.9.14",
+    "node-gyp": "^7.1.2",
     "opus": "0.0.0",
     "opusscript": "0.0.7",
+    "rebuild": "^0.1.2",
     "snekfetch": "^4.0.4",
     "ytdl-core": "^2.1.7",
     "ytdl-core-discord": "^1.2.0"
