@@ -119,8 +119,8 @@ exports.run = async (bot, message, args) => {
         } 
         if(new Date().getHours() == 0) songNum += +48;
     }
-        console.log(queueChannel.songNum, songNum, new Date().getMinutes(), new Date().getSeconds())
         let music = queueChannel.queue[songNum];
+        console.log(music)
         const dispatcher = await connection.play(ytdl(music))
         dispatcher.on("end",function(){
             connection.disconnect();
