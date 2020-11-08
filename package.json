@@ -24,6 +24,6 @@
     "rebuild": "^0.1.2",
     "snekfetch": "^4.0.4",
     "ytdl-core": "^2.1.7",
-    "ytdl-core-discord": "^1.2.0"
+    "ytdl-core-discord": "^1.2.4"
   }
 }
