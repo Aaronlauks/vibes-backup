@@ -135,8 +135,8 @@ exports.run = async (bot, message, args) => {
         });
         await queueChannel.save().catch(e => console.log(e));
                 
-      } else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
-    }
+      } 
+    }else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
 }
 module.exports.config = {
     name: "accf",
