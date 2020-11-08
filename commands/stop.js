@@ -18,8 +18,8 @@ exports.run = async (bot, message, args) => {
       let queueChannel = await queueVoice.findOne({
         guildID: message.guild.id
       });
-      queueChannel.running =false;
-      await queueGuild.save().catch(e => console.log(e));
+      queueChannel.running = false;
+      await queueChannel.save().catch(e => console.log(e));
       return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
     }
 }
