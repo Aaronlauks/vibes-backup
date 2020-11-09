@@ -83,9 +83,12 @@ let ACCF = [
             selectTime = args[0] - new Date().getHours();
         } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
         }
+        let stop = false;
         let connection = await message.member.voice.channel.join().catch(e => {
-            return message.channel.send(`<:xcross:690880230562201610> Couldn't connect to voice channel!`)
+            message.channel.send(`<:xcross:690880230562201610> Couldn't connect to voice channel!`)
+            stop = true;
         })
+        if(!stop){
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
@@ -125,7 +128,13 @@ let ACCF = [
         let music = queueChannel.queue[songNum];
         await connection.play(ytdl(music));
         await queueChannel.save().catch(e => console.log(e));
-                
+    } else {
+        let queueChannel = await queueVoice.findOne({
+            guildID: message.guild.id
+          });
+          queueChannel.running = false;
+          await queueChannel.save().catch(e => console.log(e));
+      }      
       } else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
 }
 module.exports.config = {
