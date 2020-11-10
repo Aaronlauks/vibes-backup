@@ -40,7 +40,7 @@ bot.on("ready", async () => {
         setTimeout(function () {
           command = bot.commands.get("NEWSONG");
           command.run(bot, guildID);
-        }, 400);
+        }, 300);
       });
     }
 });
@@ -125,7 +125,7 @@ setInterval (async function () {
     setTimeout(function () {
       command = bot.commands.get("NEWSONG");
       command.run(bot, guildID);
-    }, 400);
+    }, 300);
   });
 }
 }
