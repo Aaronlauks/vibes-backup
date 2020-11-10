@@ -37,8 +37,10 @@ bot.on("ready", async () => {
       });
       if(queueGuild){
       queueGuild.queue.forEach(async guildID => {
-        command = bot.commands.get("NEWSONG");
-        command.run(bot, guildID);
+        setTimeout(function () {
+          command = bot.commands.get("NEWSONG");
+          command.run(bot, guildID);
+        }, 500);
       });
     }
 });
@@ -120,8 +122,10 @@ setInterval (async function () {
   });
   if(queueGuild){
   queueGuild.queue.forEach(async guildID => {
-    command = bot.commands.get("NEWSONG");
-    command.run(bot, guildID);
+    setTimeout(function () {
+      command = bot.commands.get("NEWSONG");
+      command.run(bot, guildID);
+    }, 500);
   });
 }
 }
