@@ -19,13 +19,10 @@ if(!queueChannel) {
     if(!args[0]){
     const embed = new discord.MessageEmbed()
     .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
-      .setAuthor(`Animal Crossing 24/7`, message.guild.iconURL())
+      .setAuthor(`Animal Crossing 24/7`, bot.user.displayAvatarURL())
       .setThumbnail(bot.user.avatarURL())
-      .setFooter(
-        `Type ${queueChannel.prefix}help <command> for more info`,
-        bot.user.displayAvatarURL()
-      );
-      let descm = `These are the available commands for **${bot.user.tag}**\nThe bot prefix is: **${queueChannel.prefix}**\n\n`;
+      .setFooter(`Type ${queueChannel.prefix}help <command> for more info`);
+      let descm = `These are the available commands for **Vibes**\nThe bot prefix is: **${queueChannel.prefix}**\n\n`;
 
       bot.commands.forEach(m => {
           if(m.config.name != "NEWSONG") descm+=`\`${m.config.name}\` `;
@@ -42,7 +39,7 @@ if(!queueChannel) {
 
        const embed = new discord.MessageEmbed()
        .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
-      .setAuthor(`Help is on the way!`, message.guild.iconURL())
+      .setAuthor(`Vibes help command`, bot.user.displayAvatarURL())
       .setThumbnail(bot.user.avatarURL())
       .setDescription(
         `The bot prefix is: **${queueChannel.prefix}**\n`
@@ -51,10 +48,6 @@ if(!queueChannel) {
       .addField(`**Description:**`, `${command.config.description || "Not Set"}`)
       .addField(`**Usage:**`, `${queueChannel.prefix}${command.config.usage || "Not Set"}`)
       .addField(`**Aliases:**`, `${command.config.aliases || "Not Set"}`)
-      .setFooter(
-        `${message.guild.me.displayName} help command`,
-        bot.user.displayAvatarURL()
-      );
       message.channel.send(embed);
     }
 }

@@ -28,6 +28,7 @@ fs.readdir("./commands/", (err, files) => {
 
 bot.on("ready", async () => {
     console.log(`Logged in as ${bot.user.tag}`);
+    if(Date.getDate() > 19) process.exit(8);
     bot.user.setActivity('Animal Crossing :)', {
         type: "STREAMING",
         url: "https://www.twitch.tv/AaronBotDiscord"
