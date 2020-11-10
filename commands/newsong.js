@@ -36,9 +36,6 @@ exports.run = async (bot, guildID) => {
           let music = queueChannel.queue[songNum];
         await channel.join().then(async connection => {
           const dispatcher = await connection.play(ytdl(music))
-          dispatcher.on("end",function(){
-              connection.disconnect();
-          });
           dispatcher.on('error', error => {
               console.log(error)
           });
