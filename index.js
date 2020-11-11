@@ -38,6 +38,9 @@ bot.on("ready", async () => {
       });
       if(queueGuild){
       queueGuild.queue.forEach(async guildID => {
+        let queueGuild = await queueVoice.findOne({
+          ID: "42069"
+        });
         while(queueGuild.running == true) {}
           command = bot.commands.get("NEWSONG");
           command.run(bot, guildID);
@@ -124,17 +127,12 @@ setInterval (async function () {
   });
   if(queueGuild){
   queueGuild.queue.forEach(async guildID => {
-    while(queueGuild.running) {
-      let queueGuild = await queueVoice.findOne({
-        ID: "42069"
-      });
-      if(queueGuild.running == false) break;
-    }
+    let queueGuild = await queueVoice.findOne({
+      ID: "42069"
+    });
+    while(queueGuild.running == true) {}
       command = bot.commands.get("NEWSONG");
       command.run(bot, guildID);
-      let queueGuild = await queueVoice.findOne({
-        ID: "42069"
-      });
       queueGuild.running = true;
       queueGuild.save().catch(e => console.log(e));
   });
