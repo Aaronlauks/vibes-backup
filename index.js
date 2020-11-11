@@ -38,6 +38,9 @@ bot.on("ready", async () => {
       });
       if(queueGuild){
       queueGuild.queue.forEach(async guildID => {
+        let queueGuild = await queueVoice.findOne({
+          ID: "42069"
+        });
         while(queueGuild.running) {
           let queueGuild = await queueVoice.findOne({
             ID: "42069"
