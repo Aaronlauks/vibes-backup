@@ -37,16 +37,19 @@ bot.on("ready", async () => {
         ID: "42069"
       });
       if(queueGuild){
-      queueGuild.queue.forEach(async guildID => {
+        queueGuild.songNum = 1;
+        await queueGuild.save().catch(e => console.log(e));
+        songNow = 1;
         let queueGuild = await queueVoice.findOne({
           ID: "42069"
         });
-        while(queueGuild.running == true) {}
-          command = bot.commands.get("NEWSONG");
-          command.run(bot, guildID);
-          queueGuild.running = true;
-          queueGuild.save().catch(e => console.log(e));
-      });
+        while(queueGuild.queue.length < queueGuild.songNum){
+          if(queueGuild.songNum == songNow){
+            songNow++;
+            command = bot.commands.get("NEWSONG");
+            command.run(bot, guildID);
+          }
+        }
     }
 });
 
