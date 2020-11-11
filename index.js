@@ -40,15 +40,14 @@ bot.on("ready", async () => {
         queueGuild.songNum = 0;
         await queueGuild.save().catch(e => console.log(e));
         songNow = 0;
-        while(queueGuild.queue.length > songNow){
+        while(queueGuild.queue.length - 1 > songNow){
           queueGuild = await queueVoice.findOne({
             ID: "42069"
           });
           if(queueGuild.songNum == songNow){
-            console.log(songNow)
-            songNow++;
             command = bot.commands.get("NEWSONG");
             command.run(bot, queueGuild.queue[songNow]);
+            songNow++;
           }
         }
     }
@@ -133,14 +132,14 @@ setInterval (async function () {
     queueGuild.songNum = 0;
         await queueGuild.save().catch(e => console.log(e));
         songNow = 0;
-        while(queueGuild.queue.length > songNow){
+        while(queueGuild.queue.length - 1 > songNow){
           queueGuild = await queueVoice.findOne({
             ID: "42069"
           });
           if(queueGuild.songNum == songNow){
-            songNow++;
             command = bot.commands.get("NEWSONG");
             command.run(bot, queueGuild.queue[songNow]);
+            songNow++;
           }
         }
   }
