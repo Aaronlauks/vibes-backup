@@ -45,7 +45,7 @@ bot.on("ready", async () => {
             ID: "42069"
           });
           if(queueGuild.songNum == songNow){
-            console.log(songNum)
+            console.log(songNow)
             songNow++;
             command = bot.commands.get("NEWSONG");
             command.run(bot, queueGuild.queue[songNow]);
