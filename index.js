@@ -47,7 +47,7 @@ bot.on("ready", async () => {
           if(queueGuild.songNum == songNow){
             songNow++;
             command = bot.commands.get("NEWSONG");
-            command.run(bot, guildID);
+            command.run(bot, queueGuild.queue[songNow - 1]);
           }
         }
     }
