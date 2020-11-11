@@ -38,10 +38,19 @@ bot.on("ready", async () => {
       });
       if(queueGuild){
       queueGuild.queue.forEach(async guildID => {
-        setTimeout(function () {
+        while(queueGuild.running) {
+          let queueGuild = await queueVoice.findOne({
+            ID: "42069"
+          });
+          if(queueGuild.running == false) break;
+        }
           command = bot.commands.get("NEWSONG");
           command.run(bot, guildID);
-        }, 500);
+          let queueGuild = await queueVoice.findOne({
+            ID: "42069"
+          });
+          queueGuild.running = true;
+          queueGuild.save().catch(e => console.log(e));
       });
     }
 });
@@ -123,10 +132,19 @@ setInterval (async function () {
   });
   if(queueGuild){
   queueGuild.queue.forEach(async guildID => {
-    setTimeout(function () {
+    while(queueGuild.running) {
+      let queueGuild = await queueVoice.findOne({
+        ID: "42069"
+      });
+      if(queueGuild.running == false) break;
+    }
       command = bot.commands.get("NEWSONG");
       command.run(bot, guildID);
-    }, 500);
+      let queueGuild = await queueVoice.findOne({
+        ID: "42069"
+      });
+      queueGuild.running = true;
+      queueGuild.save().catch(e => console.log(e));
   });
 }
 }
