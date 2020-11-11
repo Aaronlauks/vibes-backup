@@ -38,9 +38,7 @@ bot.on("ready", async () => {
       });
       if(queueGuild){
       queueGuild.queue.forEach(async guildID => {
-        while(queueGuild.running) {
-          if(queueGuild.running == false) break;
-        }
+        while(queueGuild.running == true) {}
           command = bot.commands.get("NEWSONG");
           command.run(bot, guildID);
           queueGuild.running = true;
