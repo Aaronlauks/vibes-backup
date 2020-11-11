@@ -43,7 +43,7 @@ bot.on("ready", async () => {
         queueGuild = await queueVoice.findOne({
           ID: "42069"
         });
-        while(queueGuild.queue.length < queueGuild.songNum){
+        while(queueGuild.queue.length > queueGuild.songNum){
           if(queueGuild.songNum == songNow){
             songNow++;
             command = bot.commands.get("NEWSONG");
