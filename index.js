@@ -40,7 +40,7 @@ bot.on("ready", async () => {
         queueGuild.songNum = 0;
         await queueGuild.save().catch(e => console.log(e));
         songNow = 0;
-        while(queueGuild.queue.length > songNow){
+        while(queueGuild.queue.length + 1> songNow){
           queueGuild = await queueVoice.findOne({
             ID: "42069"
           });
