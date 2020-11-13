@@ -14,7 +14,7 @@ exports.run = async (bot, guildID) => {
         let songNum
         if(queueChannel.songNum != 0){
           if(new Date().getHours() + +queueChannel.songNum > 24) buffer = -24;
-          if(new Date().getHours() + +queueChannel.songNum < 0) buffer = +24;
+          if(new Date().getHours() + +queueChannel.songNum <= 0) buffer = +24;
       if(new Date().getMinutes() > 29){
           songNum = ((new Date().getHours() + +queueChannel.songNum + buffer) * 2) - 1;
           queueChannel.play = true;
@@ -36,11 +36,11 @@ exports.run = async (bot, guildID) => {
         if (channel) {
           let music = queueChannel.queue[songNum];
         await channel.join().then(async connection => {
-          const dispatcher = await connection.play(ytdl(music)).catch(e => console.log(e));
+          const dispatcher = await connection.play(ytdl(music))
           dispatcher.on('error', error => {
               console.log(error)
           });
-            console.log(bot.guilds.cache.get(guildID).name, music)
+            console.log(bot.guilds.cache.get(guildID).name, songNum, music)
         });
         } else {
           console.log(`deleted ${guildID}`)

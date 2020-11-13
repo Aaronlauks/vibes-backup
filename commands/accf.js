@@ -68,20 +68,48 @@ exports.run = async (bot, message, args) => {
                     argsArgs.splice(argsArgs.length - 1, 1);
                     argsArgs.splice(argsArgs.length - 1, 1);
                     let newArgs = argsArgs.join("");
-                    if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+                    if(newArgs < 1 || newArgs > 12) {
+                        let queueChannel = await queueVoice.findOne({
+                            guildID: message.guild.id
+                          });
+                          queueChannel.running = false;
+                          await queueChannel.save().catch(e => console.log(e));
+                        return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+                    }
                     if(newArgs == 12) newArgs -= 12;
                     selectTime = newArgs - new Date().getHours() + 12;
             } else if(argsArgs[argsArgs.length - 2].toUpperCase() + argsArgs[argsArgs.length - 1].toUpperCase() == "AM"){
                 argsArgs.splice(argsArgs.length - 1, 1);
                 argsArgs.splice(argsArgs.length - 1, 1);
                 let newArgs = argsArgs.join("");
-                if(newArgs < 1 || newArgs > 12) return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+                if(newArgs < 1 || newArgs > 12) {
+                    let queueChannel = await queueVoice.findOne({
+                        guildID: message.guild.id
+                      });
+                      queueChannel.running = false;
+                      await queueChannel.save().catch(e => console.log(e));
+                    return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+                }
                 if(newArgs == 12) newArgs = 12 + parseInt(newArgs);
                 selectTime = newArgs - new Date().getHours();
-            } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+            } else {
+                let queueChannel = await queueVoice.findOne({
+                    guildID: message.guild.id
+                  });
+                  queueChannel.running = false;
+                  await queueChannel.save().catch(e => console.log(e));
+                return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+            }
         } else if(args[0] > 0 && args[0] < 25) {
             selectTime = args[0] - new Date().getHours();
-        } else return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+        } else {
+            let queueChannel = await queueVoice.findOne({
+                guildID: message.guild.id
+              });
+              queueChannel.running = false;
+              await queueChannel.save().catch(e => console.log(e));
+            return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
+        }
         }
         let stop = false;
         let connection = await message.member.voice.channel.join().catch(e => {
