@@ -45,9 +45,11 @@ bot.on("ready", async () => {
             ID: "42069"
           });
           if(queueGuild.songNum == songNow){
-            command = bot.commands.get("NEWSONG");
+            setTimeout(function(){
+              command = bot.commands.get("NEWSONG");
             command.run(bot, queueGuild.queue[songNow]);
             songNow++;
+            }, 250);
           }
         }
     }
