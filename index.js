@@ -49,7 +49,7 @@ bot.on("ready", async () => {
             setTimeout(function(){
               command = bot.commands.get("NEWSONG");
             command.run(bot, queueGuild.queue[songNow]);
-            }, 250);
+            }, 100);
           }
         }
     }
