@@ -47,6 +47,7 @@ bot.on("ready", async () => {
           if(queueGuild.songNum == songNow){
             songNow++;
             setTimeout(function(){
+              console.log(songNow)
               command = bot.commands.get("NEWSONG");
             command.run(bot, queueGuild.queue[songNow]);
             }, 250);
