@@ -50,7 +50,7 @@ bot.on("ready", async () => {
               console.log(songNow)
               command = bot.commands.get("NEWSONG");
             command.run(bot, queueGuild.queue[songNow]);
-            }, 5050);
+            }, 250);
           }
         }
     }
@@ -145,7 +145,7 @@ setInterval (async function () {
               console.log(songNow)
               command = bot.commands.get("NEWSONG");
             command.run(bot, queueGuild.queue[songNow]);
-            }, 5050);
+            }, 250);
           }
         }
   }
