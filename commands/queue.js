@@ -8,26 +8,6 @@ exports.run = async (bot, message, args) => {
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
-          let songNum;
-        if(queueChannel.songNum != 0){
-        if(new Date().getMinutes() > 29){
-            songNum = ((new Date().getHours() + +queueChannel.songNum) * 2) - 1;
-            queueChannel.play = true;
-        } else {
-            songNum = ((new Date().getHours() + +queueChannel.songNum) * 2) - 2;
-            queueChannel.play = false;
-        } 
-        if(new Date().getHours() + +queueChannel.songNum < 1) songNum += +48;
-    } else {
-        if(new Date().getMinutes() > 29){
-            songNum = new Date().getHours() * 2 - 1;
-            queueChannel.play = true;
-        } else {
-            songNum = new Date().getHours() * 2 - 2;
-            queueChannel.play = false;
-        } 
-        if(new Date().getHours() < 1) songNum += +48;
-    }
         if(queueChannel.songNum != 0){
           time = new Date().getHours() + +queueChannel.songNum;
         } else {
@@ -44,8 +24,10 @@ exports.run = async (bot, message, args) => {
           } else {
           if(time == 12) {
             time += "PM";
+          } else if(time == 0) {
+            time = "AM";
           } else {
-            time += "AM";
+            time += "12AM";
           }
         }
       } else {
