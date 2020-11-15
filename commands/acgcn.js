@@ -111,6 +111,7 @@ exports.run = async (bot, message, args) => {
               await queueChannel.save().catch(e => console.log(e));
             return message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
         }
+        if(selectTime < -9) selectTime = 24 - selectTime;
         }
         let stop = false;
         let connection = await message.member.voice.channel.join().catch(e => {
