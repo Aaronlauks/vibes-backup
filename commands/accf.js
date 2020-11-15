@@ -73,11 +73,59 @@ exports.run = async (bot, message, args) => {
         if(!queueChannel) {
             return message.channel.send(`Error! Please rerun this command!`)
         } else {
-            if(args[0]) queueChannel.songNum = selectTime;
+            if(args[0]) queueChannel.timezone = selectTime;
             queueChannel.songType = "Animal Crossing **City Folk**";
             queueChannel.voiceID = message.member.voice.channel.id;
             queueChannel.running = false;
         }
+        let time;
+        if(selectTime != 0){
+            time = new Date().getHours() + +selectTime;
+          } else {
+            time = new Date().getHours();
+          }
+          if(time < 13){
+            if(time < 0){
+              time = parseInt(time) + 12;
+              if(time == 12) {
+                time += "AM";
+              } else {
+                time += "PM";
+              }
+            } else {
+            if(time == 12) {
+              time += "PM";
+            } else if(time == 0) {
+              time = "AM";
+            } else {
+              time += "12AM";
+            }
+          }
+        } else {
+            time = time - 12;
+            if(time > 12){
+              time = time - 12;
+            if(time == 12) {
+              time += "PM";
+            } else {
+              time += "AM";
+            }
+          } else {
+          if(time == 12) {
+            time += "AM";
+          } else {
+            time += "PM";
+          }
+        }
+        }
+        const dispatcher = await connection.play(`./music/ACCF/${time}.mp3`)
+        dispatcher.on("end",function(){
+            connection.disconnect();
+        });
+        dispatcher.on('error', error => {
+            console.log(error)
+        });
+        await queueChannel.save().catch(e => console.log(e));
         message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing **City Folk**!`);
       } else {
         let queueChannel = await queueVoice.findOne({
