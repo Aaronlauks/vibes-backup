@@ -36,24 +36,6 @@ bot.on("ready", async () => {
       let queueGuild = await queueVoice.findOne({
         ID: "42069"
       });
-      if(queueGuild){
-        queueGuild.songNum = 0;
-        await queueGuild.save().catch(e => console.log(e));
-        songNow = 0;
-        while(queueGuild.queue.length - 1 > songNow){
-          queueGuild = await queueVoice.findOne({
-            ID: "42069"
-          });
-          if(queueGuild.songNum == songNow){
-            songNow++;
-            setTimeout(function(){
-              console.log(songNow)
-              command = bot.commands.get("NEWSONG");
-            command.run(bot, queueGuild.queue[songNow]);
-            }, 250);
-          }
-        }
-    }
 });
 
 bot.on('message', async message => {
@@ -119,38 +101,7 @@ bot.on('message', async message => {
 });
 
 setInterval (async function () {
-  if(new Date().getMinutes() == 15 || new Date().getMinutes() == 45) {
-    if(!startPlay){
-      startPlay = true;
-    }
-    
-  }
-    if(new Date().getMinutes() == 0 || new Date().getMinutes() == 30){
-        if(startPlay){
-          startPlay = false;
-  let queueGuild = await queueVoice.findOne({
-    ID: "42069"
-  });
-  if(queueGuild){
-    queueGuild.songNum = 0;
-        await queueGuild.save().catch(e => console.log(e));
-        songNow = 0;
-        while(queueGuild.queue.length - 1 > songNow){
-          queueGuild = await queueVoice.findOne({
-            ID: "42069"
-          });
-          if(queueGuild.songNum == songNow){
-            songNow++;
-            setTimeout(function(){
-              console.log(songNow)
-              command = bot.commands.get("NEWSONG");
-            command.run(bot, queueGuild.queue[songNow]);
-            }, 250);
-          }
-        }
-  }
-}
-}
+
 });
 
 bot.on('message', async message => { //this event is fired, whenever the bot sees a new message

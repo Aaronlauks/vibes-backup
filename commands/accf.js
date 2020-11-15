@@ -1,55 +1,5 @@
 const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
-let ACCF = [
-    'https://www.youtube.com/watch?v=Wk8VzWlnpFk',//1AM    0
-    'https://www.youtube.com/watch?v=Wk8VzWlnpFk',//       1
-    'https://youtu.be/rLQAe-QlfNM',//2AM    2
-    'https://youtu.be/rLQAe-QlfNM', //      3
-    'https://youtu.be/QOfR5ErVVfk',//3AM    4
-    'https://youtu.be/QOfR5ErVVfk',//       5
-    'https://youtu.be/kqxXXyaaPkM',//4AM    6
-    'https://youtu.be/kqxXXyaaPkM',//       7
-    'https://youtu.be/N5XPPG5Yx08',//5AM    8
-    'https://youtu.be/N5XPPG5Yx08',//       9
-    'https://youtu.be/tsUYdUM-xWk',//6AM    10
-    'https://youtu.be/tsUYdUM-xWk',//       11
-    'https://youtu.be/2UUHR8Ux1LA',//7AM    12
-    'https://youtu.be/2UUHR8Ux1LA',//       13
-    'https://youtu.be/GLmLsWWiOJo',//8AM    14
-    'https://youtu.be/GLmLsWWiOJo',//       15
-    'https://youtu.be/9Jdmc6nts5Q',//9AM    16
-    'https://youtu.be/9Jdmc6nts5Q',//       17
-    'https://youtu.be/au8PU_DXS7g',//10AM   18
-    'https://youtu.be/au8PU_DXS7g',//       19
-    'https://youtu.be/FnQ8Hiywx1M',//11AM   20
-    'https://youtu.be/FnQ8Hiywx1M',//       21
-    'https://youtu.be/U-haQzYCgCg',//12PM   22
-    'https://youtu.be/U-haQzYCgCg',//       23
-    'https://youtu.be/FYTDoxXHq4w',//1PM    24
-    'https://youtu.be/FYTDoxXHq4w',//       25
-    'https://youtu.be/sC_V7tSIp8A',//2PM    26
-    'https://youtu.be/sC_V7tSIp8A',//       27
-    'https://youtu.be/IEahwOr_sNg',//3PM    28
-    'https://youtu.be/IEahwOr_sNg',//       29
-    'https://youtu.be/xErAHybseiM',//4PM    30
-    'https://youtu.be/xErAHybseiM',//       31
-    'https://youtu.be/PVXfCqRXQZU',//5PM    32
-    'https://youtu.be/PVXfCqRXQZU',//       33
-    'https://youtu.be/z8lkmysGeHg',//6PM    34
-    'https://youtu.be/z8lkmysGeHg',//       35
-    'https://youtu.be/IDoCh0vBiqI',//7PM    36
-    'https://youtu.be/IDoCh0vBiqI',//       37
-    'https://youtu.be/B01Xfk97oaY',//8PM    38
-    'https://youtu.be/B01Xfk97oaY',//       39
-    'https://youtu.be/cNmFfpu-_CU',//9PM    40
-    'https://youtu.be/cNmFfpu-_CU',//       41
-    'https://youtu.be/d6gbCOgmnN8',//10PM   42
-    'https://youtu.be/d6gbCOgmnN8',//       43
-    'https://youtu.be/WoWf9rHlRd8',//11PM   44
-    'https://youtu.be/WoWf9rHlRd8',//       45
-    'https://youtu.be/hqeB7t_Bx_4',//12AM   46
-    'https://youtu.be/hqeB7t_Bx_4'//        47
-]
 
 exports.run = async (bot, message, args) => {
     if (message.member.voice.channel) {
@@ -125,44 +75,10 @@ exports.run = async (bot, message, args) => {
         } else {
             if(args[0]) queueChannel.songNum = selectTime;
             queueChannel.songType = "Animal Crossing **City Folk**";
-            queueChannel.queue = ACCF;
             queueChannel.voiceID = message.member.voice.channel.id;
             queueChannel.running = false;
         }
         message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing **City Folk**!`);
-        let songNum
-        if(queueChannel.songNum != 0){
-            let buffer = 0;
-            if(new Date().getHours() + +queueChannel.songNum > 24) buffer = -24;
-            if(new Date().getHours() + +queueChannel.songNum < 1) buffer = +24;
-        if(new Date().getMinutes() > 29){
-            songNum = ((new Date().getHours() + +queueChannel.songNum + buffer) * 2) - 1;
-            queueChannel.play = true;
-        } else {
-            songNum = ((new Date().getHours() + +queueChannel.songNum + buffer) * 2) - 2;
-            queueChannel.play = false;
-        } 
-    } else {
-        if(new Date().getMinutes() > 29){
-            songNum = new Date().getHours() * 2 - 1;
-            queueChannel.play = true;
-        } else {
-            songNum = new Date().getHours() * 2 - 2;
-            queueChannel.play = false;
-        } 
-        if(new Date().getHours() == 0) songNum += +48;
-    }
-        let music = queueChannel.queue[songNum];
-        console.log(music)
-        const dispatcher = await connection.play(ytdl(music))
-        dispatcher.on("end",function(){
-            connection.disconnect();
-        });
-        dispatcher.on('error', error => {
-            console.log(error)
-        });
-        await queueChannel.save().catch(e => console.log(e));
-                
       } else {
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
@@ -170,6 +86,7 @@ exports.run = async (bot, message, args) => {
           queueChannel.running = false;
           await queueChannel.save().catch(e => console.log(e));
       }
+      await queueChannel.save().catch(e => console.log(e));
     } else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
 }
 module.exports.config = {

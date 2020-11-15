@@ -2,11 +2,9 @@ const mongoose = require('mongoose');
 
 const messageSchema = new mongoose.Schema({
   guildID: String,
-  queue: Array,
   voiceID: String,
-  songNum: String,
   songType: String,
-  play: Boolean,
+  timezone: String,
   prefix: String,
   running: Boolean
 });
