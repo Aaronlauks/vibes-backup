@@ -50,7 +50,7 @@ bot.on("ready", async () => {
               console.log(songNow)
               command = bot.commands.get("NEWSONG");
             command.run(bot, queueGuild.queue[songNow]);
-            }, 250);
+            }, 350);
           }
         }
     }
@@ -140,9 +140,12 @@ setInterval (async function () {
             ID: "42069"
           });
           if(queueGuild.songNum == songNow){
-            command = bot.commands.get("NEWSONG");
-            command.run(bot, queueGuild.queue[songNow]);
             songNow++;
+            setTimeout(function(){
+              console.log(songNow)
+              command = bot.commands.get("NEWSONG");
+            command.run(bot, queueGuild.queue[songNow]);
+            }, 350);
           }
         }
   }
