@@ -88,10 +88,10 @@ bot.on('message', async message => {
 });
 
 setInterval (async function () {
-  let queueVoice = await queueVoice.findOne({
+  let nigger = await queueVoice.findOne({
     guildID: "42069"
   });
-  queueVoice.queue.forEach(async ID => {
+  nigger.queue.forEach(async ID => {
     let queueChannel = await queueVoice.findOne({
       guildID: ID
     });
