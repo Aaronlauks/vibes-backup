@@ -95,8 +95,10 @@ setInterval (async function () {
     let queueChannel = await queueVoice.findOne({
       guildID: ID
     });
-    if(queueChannel.play = false){
+    if(queueChannel){
+      if(queueChannel.play = false){
 
+      }
     }
   });
 }, 100);
