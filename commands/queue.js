@@ -24,6 +24,7 @@ exports.run = async (bot, message, args) => {
             time+="PM"
           }
         } else {
+          time-=12;
           if(time == 12){
             time+="PM"
           } else {

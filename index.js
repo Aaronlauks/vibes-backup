@@ -97,7 +97,7 @@ bot.on('message', async message => { //this event is fired, whenever the bot see
     if(match[1] == "696032366845624392"){
       let prefix = "!";
       if (queueChannel) prefix = queueChannel.prefix 
-      return message.channel.send(`H-hey my preifx is \`${prefix}\` Let's vibe to Animal Crossing together!`)
+      return message.channel.send(`H-hey **my prefix is **\`${prefix}\``)
     }
   }
   
