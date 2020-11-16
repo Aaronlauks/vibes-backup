@@ -9,43 +9,27 @@ exports.run = async (bot, message, args) => {
           });
         if(queueChannel.timezone != 0){
           time = new Date().getHours() - +queueChannel.timezone;
+          if(time > 24){
+            time-=24;
+          } else if(time < 1){
+            time+=24;
+          }
         } else {
           time = new Date().getHours();
         }
-        if(time < 13){
-          if(time < 0){
-            time = parseInt(time) + 12;
-            if(time == 12) {
-              time += "AM";
-            } else {
-              time += "PM";
-            }
+        if(time > 12){
+          if(time == 12){
+            time+="AM"
           } else {
-          if(time == 12) {
-            time += "PM";
-          } else if(time == 0) {
-            time = "AM";
-          } else {
-            time += "12AM";
-          }
-        }
-      } else {
-          time = time - 12;
-          if(time > 12){
-            time = time - 12;
-          if(time == 12) {
-            time += "PM";
-          } else {
-            time += "AM";
+            time+="PM"
           }
         } else {
-        if(time == 12) {
-          time += "AM";
-        } else {
-          time += "PM";
+          if(time == 12){
+            time+="PM"
+          } else {
+            time+="AM"
+          }
         }
-      }
-      }
       if(queueChannel.songType == "none"){
         return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
       } else {
