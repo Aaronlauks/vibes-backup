@@ -117,7 +117,7 @@ exports.run = async (bot, message, args) => {
           }
         }
         }
-        const dispatcher = await connection.play(`./music/ACCF/${time}.mp3`)
+        const dispatcher = await connection.play(`../music/ACCF/${time}.mp3`)
         dispatcher.on("end",function(){
             connection.disconnect();
         });
@@ -133,7 +133,6 @@ exports.run = async (bot, message, args) => {
           queueChannel.running = false;
           await queueChannel.save().catch(e => console.log(e));
       }
-      await queueChannel.save().catch(e => console.log(e));
     } else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
 }
 module.exports.config = {
