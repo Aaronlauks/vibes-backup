@@ -39,7 +39,7 @@ exports.run = async (bot, message, guildID) => {
         console.log(`./Music/${genre}/${time}.mp3`)
         const channel = bot.channels.cache.get(queueChannel.voiceID);
         let connection =  await channel.join();
-        const dispatcher = connection.play(`./Music/${genre}/${time}.mp3`);
+        const dispatcher = connection.play(`../Music/${genre}/${time}.mp3`);
         dispatcher.on("finish",async function(){
           let command = bot.commands.get("NEWSONG");
           command.run(bot, message, guildID);
