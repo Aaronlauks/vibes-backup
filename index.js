@@ -67,9 +67,6 @@ bot.on('message', async message => {
         command = bot.commands.get(bot.aliases.get(cmd));
       }
       if(gay.includes(cmd)){
-        let queueChannel = await queueVoice.findOne({
-          guildID: message.guild.id
-        });
           if(queueChannel.running){
             message.channel.send(`<a:loading:773028345709068298> **CHILL IT.** The song is still loading...`)
             .then(m => {
