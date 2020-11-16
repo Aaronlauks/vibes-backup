@@ -8,7 +8,8 @@ const messageSchema = new mongoose.Schema({
   timezone: String,
   prefix: String,
   running: Boolean,
-  playing: Boolean
+  playing: Boolean,
+  loop: String
 });
 
 module.exports = mongoose.model("queueChannel", messageSchema);

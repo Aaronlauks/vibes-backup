@@ -44,17 +44,18 @@ bot.on('message', async message => {
   if(!queueChannel) {
     queueChannel = new queueVoice({
         guildID: message.guild.id,
-        voiceID: message.member.voice.channel.id,
+        voiceID: "",
         songType: "",
         timezone: 0,
         prefix: "!",
-        running: true
+        running: true,
+        loop: ""
     });
     await queueChannel.save().catch(e => console.log(e));
   }
+
   let prefix = queueChannel.prefix;
     if (!message.content.toLowerCase().startsWith(prefix)) return;
-
     let sender = message.author;
     let args = message.content.slice(prefix.length).trim().split(/ +/g); //args is the inputs after the cmd(a$say | test: |,test)
     let cmd = args.shift().toLowerCase(); //cmd is the command name (a help: help)
