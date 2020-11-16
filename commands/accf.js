@@ -1,6 +1,7 @@
 const queueVoice = require('../models/queueChannel.js');
 
 exports.run = async (bot, message, args) => {
+  let guildID = message.guild.id;
     if (message.member.voice.channel) {
         let queueGuild = await queueVoice.findOne({
             ID: "42069"
@@ -52,15 +53,14 @@ exports.run = async (bot, message, args) => {
             queueChannel.voiceID = message.member.voice.channel.id;
             queueChannel.running = false;
         }
-        const dispatcher = connection.play(`./Music/ACCF/${time}.mp3`, {
-          volume: 0.5,
-        });
+        const dispatcher = connection.play(`./Music/ACCF/${time}.mp3`);
         console.log(`../Music/ACCF/${time}.mp3`)
         dispatcher.on("finsih",async function(){
           queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
-          queueChannel.playing = false;
+          let command = bot.commands.get(cmd);
+          command.run(bot, message, guildID);
         });
         dispatcher.on('error', error => {
             console.log(error)

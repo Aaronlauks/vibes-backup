@@ -88,22 +88,6 @@ bot.on('message', async message => {
     }
 });
 
-setInterval (async function () {
-  let nigger = await queueVoice.findOne({
-    guildID: "42069"
-  });
-  nigger.queue.forEach(async ID => {
-    let queueChannel = await queueVoice.findOne({
-      guildID: ID
-    });
-    if(queueChannel){
-      if(queueChannel.play = false){
-
-      }
-    }
-  });
-}, 100);
-
 bot.on('message', async message => { //this event is fired, whenever the bot sees a new message
   let queueChannel = await queueVoice.findOne({
     guildID: message.guild.id

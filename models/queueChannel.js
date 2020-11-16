@@ -8,7 +8,6 @@ const messageSchema = new mongoose.Schema({
   timezone: String,
   prefix: String,
   running: Boolean,
-  playing: Boolean,
   loop: String
 });
 
