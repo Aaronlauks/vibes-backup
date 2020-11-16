@@ -3,7 +3,6 @@ var bot = new discord.Client();
 const fs = require('fs');
 const config = require("./config.json");
 const mongoose = require('mongoose');
-const ytdl = require('ytdl-core');
 const queueVoice = require('./models/queueChannel.js');
 const gay = ["accf", "acnl", "acnh", "acgcn", "reload"]
 let startPlay = true;
