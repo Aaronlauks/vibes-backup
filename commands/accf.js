@@ -4,10 +4,11 @@ exports.run = async (bot, message, args) => {
   let guildID = message.guild.id;
     if (message.member.voice.channel) {
         let queueGuild = await queueVoice.findOne({
-            ID: "42069"
+            guildID: "42069"
           });
-          if(queueGuild){
-              queueGuild.guilds = [`${message.guild.id}`]
+          if(!queueGuild){
+            queueGuild.guildID = "42069";
+            queueGuild.guilds = [`${message.guild.id}`]
           } else if(!queueGuild.guilds.includes(message.guild.id))queueGuild.guilds.push(message.guild.id)
           await queueGuild.save().catch(e => console.log(e));
 
