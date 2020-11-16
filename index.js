@@ -54,6 +54,20 @@ bot.on('message', async message => {
     let cmd = args.shift().toLowerCase(); //cmd is the command name (a help: help)
     let command;
     if (sender.bot) return;
+    let queueChannel = await queueVoice.findOne({
+      guildID: message.guild.id
+    });
+  if(!queueChannel) {
+      queueChannel = new queueVoice({
+          guildID: message.guild.id,
+          voiceID: message.member.voice.channel.id,
+          songType: "",
+          timezone: 0,
+          prefix: "!",
+          running: true
+      });
+      await queueChannel.save().catch(e => console.log(e));
+    }
     try {
       if(bot.commands.has(cmd)){
         command = bot.commands.get(cmd);
@@ -64,18 +78,6 @@ bot.on('message', async message => {
         let queueChannel = await queueVoice.findOne({
           guildID: message.guild.id
         });
-      if(!queueChannel) {
-          queueChannel = new queueVoice({
-              guildID: message.guild.id,
-              voiceID: message.member.voice.channel.id,
-              songType: "",
-              timezone: 0,
-              prefix: "!",
-              running: true
-          });
-          await queueChannel.save().catch(e => console.log(e));
-          command.run(bot, message, args);
-        } else {
           if(queueChannel.running){
             message.channel.send(`<a:loading:773028345709068298> **CHILL IT.** The song is still loading...`)
             .then(m => {
@@ -86,7 +88,6 @@ bot.on('message', async message => {
             await queueChannel.save().catch(e => console.log(e));
             command.run(bot, message, args);
           }
-        }
       } else {
         command.run(bot, message, args);
       }
