@@ -39,7 +39,7 @@ exports.run = async (bot, message, guildID) => {
         console.log(time)
         let connection = await message.member.voice.channel.join()
         const dispatcher = connection.play(`./Music/${genre}/${time}.mp3`);
-        dispatcher.on("finsih",async function(){
+        dispatcher.on("finish",async function(){
           queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
