@@ -6,9 +6,9 @@ exports.run = async (bot, message, args) => {
         let queueGuild = await queueVoice.findOne({
             ID: "42069"
           });
-          if(!queueGuild.queue){
-              queueGuild.queue = [`${message.guild.id}`]
-          } else if(!queueGuild.queue.includes(message.guild.id))queueGuild.queue.push(message.guild.id)
+          if(!queueGuild.guilds){
+              queueGuild.guilds = [`${message.guild.id}`]
+          } else if(!queueGuild.guilds.includes(message.guild.id))queueGuild.guilds.push(message.guild.id)
           await queueGuild.save().catch(e => console.log(e));
 
           let selectTime;

@@ -3,13 +3,13 @@ exports.run = async (bot, message, args) => {
     let queueGuild = await queueVoice.findOne({
         ID: "42069"
       });
-    if(queueGuild.queue.includes(message.guild.id)){
+    if(queueGuild.guilds.includes(message.guild.id)){
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
           const channel = bot.channels.cache.get(queueChannel.voiceID);
           channel.leave();
-        queueGuild.queue.splice(queueGuild.queue.indexOf(message.guild.id), 1)
+        queueGuild.guilds.splice(queueGuild.guilds.indexOf(message.guild.id), 1)
         queueChannel.running =false;
         message.channel.send(`⏹️ Stopped playing Animal Crossing :CC`)
         await queueGuild.save().catch(e => console.log(e));
