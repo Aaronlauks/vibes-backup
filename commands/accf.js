@@ -7,8 +7,10 @@ exports.run = async (bot, message, args) => {
             guildID: "42069"
           });
           if(!queueGuild){
-            queueGuild.guildID = "42069";
-            queueGuild.guilds = [`${message.guild.id}`]
+          queueGuild = new queueVoice({
+            guildID: "42069",
+            guilds: [`${message.guild.id}`]
+          });
           } else if(!queueGuild.guilds.includes(message.guild.id))queueGuild.guilds.push(message.guild.id)
           await queueGuild.save().catch(e => console.log(e));
 
