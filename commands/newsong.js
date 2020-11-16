@@ -4,14 +4,14 @@ exports.run = async (bot, message, guildID) => {
         guildID: guildID
       });
       let queueGuild = await queueVoice.findOne({
-        ID: "42069"
+        guildID: "42069"
       });
       if(!queueGuild.guilds.includes(guildID)) return;
       if(queueChannel){
         let time;
         let genre;
         if(queueChannel.timezone != 0){
-          time = new Date().getHours() + +queueChannel.timezone;
+          time = new Date().getHours() - +queueChannel.timezone;
           if(time > 24){
             time-=24;
           } else if(time < 1){
@@ -41,9 +41,6 @@ exports.run = async (bot, message, guildID) => {
         let connection =  await channel.join();
         const dispatcher = connection.play(`./Music/${genre}/${time}.mp3`);
         dispatcher.on("finish",async function(){
-          queueChannel = await queueVoice.findOne({
-            guildID: message.guild.id
-          });
           let command = bot.commands.get("NEWSONG");
           command.run(bot, message, guildID);
         });

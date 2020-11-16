@@ -66,6 +66,7 @@ exports.run = async (bot, message, args) => {
         const dispatcher = connection.play(`./Music/ACCF/${time}.mp3`);
         console.log(selectTime)
         dispatcher.on("finish",async function(){
+          console.log("new")
           let command = bot.commands.get("NEWSONG");
           command.run(bot, message, guildID);
         });
