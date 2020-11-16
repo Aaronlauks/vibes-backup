@@ -36,7 +36,7 @@ exports.run = async (bot, message, guildID) => {
         if(queueChannel.songType = "Animal Crossing **City Folk**"){
           genre = "ACCF"
         }
-        console.log(time)
+        console.log(time, genre)
         const channel = bot.channels.cache.get(queueChannel.voiceID);
         let connection =  await channel.join();
         const dispatcher = connection.play(`./Music/${genre}/${time}.mp3`);
