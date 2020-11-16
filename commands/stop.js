@@ -1,4 +1,3 @@
-const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
 exports.run = async (bot, message, args) => {
     let queueGuild = await queueVoice.findOne({

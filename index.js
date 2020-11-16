@@ -68,11 +68,9 @@ bot.on('message', async message => {
       if(!queueChannel) {
           queueChannel = new queueVoice({
               guildID: message.guild.id,
-              queue: [],
               voiceID: message.member.voice.channel.id,
-              songNum: 0,
               songType: "",
-              play: true,
+              timezone: 0,
               prefix: "!",
               running: true
           });

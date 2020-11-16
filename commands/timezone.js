@@ -1,35 +1,21 @@
-const ytdl = require('ytdl-core');
 const queueVoice = require('../models/queueChannel.js');
 exports.run = async (bot, message, args) => {
     let selectTime = "";
     let queueChannel = await queueVoice.findOne({
         guildID: message.guild.id
       });
-    if(!queueChannel) {
-        queueChannel = new queueVoice({
-            guildID: message.guild.id,
-            queue: [""],
-            voiceID: "",
-            songNum: 0,
-            songType: "none",
-            play: true,
-            prefix: "!",
-            running: false
-        });
-        if(!args[0]) await queueChannel.save().catch(e => console.log(e))
-    }
     if(!args[0]){
-        if(queueChannel.songNum == 0){
+        if(queueChannel.timezone == 0){
             message.channel.send(`🕐 Timezone set at **GMT±00:00**! (default timezone)`)
-        } else if(queueChannel.songNum > 0 && queueChannel.songNum < 10){
-            message.channel.send(`🕐 Timezone set at **GMT+0${queueChannel.songNum}:00**!`)
-        } else if(queueChannel.songNum > 10){
-            message.channel.send(`🕐 Timezone set at **GMT+${queueChannel.songNum}:00**!`)
-        } else if(queueChannel.songNum > -9){
-            let gmtNum = Math.abs(queueChannel.songNum)
+        } else if(queueChannel.timezone > 0 && queueChannel.timezone < 10){
+            message.channel.send(`🕐 Timezone set at **GMT+0${queueChannel.timezone}:00**!`)
+        } else if(queueChannel.timezone > 10){
+            message.channel.send(`🕐 Timezone set at **GMT+${queueChannel.timezone}:00**!`)
+        } else if(queueChannel.timezone > -9){
+            let gmtNum = Math.abs(queueChannel.timezone)
             message.channel.send(`🕐 Timezone set at **GMT-0${gmtNum}:00**!`)
         } else {
-            message.channel.send(`🕐 Timezone set at **GMT${queueChannel.songNum}:00**!`)
+            message.channel.send(`🕐 Timezone set at **GMT${queueChannel.timezone}:00**!`)
         }
         return
     } else {
@@ -61,18 +47,18 @@ exports.run = async (bot, message, args) => {
     if(isNaN(selectTime)) message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
     console.log(selectTime);
     if(selectTime < -9) selectTime = 24 - selectTime;
-    queueChannel.songNum = selectTime;
-    if(queueChannel.songNum == 0){
+    queueChannel.timezone = selectTime;
+    if(queueChannel.timezone == 0){
         message.channel.send(`⏱️ Timezone is set at **GMT±00:00** (default timezone)`)
-    } else if(queueChannel.songNum > 0 && queueChannel.songNum < 10){
-        message.channel.send(`⏱️ Timezone is set at **GMT+0${queueChannel.songNum}:00**`)
-    } else if(queueChannel.songNum > 10){
-        message.channel.send(`⏱️ Timezone is set at **GMT+${queueChannel.songNum}:00**`)
-    } else if(queueChannel.songNum > -9){
-        let gmtNum = Math.abs(queueChannel.songNum)
+    } else if(queueChannel.timezone > 0 && queueChannel.timezone < 10){
+        message.channel.send(`⏱️ Timezone is set at **GMT+0${queueChannel.timezone}:00**`)
+    } else if(queueChannel.timezone > 10){
+        message.channel.send(`⏱️ Timezone is set at **GMT+${queueChannel.timezone}:00**`)
+    } else if(queueChannel.timezone > -9){
+        let gmtNum = Math.abs(queueChannel.timezone)
         message.channel.send(`⏱️ Timezone is set at **GMT-0${gmtNum}:00**`)
     } else {
-        message.channel.send(`⏱️ Timezone is set at **GMT${queueChannel.songNum}:00**`)
+        message.channel.send(`⏱️ Timezone is set at **GMT${queueChannel.timezone}:00**`)
     }
     await queueChannel.save().catch(e => console.log(e));
 }
