@@ -7,7 +7,8 @@ const messageSchema = new mongoose.Schema({
   songType: String,
   timezone: String,
   prefix: String,
-  running: Boolean
+  running: Boolean,
+  playing: Boolean
 });
 
 module.exports = mongoose.model("queueChannel", messageSchema);

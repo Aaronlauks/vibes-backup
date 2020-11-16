@@ -91,12 +91,12 @@ setInterval (async function () {
   let queueVoice = await queueVoice.findOne({
     guildID: "42069"
   });
-  queueVoice.queue.forEach(ID => {
+  queueVoice.queue.forEach(async ID => {
     let queueChannel = await queueVoice.findOne({
       guildID: ID
     });
     if(queueChannel.play = false){
-      
+
     }
   });
 }, 100);
