@@ -22,15 +22,15 @@ exports.run = async (bot, message, guildID) => {
         }
         if(time > 12){
           if(time == 12){
-            time+="PM"
-          } else {
             time+="AM"
+          } else {
+            time+="PM"
           }
         } else {
           if(time == 12){
-            time+="AM"
-          } else {
             time+="PM"
+          } else {
+            time+="AM"
           }
         }
         if(queueChannel.songType = "Animal Crossing **City Folk**"){
