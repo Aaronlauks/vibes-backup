@@ -3,8 +3,7 @@ exports.run = async (bot, message, args) => {
     let connection = await message.member.voice.channel.join();
     const dispatcher = connection.play('http://www.sample-videos.com/audio/mp3/wave.mp3');
       console.log("debug")
-      dispatcher.on("end",function(){
-          connection.disconnect();
+      dispatcher.on("finish",function(){
           console.log("end?")
           dispatcher = connection.play('http://www.sample-videos.com/audio/mp3/wave.mp3');
       });
