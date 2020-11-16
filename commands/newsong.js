@@ -11,7 +11,7 @@ exports.run = async (bot, message, guildID) => {
         let time;
         let genre;
         if(queueChannel.timezone != 0){
-          time = new Date().getHours() - +queueChannel.timezone;
+          time = new Date().getHours() + +queueChannel.timezone;
           if(time > 24){
             time-=24;
           } else if(time < 1){

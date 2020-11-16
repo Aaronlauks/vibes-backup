@@ -25,14 +25,14 @@ exports.run = async (bot, message, args) => {
                   time = args[0].replace("AM", "");
                   time = args[0].replace("am", "");
                   if(time > 0 && time < 13){
-                    selectTime = new Date().getHours() - time;
+                    selectTime = time - new Date().getHours();
                     time+="AM"
                   } else error = true;
                 } else {
                   time = args[0].replace("PM", "");
                   time = args[0].replace("pm", "");
                   if(time > 0 && time < 13){
-                    selectTime = new Date().getHours() - time;
+                    selectTime = time - new Date().getHours();
                     time+="PM"
                   } else error = true;
                 }
