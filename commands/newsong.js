@@ -21,13 +21,13 @@ exports.run = async (bot, message, guildID) => {
           time = new Date().getHours();
         }
         if(time > 12){
+          time-=12;
           if(time == 12){
             time+="AM"
           } else {
             time+="PM"
           }
         } else {
-          time-=12;
           if(time == 12){
             time+="PM"
           } else {
