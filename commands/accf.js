@@ -59,7 +59,7 @@ exports.run = async (bot, message, args) => {
           queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
-          let command = bot.commands.get(cmd);
+          let command = bot.commands.get("NEWSONG");
           command.run(bot, message, guildID);
         });
         dispatcher.on('error', error => {
