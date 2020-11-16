@@ -41,12 +41,18 @@ bot.on('message', async message => {
   let queueChannel = await queueVoice.findOne({
     guildID: message.guild.id
   });
-  let prefix = "";
-  if(queueChannel){
-    prefix = queueChannel.prefix;
-  } else {
-    prefix = "!";
+  if(!queueChannel) {
+    queueChannel = new queueVoice({
+        guildID: message.guild.id,
+        voiceID: message.member.voice.channel.id,
+        songType: "",
+        timezone: 0,
+        prefix: "!",
+        running: true
+    });
+    await queueChannel.save().catch(e => console.log(e));
   }
+  let prefix = queueChannel.prefix;
     if (!message.content.toLowerCase().startsWith(prefix)) return;
 
     let sender = message.author;
@@ -54,20 +60,6 @@ bot.on('message', async message => {
     let cmd = args.shift().toLowerCase(); //cmd is the command name (a help: help)
     let command;
     if (sender.bot) return;
-    let queueChannel = await queueVoice.findOne({
-      guildID: message.guild.id
-    });
-  if(!queueChannel) {
-      queueChannel = new queueVoice({
-          guildID: message.guild.id,
-          voiceID: message.member.voice.channel.id,
-          songType: "",
-          timezone: 0,
-          prefix: "!",
-          running: true
-      });
-      await queueChannel.save().catch(e => console.log(e));
-    }
     try {
       if(bot.commands.has(cmd)){
         command = bot.commands.get(cmd);
