@@ -32,7 +32,7 @@ exports.run = async (bot, message, args) => {
                   time = args[0].replace("PM", "");
                   time = args[0].replace("pm", "");
                   if(time > 0 && time < 13){
-                    selectTime = time - new Date().getHours();
+                    selectTime = time - new Date().getHours() + 12;
                     time+="PM"
                   } else error = true;
                 }
@@ -66,7 +66,7 @@ exports.run = async (bot, message, args) => {
         const dispatcher = connection.play(`./Music/ACCF/${time}.mp3`);
         console.log(selectTime)
         dispatcher.on("finish",async function(){
-          console.log("new")
+          console.log("running newsong", message.guild.name)
           let command = bot.commands.get("NEWSONG");
           command.run(bot, message, guildID);
         });
