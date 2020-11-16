@@ -6,7 +6,7 @@ exports.run = async (bot, message, args) => {
         let queueGuild = await queueVoice.findOne({
             ID: "42069"
           });
-          if(!queueGuild.guilds){
+          if(queueGuild){
               queueGuild.guilds = [`${message.guild.id}`]
           } else if(!queueGuild.guilds.includes(message.guild.id))queueGuild.guilds.push(message.guild.id)
           await queueGuild.save().catch(e => console.log(e));
