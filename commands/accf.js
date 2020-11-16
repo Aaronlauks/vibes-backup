@@ -56,7 +56,7 @@ exports.run = async (bot, message, args) => {
           volume: 0.5,
         });
         console.log(`../Music/ACCF/${time}.mp3`)
-        dispatcher.on("finsih",function(){
+        dispatcher.on("finsih",async function(){
           queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
