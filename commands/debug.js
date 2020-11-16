@@ -1,11 +1,11 @@
 exports.run = async (bot, message, args) => {
     message.channel.send("playng song")
     let connection = await message.member.voice.channel.join();
-    let dispatcher = connection.play('https://vocaroo.com/embed/19Z7hyaWA2XU?autoplay=0');
+    let dispatcher = connection.play('../Music/ACCF/1AM.mp3');
       console.log("debug")
       dispatcher.on("finish",function(){
           console.log("end?")
-          dispatcher = connection.play('https://vocaroo.com/embed/19Z7hyaWA2XU?autoplay=0');
+          dispatcher = connection.play('../Music/ACCF/1AM.mp3');
       });
       dispatcher.on('error', error => {
           console.log(error)
