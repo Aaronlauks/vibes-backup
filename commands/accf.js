@@ -38,7 +38,14 @@ exports.run = async (bot, message, args) => {
                 }
               } else error = true;
           }
-
+          if(error){
+            message.channel.send(`invalid time`)
+            let queueChannel = await queueVoice.findOne({
+              guildID: message.guild.id
+            });
+            queueChannel.running = false;
+            return await queueChannel.save().catch(e => console.log(e));
+          }
         let stop = false;
         let connection = await message.member.voice.channel.join().catch(e => {
             message.channel.send(`<:xcross:690880230562201610> Couldn't connect to voice channel!`)
@@ -58,10 +65,7 @@ exports.run = async (bot, message, args) => {
         }
         const dispatcher = connection.play(`./Music/ACCF/${time}.mp3`);
         console.log(selectTime)
-        dispatcher.on("finsih",async function(){
-          queueChannel = await queueVoice.findOne({
-            guildID: message.guild.id
-          });
+        dispatcher.on("finish",async function(){
           let command = bot.commands.get("NEWSONG");
           command.run(bot, message, guildID);
         });
