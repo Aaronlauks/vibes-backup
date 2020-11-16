@@ -16,15 +16,17 @@ exports.run = async (bot, message, args) => {
           if(!args[0]){
             selectTime = 0;
           } else {
-            if(isNaN(args[0]) && (args[0].includes("AM") || args[0].includes("PM"))){
-                if(args[0].includes("AM")){
+            if(isNaN(args[0]) && (args[0].includes("AM") || args[0].includes("PM") || args[0].includes("am") || args[0].includes("pm"))){
+                if(args[0].includes("AM") || args[0].includes("am")){
                   time = args[0].replace("AM", "");
+                  time = args[0].replace("am", "");
                   if(time > 0 && time < 13){
                     selectTime = new Date().getHours() - time;
                     time = args[0];
                   } else error = true;
                 } else {
-                  time = args[0].replace("AM", "");
+                  time = args[0].replace("PM", "");
+                  time = args[0].replace("pm", "");
                   if(time > 0 && time < 13){
                     selectTime = new Date().getHours() - time;
                     time = args[0];
@@ -50,8 +52,8 @@ exports.run = async (bot, message, args) => {
             queueChannel.voiceID = message.member.voice.channel.id;
             queueChannel.running = false;
         }
-        const dispatcher = await connection.play(`../music/ACCF/${time}.mp3`)
-        console.log(`../music/ACCF/${time}.mp3`)
+        const dispatcher = await connection.play(`../Music/ACCF/${time}.mp3`)
+        console.log(`../Music/ACCF/${time}.mp3`)
         dispatcher.on("end",function(){
             connection.disconnect();
         });
