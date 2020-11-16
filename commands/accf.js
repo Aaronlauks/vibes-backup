@@ -52,12 +52,15 @@ exports.run = async (bot, message, args) => {
             queueChannel.voiceID = message.member.voice.channel.id;
             queueChannel.running = false;
         }
-        const dispatcher = connection.play(`../Music/ACCF/${time}.mp3`, {
+        const dispatcher = connection.play(`./Music/ACCF/${time}.mp3`, {
           volume: 0.5,
         });
         console.log(`../Music/ACCF/${time}.mp3`)
-        dispatcher.on("end",function(){
-            connection.disconnect();
+        dispatcher.on("finsih",function(){
+          queueChannel = await queueVoice.findOne({
+            guildID: message.guild.id
+          });
+          queueChannel.playing = false;
         });
         dispatcher.on('error', error => {
             console.log(error)
