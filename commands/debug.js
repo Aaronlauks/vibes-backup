@@ -5,7 +5,7 @@ exports.run = async (bot, message, args) => {
       console.log("debug")
       dispatcher.on("finish",function(){
           console.log("end?")
-          dispatcher = connection.play('http://www.sample-videos.com/audio/mp3/wave.mp3');
+          connection.play('http://www.sample-videos.com/audio/mp3/wave.mp3');
       });
       dispatcher.on('error', error => {
           console.log(error)
