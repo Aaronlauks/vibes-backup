@@ -118,6 +118,7 @@ exports.run = async (bot, message, args) => {
         }
         }
         const dispatcher = await connection.play(`../music/ACCF/${time}.mp3`)
+        console.log(`../music/ACCF/${time}.mp3`)
         dispatcher.on("end",function(){
             connection.disconnect();
         });
