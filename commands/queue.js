@@ -1,7 +1,7 @@
 const queueVoice = require('../models/queueChannel.js');
 exports.run = async (bot, message, args) => {
     let queueGuild = await queueVoice.findOne({
-        ID: "42069"
+        guildID: "42069"
       });
     if(queueGuild.guilds.includes(message.guild.id)){
         let queueChannel = await queueVoice.findOne({
