@@ -46,9 +46,9 @@ bot.on('message', async message => {
         guildID: message.guild.id,
         voiceID: "",
         songType: "",
-        timezone: 0,
+        timezone: "",
         prefix: "!",
-        running: true,
+        running: false,
         loop: ""
     });
     await queueChannel.save().catch(e => console.log(e));

@@ -26,14 +26,14 @@ exports.run = async (bot, message, args) => {
                   time = args[0].replace("am", "");
                   if(time > 0 && time < 13){
                     selectTime = new Date().getHours() - time;
-                    time = args[0];
+                    time+="AM"
                   } else error = true;
                 } else {
                   time = args[0].replace("PM", "");
                   time = args[0].replace("pm", "");
                   if(time > 0 && time < 13){
                     selectTime = new Date().getHours() - time;
-                    time = args[0];
+                    time+="PM"
                   } else error = true;
                 }
               } else error = true;
@@ -57,7 +57,7 @@ exports.run = async (bot, message, args) => {
             queueChannel.running = false;
         }
         const dispatcher = connection.play(`./Music/ACCF/${time}.mp3`);
-        console.log(`../Music/ACCF/${time}.mp3`)
+        console.log(selectTime)
         dispatcher.on("finsih",async function(){
           queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
