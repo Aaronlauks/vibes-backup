@@ -46,7 +46,7 @@ exports.run = async (bot, message, args) => {
     }
     if(isNaN(selectTime)) message.channel.send(`<:xcross:690880230562201610> not a valid time lol`);
     console.log(selectTime);
-    if(selectTime < -9) selectTime = 24 - selectTime;
+    if(selectTime < -13) selectTime = 24 - selectTime;
     queueChannel.timezone = selectTime;
     if(queueChannel.timezone == 0){
         message.channel.send(`⏱️ Timezone is set at **GMT±00:00** (default timezone)`)

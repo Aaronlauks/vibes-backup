@@ -37,6 +37,9 @@ exports.run = async (bot, message, guildID) => {
         if(queueChannel.songType = "Animal Crossing **City Folk**"){
           genre = "ACCF"
         }
+        if(queueChannel.loop != ""){
+          time = queueChannel.loop;
+        }
         const channel = bot.channels.cache.get(queueChannel.voiceID);
         if (channel) {
         await channel.join().then(async connection => {
