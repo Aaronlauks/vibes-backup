@@ -68,7 +68,7 @@ exports.run = async (bot, message, args) => {
         dispatcher.on("finish",async function(){
           console.log("running newsong", message.guild.name)
           let command = bot.commands.get("NEWSONG");
-          command.run(bot, message, guildID);
+          command.run(bot, guildID);
         });
         dispatcher.on('error', error => {
             console.log(error)

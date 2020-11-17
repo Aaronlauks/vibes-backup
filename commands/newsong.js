@@ -1,5 +1,5 @@
 const queueVoice = require('../models/queueChannel.js');
-exports.run = async (bot, message, guildID) => {
+exports.run = async (bot, guildID) => {
     let queueChannel = await queueVoice.findOne({
         guildID: guildID
       });
@@ -47,7 +47,7 @@ exports.run = async (bot, message, guildID) => {
           dispatcher.on('finish', async function(){
             console.log(`./Music/${genre}/${time}.mp3`)
             let command = bot.commands.get("NEWSONG");
-            command.run(bot, message, guildID);
+            command.run(bot, guildID);
           });
         });
         } else {
