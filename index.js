@@ -33,7 +33,7 @@ bot.on("ready", async () => {
         url: "https://www.twitch.tv/AaronBotDiscord"
       });
       let queueGuild = await queueVoice.findOne({
-        ID: "42069"
+        guildID: "42069"
       });
       queueGuild.guilds.forEach(guildID => {
         console.log("running newsong", message.guild.name)
