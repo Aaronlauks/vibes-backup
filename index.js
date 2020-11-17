@@ -36,7 +36,7 @@ bot.on("ready", async () => {
         guildID: "42069"
       });
       queueGuild.guilds.forEach(guildID => {
-        console.log("running newsong", message.guild.name)
+        console.log("running newsong", bot.guilds.cache.get(guildID).name)
           let command = bot.commands.get("NEWSONG");
           command.run(bot, message, guildID);
       });
