@@ -35,6 +35,11 @@ bot.on("ready", async () => {
       let queueGuild = await queueVoice.findOne({
         ID: "42069"
       });
+      queueGuild.guilds.forEach(guildID => {
+        console.log("running newsong", message.guild.name)
+          let command = bot.commands.get("NEWSONG");
+          command.run(bot, message, guildID);
+      });
 });
 
 bot.on('message', async message => {
