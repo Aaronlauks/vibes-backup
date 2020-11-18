@@ -35,7 +35,7 @@ exports.run = async (bot, message, args) => {
               }
             }
           } else {
-            args[0].toLowerCase();
+            args[0] = args[0].toLowerCase();
             if(isNaN(args[0]) && (args[0].includes("am") || args[0].includes("pm"))){
                 if(args[0].includes("am")){
                   time = args[0].replace("am", "");
