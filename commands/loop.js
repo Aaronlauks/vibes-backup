@@ -9,30 +9,30 @@ exports.run = async (bot, message, args) => {
         guildID: message.guild.id
       });
       if(queueChannel.loop == ""){
-      if(queueChannel.timezone != 0){
-        time = new Date().getHours() + +queueChannel.timezone;
-        if(time > 24){
-          time-=24;
-        } else if(time < 1){
-          time+=24;
-        }
-      } else {
-        time = new Date().getHours();
-      }
-      if(time > 12){
-        time-=12;
-        if(time == 12){
-          time+="AM"
+        if(queueChannel.timezone != 0){
+          time = new Date().getHours() + +queueChannel.timezone;
+          if(time > 24){
+            time-=24;
+          } else if(time < 1){
+            time+=24;
+          }
         } else {
-          time+="PM"
+          time = new Date().getHours();
         }
-      } else {
-        if(time == 12){
-          time+="PM"
+        if(time > 12){
+          time-=12;
+          if(time == 12){
+            time+="AM"
+          } else {
+            time+="PM"
+          }
         } else {
-          time+="AM"
+          if(time == 12){
+            time+="PM"
+          } else {
+            time+="AM"
+          }
         }
-      }
       queueChannel.loop = time;
       message.channel.send(`🔁 looped **${time}** ${queueChannel.songType}!`);
       await queueChannel.save().catch(e => console.log(e));
