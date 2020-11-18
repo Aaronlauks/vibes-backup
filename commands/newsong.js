@@ -36,6 +36,10 @@ exports.run = async (bot, guildID) => {
         }
         if(queueChannel.songType = "Animal Crossing **City Folk**"){
           genre = "ACCF"
+        } else if(queueChannel.songType = "Animal Crossing **New Horizon**"){
+          genre = "ACNH"
+        } else if(queueChannel.songType = "Animal Crossing **New Leaf**"){
+          genre = "ACNL"
         }
         if(queueChannel.loop != ""){
           time = queueChannel.loop;

@@ -33,11 +33,11 @@ exports.run = async (bot, message, args) => {
         }
       }
       queueChannel.loop = time;
-      message.channel.send(`looped ${time} ${queueChannel.songType}!`);
+      message.channel.send(`🔁 looped **${time}** ${queueChannel.songType}!`);
       await queueChannel.save().catch(e => console.log(e));
       } else {
         queueChannel.loop = "";
-        message.channel.send(`unlooped song!`)
+        message.channel.send(`▶️ unlooped song!`)
         await queueChannel.save().catch(e => console.log(e));
       }
       if(!queueGuild.guilds.includes(message.guild.id)) return message.channel.send(`Nothing is playing`)
