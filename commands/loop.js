@@ -21,17 +21,9 @@ exports.run = async (bot, message, args) => {
         }
         if(time > 12){
           time-=12;
-          if(time == 12){
-            time+="AM"
-          } else {
-            time+="PM"
-          }
+          time+="PM"
         } else {
-          if(time == 12){
-            time+="PM"
-          } else {
-            time+="AM"
-          }
+          time+="AM"
         }
       queueChannel.loop = time;
       message.channel.send(`🔁 looped **${time}** ${queueChannel.songType}!`);
