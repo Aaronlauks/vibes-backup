@@ -7,6 +7,9 @@ exports.run = async (bot, message, args) => {
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
+          if(queueChannel.loop != ""){
+            message.channel.send(`🔂 Now looping: ${queueChannel.loop} ${queueChannel.songType}`)
+          } else {
         if(queueChannel.timezone != 0){
           time = new Date().getHours() + +queueChannel.timezone;
           if(time > 24){
@@ -36,7 +39,8 @@ exports.run = async (bot, message, args) => {
       } else {
         return message.channel.send(`🎵 Now playing: ${time} ${queueChannel.songType}`)
       }
-    } else return message.channel.send(`🎵 Now playing: ${time} ${queueChannel.songType}`)
+    }
+    } else return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
 }
 module.exports.config = {
     name: "nowplay",
