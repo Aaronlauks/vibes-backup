@@ -1,5 +1,5 @@
 exports.run = async (bot, message, args) => {
-    message.channel.send("playing random relaxing song lol")
+    message.channel.send("playing song")
     let connection = await message.member.voice.channel.join();
     let dispatcher = connection.play('https://www.sample-videos.com/audio/mp3/wave.mp3');
       console.log("debug")
