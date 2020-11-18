@@ -7,7 +7,7 @@ exports.run = async (bot, message, args) => {
       let queueChannel = await queueVoice.findOne({
         guildID: message.guild.id
       });
-      if(queueChannel.loop != ""){
+      if(queueChannel.loop == ""){
       if(queueChannel.timezone != 0){
         time = new Date().getHours() + +queueChannel.timezone;
         if(time > 24){
