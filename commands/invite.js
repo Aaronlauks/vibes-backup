@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 exports.run = async (bot, message, args, ops) => {
   const embed = new MessageEmbed()
-  .setTitle(`<a:araragiPlatDance:690217561740148761> Bot invite!!!!!`)
+  .setTitle(`Chill Beats`)
   .setURL(`https://discord.com/oauth2/authorize?client_id=777582718422745138&scope=bot&permissions=8`)
   .setAuthor(
         `Click the link below for the bot invite:`,

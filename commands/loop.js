@@ -4,6 +4,7 @@ exports.run = async (bot, message, args) => {
     let queueGuild = await queueVoice.findOne({
         guildID: "42069"
       });
+      if(!queueGuild.guilds.includes(message.guild.id)) return message.channel.send(`<:xcross:690880230562201610> **Nothing is playing**. Play a song (e.g. !accf, !acnh 5pm)`)
       let queueChannel = await queueVoice.findOne({
         guildID: message.guild.id
       });
@@ -40,8 +41,6 @@ exports.run = async (bot, message, args) => {
         message.channel.send(`▶️ unlooped song!`)
         await queueChannel.save().catch(e => console.log(e));
       }
-      if(!queueGuild.guilds.includes(message.guild.id)) return message.channel.send(`Nothing is playing`)
-
 }
 module.exports.config = {
     name: "loop",

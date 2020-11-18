@@ -19,17 +19,31 @@ exports.run = async (bot, message, args) => {
           let error = false;
           if(!args[0]){
             selectTime = 0;
+            time = new Date().getHours();
+            if(time > 12){
+              if(time == 24){
+                time = "12AM"
+              } else {
+                time-=12;
+                time+="PM"
+              }
+            } else {
+              if(time == 24){
+                time = "12PM"
+              } else {
+                time+="AM"
+              }
+            }
           } else {
-            if(isNaN(args[0]) && (args[0].includes("AM") || args[0].includes("PM") || args[0].includes("am") || args[0].includes("pm"))){
-                if(args[0].includes("AM") || args[0].includes("am")){
-                  time = args[0].replace("AM", "");
+            args[0].toLowerCase();
+            if(isNaN(args[0]) && (args[0].includes("am") || args[0].includes("pm"))){
+                if(args[0].includes("am")){
                   time = args[0].replace("am", "");
                   if(time > 0 && time < 13){
                     selectTime = time - new Date().getHours();
                     time+="AM"
                   } else error = true;
                 } else {
-                  time = args[0].replace("PM", "");
                   time = args[0].replace("pm", "");
                   if(time > 0 && time < 13){
                     selectTime = time - new Date().getHours() + 12;
@@ -39,7 +53,7 @@ exports.run = async (bot, message, args) => {
               } else error = true;
           }
           if(error){
-            message.channel.send(`invalid time`)
+            message.channel.send(`<:xcross:690880230562201610> **Invalid time**. enter a time (e.g 5pm, 1AM)`)
             let queueChannel = await queueVoice.findOne({
               guildID: message.guild.id
             });

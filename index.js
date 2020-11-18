@@ -4,8 +4,7 @@ const fs = require('fs');
 const config = require("./config.json");
 const mongoose = require('mongoose');
 const queueVoice = require('./models/queueChannel.js');
-const gay = ["accf", "acnl", "acnh", "acgcn", "reload"]
-let startPlay = true;
+const gay = ["accf", "acnl", "acnh", "acgcn"]
 mongoose.connect(config.mongodb, {
   useNewUrlParser: true,
   useUnifiedTopology: true
