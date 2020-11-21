@@ -77,6 +77,7 @@ exports.run = async (bot, message, args) => {
             queueChannel.voiceID = message.member.voice.channel.id;
             queueChannel.running = false;
         }
+	await queueChannel.save().catch(e => console.log(e));
         const dispatcher = connection.play(`./Music/ACGCN/${time}.mp3`);
         console.log(selectTime)
         dispatcher.on("finish",async function(){
@@ -87,14 +88,12 @@ exports.run = async (bot, message, args) => {
         dispatcher.on('error', error => {
             console.log(error)
         });
-        await queueChannel.save().catch(e => console.log(e));
         message.channel.send(`<:tickGreen:690880245611626597> playing Animal Crossing **Gamecube**!`);
       } else {
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
           queueChannel.running = false;
-          await queueChannel.save().catch(e => console.log(e));
       }
     } else return message.channel.send('<:xcross:690880230562201610> You need to join a voice channel first!');
 }
