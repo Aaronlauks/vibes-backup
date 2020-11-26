@@ -10,7 +10,7 @@ exports.run = async (bot, message, args) => {
       .setAuthor(`Animal Crossing 24/7`, bot.user.displayAvatarURL())
       .setThumbnail(bot.user.avatarURL())
       .setFooter(`Type ${queueChannel.prefix}help <command> for more info`);
-      let descm = `These are the available commands for **Chill Beats**\nThe bot prefix is: **${queueChannel.prefix}**\n\n`;
+      let descm = `These are the available commands for **Vibes**\nThe bot prefix is: **${queueChannel.prefix}**\n\n`;
 
       bot.commands.forEach(m => {
           if(m.config.name != "NEWSONG") descm+=`\`${m.config.name}\` `;
@@ -27,7 +27,7 @@ exports.run = async (bot, message, args) => {
 
        const embed = new discord.MessageEmbed()
        .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
-      .setAuthor(`Chill Beats help command`, bot.user.displayAvatarURL())
+      .setAuthor(`Vibes help command`, bot.user.displayAvatarURL())
       .setThumbnail(bot.user.avatarURL())
       .setDescription(
         `The bot prefix is: **${queueChannel.prefix}**\n`
