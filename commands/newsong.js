@@ -34,13 +34,13 @@ exports.run = async (bot, guildID) => {
             time+="AM"
           }
         }
-        if(queueChannel.songType = "Animal Crossing **City Folk**"){
+        if(queueChannel.songType == "Animal Crossing **City Folk**"){
           genre = "ACCF"
-        } else if(queueChannel.songType = "Animal Crossing **New Horizon**"){
+        } else if(queueChannel.songType == "Animal Crossing **New Horizon**"){
           genre = "ACNH"
-        } else if(queueChannel.songType = "Animal Crossing **New Leaf**"){
+        } else if(queueChannel.songType == "Animal Crossing **New Leaf**"){
           genre = "ACNL"
-        } else if(queueChannel.songType = "Animal Crossing **Gamecube**"){
+        } else if(queueChannel.songType == "Animal Crossing **Gamecube**"){
           genre = "ACGCN"
         } else {
           genre = "ERROR"

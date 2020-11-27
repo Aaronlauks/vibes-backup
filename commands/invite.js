@@ -8,7 +8,8 @@ exports.run = async (bot, message, args, ops) => {
         `Click the link below for the bot invite:`,
         bot.user.avatarURL()
   )
-  .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16));
+  .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
+  .setFooter(`Made by Aaronlanjiao#5054`)
   message.channel.send(embed)
 }
 
