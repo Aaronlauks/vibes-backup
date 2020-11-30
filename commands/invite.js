@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 exports.run = async (bot, message, args, ops) => {
   const embed = new MessageEmbed()
-  .setTitle(`Vibes`)
+  .setTitle(`Vibes invite link`)
   .setURL(`https://discord.com/login?redirect_to=%2Foauth2%2Fauthorize%3Fclient_id%3D696032366845624392%26scope%3Dbot%26permissions%3D8`)
   .setAuthor(
         `Click the link below for the bot invite:`,

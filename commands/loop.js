@@ -1,6 +1,7 @@
 const queueVoice = require('../models/queueChannel.js');
 
 exports.run = async (bot, message, args) => {
+  if(!message.member.voice.channel) return message.channel.send('<:xcross:690880230562201610> at least join a voice channel :P');
     let queueGuild = await queueVoice.findOne({
         guildID: "42069"
       });
@@ -8,6 +9,7 @@ exports.run = async (bot, message, args) => {
       let queueChannel = await queueVoice.findOne({
         guildID: message.guild.id
       });
+      if(message.member.voice.channel != queueChannel.voiceID) return message.channel.send(`<:xcross:690880230562201610> You need to be in the same voice channel as Vibes!`)
       if(queueChannel.loop == ""){
         if(queueChannel.timezone != 0){
           time = new Date().getHours() + +queueChannel.timezone;
