@@ -38,7 +38,6 @@ bot.on("ready", async () => {
       queueGuild.guilds.forEach(guildID => {
         time += 5000;
         setTimeout(function(){
-          console.log("running newsong", bot.guilds.cache.get(guildID).name)
           let command = bot.commands.get("NEWSONG");
           command.run(bot, guildID);
         }, time);

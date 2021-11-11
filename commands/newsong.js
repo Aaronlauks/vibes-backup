@@ -53,15 +53,15 @@ exports.run = async (bot, guildID) => {
           } else time = queueChannel.loop;
         } 
         const channel = bot.channels.cache.get(queueChannel.voiceID);
-        if (channel) {
+        if (channel && bot.guilds.cache.get(guildID)) {
         await channel.join().then(async connection => {
           const dispatcher = await connection.play(`./Music/${genre}/${time}.mp3`)
           dispatcher.on('finish', async function(){
-            console.log(`./Music/${genre}/${time}.mp3`)
             let command = bot.commands.get("NEWSONG");
             command.run(bot, guildID);
           });
         });
+        console.log(`./Music/${genre}/${time}.mp3 in ${bot.guilds.cache.get(guildID).name}`)
         } else {
           console.log(`deleted ${guildID}`)
           queueGuild.guilds.splice(queueGuild.guilds.indexOf(guildID), 1);
