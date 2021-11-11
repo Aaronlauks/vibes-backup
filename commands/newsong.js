@@ -1,5 +1,6 @@
 const queueVoice = require('../models/queueChannel.js');
 genretypes = ["ACCF", "ACNL", "ACGCN", "ACNH"];
+AP = ["AM", "PM"]
 exports.run = async (bot, guildID) => {
     let queueChannel = await queueVoice.findOne({
         guildID: guildID
@@ -49,7 +50,7 @@ exports.run = async (bot, guildID) => {
         if(queueChannel.loop != ""){
           if(queueChannel.loop == "random"){
             genre = genretypes[Math.floor(Math.random() * 5)]
-            time = Math.floor(Math.random() * (12 - 1 + 1) + 1);
+            time = Math.floor(Math.random() * (12 - 1 + 1) + 1) + AP[Math.floor((Math.random() * 1) + 1)];
           } else time = queueChannel.loop;
         } 
         const channel = bot.channels.cache.get(queueChannel.voiceID);
