@@ -34,7 +34,7 @@ exports.run = async (bot, message, args) => {
             bot.user.avatarURL()
           )
           .setColor("#363940")
-          .setFooter(`Play type: *${playType}*`)
+          .setFooter(`Play type: ${playType}`)
       if(queueChannel.songType == "none"){
         return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
       } else {
