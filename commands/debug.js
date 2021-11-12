@@ -1,16 +1,16 @@
 exports.run = async (bot, message, args) => {
-    message.channel.send("\🐞 **playing song**. Check whether the sound is working and playing.")
-    let connection = await message.member.voice.channel.join();
-    let dispatcher = connection.play('https://cdn.discordapp.com/attachments/653147383437459456/908564717654663199/amgus.mp3').then(m => {
+    message.channel.send("\🐞 **playing song**. Check whether the sound is working and playing.").then(m => {
+        let connection = await message.member.voice.channel.join();
+        let dispatcher = connection.play('https://cdn.discordapp.com/attachments/653147383437459456/908564717654663199/amgus.mp3');
         console.log("debug")
-      dispatcher.on("finish",function(){
-          console.log("end?")
-          connection.disconnect();
-          m.edit(`\☠️ Debug song ended.`)
-      });
-      dispatcher.on('error', error => {
-          console.log(error)
-      });
+        dispatcher.on("finish", function () {
+            console.log("end?")
+            connection.disconnect();
+            m.edit(`\☠️ Debug song ended.`)
+        });
+        dispatcher.on('error', error => {
+            console.log(error)
+        });
     })
 }
 module.exports.config = {
