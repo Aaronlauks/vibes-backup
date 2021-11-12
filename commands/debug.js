@@ -1,7 +1,7 @@
 exports.run = async (bot, message, args) => {
     message.channel.send("\🐞 **playing song**. Check whether the sound is working and playing.")
     let connection = await message.member.voice.channel.join();
-    let dispatcher = connection.play('https://www.sample-videos.com/audio/mp3/wave.mp3').then(m => {
+    let dispatcher = connection.play('https://cdn.discordapp.com/attachments/653147383437459456/908564717654663199/amgus.mp3').then(m => {
         console.log("debug")
       dispatcher.on("finish",function(){
           console.log("end?")
