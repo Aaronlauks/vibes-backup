@@ -7,7 +7,7 @@ exports.run = async (bot, message, args) => {
     channel.leave();
     let command = bot.commands.get("NEWSONG");
     setTimeout(function(){
-        command.run(bot, guildID);
+        command.run(bot, message.guild.id);
         message.channel.send(`↪️ Reloaded vibes for you. Hope it worked :)`)
     },1000);
 }
