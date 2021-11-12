@@ -56,7 +56,8 @@ bot.on('message', async message => {
         timezone: "",
         prefix: "!",
         running: false,
-        loop: ""
+        loop: "",
+        np: ""
     });
     await queueChannel.save().catch(e => console.log(e));
   }

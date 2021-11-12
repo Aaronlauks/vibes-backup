@@ -7,39 +7,21 @@ exports.run = async (bot, message, args) => {
         let queueChannel = await queueVoice.findOne({
             guildID: message.guild.id
           });
-          if(queueChannel.loop != ""){
-            message.channel.send(`🔂 Now looping: ${queueChannel.loop} ${queueChannel.songType}`)
-          } else {
-        if(queueChannel.timezone != 0){
-          time = new Date().getHours() + +queueChannel.timezone;
-          if(time > 24){
-            time-=24;
-          } else if(time < 1){
-            time+=24;
-          }
-        } else {
-          time = new Date().getHours();
-        }
-        if(time > 12){
-          time-=12;
-          if(time == 12){
-            time+="AM"
-          } else {
-            time+="PM"
-          }
-        } else {
-          if(time == 12){
-            time+="PM"
-          } else {
-            time+="AM"
-          }
-        }
+        let npargs = queueChannel.np.split("/");
+        let genre = npargs[2];
+        const embed = new MessageEmbed()
+          .setTitle(`**${npargs[3]}** in **${genre}**`)
+          .setAuthor(
+            `Now playing:`,
+            bot.user.avatarURL()
+          )
+          .setColor("#363940")
+          .setFooter(queueChannel.np)
       if(queueChannel.songType == "none"){
         return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
       } else {
-        return message.channel.send(`🎵 Now playing: ${time} ${queueChannel.songType}`)
+        return message.channel.send(embed)
       }
-    }
     } else return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
 }
 module.exports.config = {
