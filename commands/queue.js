@@ -28,7 +28,7 @@ exports.run = async (bot, message, args) => {
           } else playType = "Random";
         }  
         const embed = new MessageEmbed()
-          .setTitle(`**${npargs[3]}** from **${genre}**`)
+          .setTitle(`🎵 **${npargs[3]}** from **${genre}**`)
           .setAuthor(
             `Now playing:`,
             bot.user.avatarURL()
@@ -38,7 +38,7 @@ exports.run = async (bot, message, args) => {
       if(queueChannel.songType == "none"){
         return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
       } else {
-        return message.channel.send(`🎵 Now playing: **${npargs[3]}** in **${genre}**`)
+        return message.channel.send(embed)
       }
     } else return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
 }
