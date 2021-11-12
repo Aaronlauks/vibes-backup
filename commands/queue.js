@@ -9,7 +9,7 @@ exports.run = async (bot, message, args) => {
           });
         let npargs = queueChannel.np.split("/");
         let genre = npargs[2];
-        const embed = new MessageEmbed()
+        const embed = new discord.MessageEmbed()
           .setTitle(`**${npargs[3]}** in **${genre}**`)
           .setAuthor(
             `Now playing:`,
