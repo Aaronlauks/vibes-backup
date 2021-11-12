@@ -28,13 +28,13 @@ exports.run = async (bot, message, args) => {
           } else playType = "Random";
         }  
         const embed = new MessageEmbed()
-          .setTitle(`🎵 **${npargs[3]}** from **${genre}**`)
+          .setTitle(`🎵 **${npargs[3]}** from ${genre}`)
           .setAuthor(
             `Now playing:`,
             bot.user.avatarURL()
           )
           .setColor("#363940")
-          .setFooter(`Play type: ${playType}`)
+          .setFooter(`Play type: *${playType}*`)
       if(queueChannel.songType == "none"){
         return message.channel.send(`<:xcross:690880230562201610> bro I'm not even playing anything`)
       } else {
