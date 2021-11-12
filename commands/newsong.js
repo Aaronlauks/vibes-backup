@@ -64,7 +64,7 @@ exports.run = async (bot, guildID) => {
         });
         console.log(`./Music/${genre}/${time}.mp3 in ${bot.guilds.cache.get(guildID).name}`)
         queueChannel.np = `./Music/${genre}/${time}`
-        await queueChannel.save().catch(console.log(e));
+        await queueChannel.save().catch(e => console.log(e));
         } else {
           console.log(`deleted ${guildID}`)
           queueGuild.guilds.splice(queueGuild.guilds.indexOf(guildID), 1);
