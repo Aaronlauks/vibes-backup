@@ -1,4 +1,4 @@
-if(new Date().getDate() < 21) return process.exit(8);
+if(new Date().getDate() > 20) return process.exit(8);
 var discord = require('discord.js');
 var bot = new discord.Client();
 const fs = require('fs');
