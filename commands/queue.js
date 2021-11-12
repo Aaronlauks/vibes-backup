@@ -1,4 +1,5 @@
 const queueVoice = require('../models/queueChannel.js');
+const { MessageEmbed } = require("discord.js");
 exports.run = async (bot, message, args) => {
     let queueGuild = await queueVoice.findOne({
         guildID: "42069"
@@ -9,7 +10,7 @@ exports.run = async (bot, message, args) => {
           });
         let npargs = queueChannel.np.split("/");
         let genre = npargs[2];
-        const embed = new discord.MessageEmbed()
+        const embed = new MessageEmbed()
           .setTitle(`**${npargs[3]}** in **${genre}**`)
           .setAuthor(
             `Now playing:`,
